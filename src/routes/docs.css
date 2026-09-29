@@ -106,6 +106,10 @@ main a:not([class]) {
 	inline-size: max-content;
 	max-inline-size: min(100%, 24rem);
 }
+/* A caption that wraps stays centred, as in unstacked previews. */
+:where(.preview.stack) > p {
+	text-align: center;
+}
 /* Form fields keep the full column, so their width never follows what's typed or chosen. */
 :where(.preview.stack) > :where(.field, .password, .range, form) {
 	inline-size: 100%;

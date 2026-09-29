@@ -490,18 +490,14 @@
 		color: var(--ui-muted);
 		font-weight: 400;
 	}
-	.field {
-		justify-items: start;
-	}
-	/* Same box as Input, but only as wide as a time: no empty stretch after it. */
+	/* Same box as Input, stretching with its field; the clock sits at the end. */
 	.control {
 		display: flex;
 		align-items: center;
 		box-sizing: border-box;
-		inline-size: max-content;
-		max-inline-size: 100%;
 		min-block-size: 2.5rem;
-		padding: 0.375rem 0.625rem;
+		/* Less block padding than Input: the 28px clock button would otherwise make it 42px. */
+		padding: 0.25rem 0.625rem;
 		border: 1px solid var(--ui-field-line);
 		border-radius: var(--ui-radius-control);
 		background: var(--ui-surface);
@@ -566,7 +562,7 @@
 		inline-size: 1.75rem;
 		block-size: 1.75rem;
 		margin-block: 0;
-		margin-inline: 0.5rem -0.25rem;
+		margin-inline: auto -0.25rem;
 		padding: 0;
 		border: 0;
 		border-radius: calc(var(--ui-radius) * 0.75);
@@ -601,7 +597,7 @@
 		overscroll-behavior: contain;
 		border: 1px solid transparent;
 		border-radius: var(--ui-radius);
-		background: var(--ui-surface);
+		background: var(--ui-surface-overlay);
 		color: var(--ui-fg);
 		font: 0.875rem/1.4 var(--ui-font);
 		font-variant-numeric: tabular-nums;

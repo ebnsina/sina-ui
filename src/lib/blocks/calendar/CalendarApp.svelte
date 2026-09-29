@@ -423,6 +423,10 @@
 		display: grid;
 		gap: 1rem;
 	}
+	/* The switch's 44px tap target spills into the gaps, so it sits 1rem from its neighbours like the rest. */
+	.form > :global(.switch) {
+		margin-block: -0.625rem;
+	}
 	:global(.btn.delete) {
 		margin-inline-end: auto;
 	}
@@ -466,12 +470,6 @@
 			order: -1;
 		}
 		header :global(.segmented) {
-			flex: 1;
-		}
-		header :global(.segmented .track) {
-			display: flex;
-		}
-		header :global(.segmented .segment) {
 			flex: 1;
 		}
 	}

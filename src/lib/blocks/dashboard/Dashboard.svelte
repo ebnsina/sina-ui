@@ -164,7 +164,7 @@
 <div class="dashboard">
 	<SidebarLayout label="Library" {groups} current="#overview">
 		{#snippet header(collapsed)}
-			<span class="brand">{collapsed ? 'B' : 'Bayt al-Ḥikma'}</span>
+			<span class={['brand', collapsed && 'mark']}>{collapsed ? 'B' : 'Bayt al-Ḥikma'}</span>
 		{/snippet}
 
 		<div class="page">
@@ -273,6 +273,11 @@
 	}
 	.brand {
 		font-weight: 600;
+	}
+	/* Collapsed, the initial centres over the rail's icons. */
+	.mark {
+		display: block;
+		text-align: center;
 	}
 	.page {
 		display: grid;

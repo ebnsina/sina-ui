@@ -38,6 +38,19 @@ export const releases: Release[] = [
 					}
 				]
 			},
+			{
+				title: 'Polish',
+				items: [
+					{
+						text: 'Time fields and segmented controls fill the width of a form, like other fields'
+					},
+					{ text: 'Menus, popovers, dialogs and toasts stand out from the page in dark mode' },
+					{ text: 'Popovers centre on their button on phones instead of hugging the edge' },
+					{ text: 'Long file names in uploads shorten instead of covering the cancel button' },
+					{ text: 'Pagination fits on one row on phones' },
+					{ text: 'Alignment and spacing fixes across the drawer, tabs, tables and every block' }
+				]
+			},
 			...sections
 		]
 	}

@@ -48,7 +48,9 @@ export function place(
 			const rtl = getComputedStyle(anchor).direction === 'rtl';
 			const start = rtl ? t.right - m.width : t.left;
 			const end = rtl ? t.left : t.right - m.width;
-			x = start >= edge && start + m.width <= vw - edge ? start : end;
+			const fits = (n: number) => n >= edge && n + m.width <= vw - edge;
+			// Neither edge fits (a phone): centre on the anchor rather than pin to one side.
+			x = fits(start) ? start : fits(end) ? end : t.left + t.width / 2 - m.width / 2;
 		}
 		y = s === 'top' ? t.top - gap - m.height : t.bottom + gap;
 	} else {

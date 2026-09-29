@@ -167,7 +167,7 @@
 		/* Invisible normally; outlines it in Windows High Contrast. */
 		border: 1px solid transparent;
 		border-radius: var(--ui-radius);
-		background: var(--ui-surface);
+		background: var(--ui-surface-overlay);
 		color: var(--ui-fg);
 		font: 0.9375rem/1.4 var(--ui-font);
 		box-shadow: var(--ui-shadow-overlay);

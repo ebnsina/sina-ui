@@ -295,6 +295,10 @@
 		justify-content: space-between;
 		align-items: center;
 	}
+	/* Edit's label lines up with the alarm times below, not its own padding. */
+	.bar > :global(:first-child) {
+		margin-inline-start: -0.75rem;
+	}
 	header {
 		display: grid;
 		justify-items: center;

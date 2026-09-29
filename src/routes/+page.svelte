@@ -80,8 +80,11 @@
 		padding: 0;
 		list-style: none;
 	}
+	/* Full row height, so a two-line name doesn't leave its row neighbours short. */
 	.card {
 		display: block;
+		box-sizing: border-box;
+		block-size: 100%;
 		padding: 1rem 1.125rem;
 		background: var(--ui-subtle);
 		border-radius: calc(var(--ui-radius) * 1.5);

@@ -165,7 +165,8 @@
 		place-items: center;
 		inline-size: 1.75rem;
 		block-size: 1.5rem;
-		margin: 0;
+		/* Hit area outgrows the icon; the negative margin keeps crumb spacing even. */
+		margin: 0 -0.375rem;
 		padding: 0;
 		border: 1px solid transparent;
 		border-radius: calc(var(--ui-radius) - 0.125rem);
@@ -194,6 +195,7 @@
 		.more {
 			inline-size: 2.75rem;
 			block-size: 2.75rem;
+			margin: -0.625rem -0.875rem;
 		}
 	}
 </style>

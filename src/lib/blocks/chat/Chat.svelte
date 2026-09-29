@@ -616,6 +616,10 @@
 		border-radius: 1rem;
 		background: var(--ui-surface);
 	}
+	/* With the attach button first, it sits as far in as Send does at the other end. */
+	.composer:has(> :global(.btn.ghost)) {
+		padding-inline-start: 0.5rem;
+	}
 	.composer:focus-within {
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: var(--ui-ring-offset);

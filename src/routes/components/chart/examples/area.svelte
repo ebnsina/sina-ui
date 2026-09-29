@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { areaY, colorLegend, defineChart, stack } from '@tanstack/charts';
+	import { areaY, colorLegend, colorLegendItems, defineChart, stack } from '@tanstack/charts';
 	import { scaleLinear } from '@tanstack/charts/scales/linear';
 	import { scalePoint } from '@tanstack/charts/scales/point';
 	import { tooltip } from '@tanstack/charts/tooltip';
@@ -34,7 +34,13 @@
 				axis: { label: 'Copies', ticks: { count: 5 } }
 			}
 		},
-		color: { domain: Object.keys(scripts), legend: colorLegend({ label: 'Script' }) },
+		color: {
+			domain: Object.keys(scripts),
+			legend: colorLegend({
+				label: 'Script',
+				items: colorLegendItems({ justify: 'start', gap: 16 })
+			})
+		},
 		tooltip
 	});
 </script>

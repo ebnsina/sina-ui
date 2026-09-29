@@ -536,8 +536,10 @@
 	.side {
 		--edge: 1rem;
 	}
+	/* Pulled out by the links' own padding, so their text lines up with the drawer title. */
 	.sheet-nav {
-		--edge: 1.5rem;
+		--edge: 0.75rem;
+		margin-inline: -0.75rem;
 	}
 	@media (forced-colors: active) {
 		.nav-current::before,

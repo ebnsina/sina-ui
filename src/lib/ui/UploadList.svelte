@@ -194,6 +194,8 @@
 	}
 	.body {
 		display: grid;
+		/* minmax(0): a long name ellipsizes instead of pushing the row under the buttons. */
+		grid-template-columns: minmax(0, 1fr);
 		flex: 1;
 		gap: 0.3125rem;
 		min-inline-size: 0;

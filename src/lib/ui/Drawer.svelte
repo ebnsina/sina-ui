@@ -131,7 +131,7 @@
 		border: 1px solid transparent;
 		border-block-end: 0;
 		border-radius: calc(var(--ui-radius) * 2) calc(var(--ui-radius) * 2) 0 0;
-		background: var(--ui-surface);
+		background: var(--ui-surface-overlay);
 		color: var(--ui-fg);
 		font: 0.9375rem/1.5 var(--ui-font);
 		box-shadow: var(--ui-shadow-overlay);
@@ -194,7 +194,7 @@
 		align-items: flex-start;
 		gap: 0.75rem;
 		padding-block: 0.75rem 0.5rem;
-		padding-inline: 1.25rem 1rem;
+		padding-inline: 1.5rem 1rem;
 		cursor: grab;
 	}
 	.titles {
@@ -202,9 +202,10 @@
 		min-inline-size: 0;
 	}
 	h2 {
-		margin: 0;
-		font-size: 1.0625rem;
+		margin: 0.25rem 0 0;
+		font-size: 1.125rem;
 		font-weight: 600;
+		line-height: 1.3;
 	}
 	.titles p {
 		margin: 0.125rem 0 0;
@@ -217,7 +218,8 @@
 		place-items: center;
 		inline-size: 2.25rem;
 		block-size: 2.25rem;
-		margin: 0;
+		/* Same as Dialog: the icon sits on the title's line. */
+		margin: -0.25rem 0 0;
 		padding: 0;
 		border: 1px solid transparent;
 		border-radius: var(--ui-radius);
@@ -246,14 +248,14 @@
 		min-block-size: 0;
 		overflow: auto;
 		overscroll-behavior: contain;
-		padding: 0.25rem 1.25rem 1rem;
+		padding: 0.25rem 1.5rem 1rem;
 	}
 	footer {
 		display: flex;
 		flex-wrap: wrap-reverse;
 		justify-content: flex-end;
 		gap: 0.5rem;
-		padding: 0.75rem 1.25rem max(1rem, env(safe-area-inset-bottom));
+		padding: 0.75rem 1.5rem max(1rem, env(safe-area-inset-bottom));
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.drawer,

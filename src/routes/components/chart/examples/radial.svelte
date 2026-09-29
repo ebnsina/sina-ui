@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { defineChart } from '@tanstack/charts';
+	import { colorLegend, colorLegendItems, defineChart } from '@tanstack/charts';
 	import { polar, radialBarAngle } from '@tanstack/charts/polar';
 	import { scaleBand } from '@tanstack/charts/scales/band';
 	import { scaleLinear } from '@tanstack/charts/scales/linear';
@@ -38,7 +38,10 @@
 			})
 		],
 		scales: { x: null, y: null },
-		color: { domain: rooms },
+		color: {
+			domain: rooms,
+			legend: colorLegend({ items: colorLegendItems({ justify: 'center', gap: 16 }) })
+		},
 		tooltip
 	});
 </script>

@@ -81,6 +81,10 @@
 		gap: 0.5rem;
 		margin-block-start: 0.75rem;
 	}
+	/* Once they wrap, each action spans the row, so stacked buttons share one width. */
+	.actions > :global(*) {
+		flex: 1 1 auto;
+	}
 	@media (prefers-reduced-motion: reduce) {
 		.empty {
 			transition: opacity var(--ui-dur) ease;

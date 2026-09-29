@@ -152,7 +152,6 @@
 <style>
 	.range {
 		display: grid;
-		justify-items: start;
 		gap: 0.25rem;
 		color: var(--ui-fg);
 		font: 0.9375rem/1.5 var(--ui-font);
@@ -160,15 +159,14 @@
 	.label {
 		font-weight: 500;
 	}
-	/* Same box as Input and TimeField, only as wide as the two times. */
+	/* Same box as Input and TimeField, stretching with its field; the clock sits at the end. */
 	.control {
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
 		box-sizing: border-box;
-		max-inline-size: 100%;
 		min-block-size: 2.5rem;
-		padding: 0.375rem 0.625rem;
+		padding: 0.25rem 0.625rem;
 		border: 1px solid var(--ui-field-line);
 		border-radius: var(--ui-radius-control);
 		background: var(--ui-surface);
@@ -205,7 +203,7 @@
 		inline-size: 1.75rem;
 		block-size: 1.75rem;
 		margin-block: 0;
-		margin-inline: 0.25rem -0.25rem;
+		margin-inline: auto -0.25rem;
 		padding: 0;
 		border: 0;
 		border-radius: calc(var(--ui-radius) * 0.75);

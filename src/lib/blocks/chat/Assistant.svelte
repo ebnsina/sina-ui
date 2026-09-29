@@ -413,11 +413,16 @@
 		font-size: 0.8125rem;
 		line-height: 1.45;
 	}
+	/* A button's height, so the title centres on the rail's (or the list's) first row of buttons. */
 	.bar {
 		display: flex;
 		align-items: center;
 		gap: 0.375rem;
 		min-inline-size: 0;
+		min-block-size: 2rem;
+	}
+	.showing:not(.narrow) :global(.chat.chat > header) {
+		padding-block-start: 1.5rem;
 	}
 	.narrow .bar {
 		margin-inline-start: -0.625rem;
