@@ -375,7 +375,7 @@
 		gap: 0.5rem 1.5rem;
 		/* The range band sits under the days; this keeps it above whatever is behind the calendar. */
 		isolation: isolate;
-		inline-size: fit-content;
+		inline-size: max-content;
 		max-inline-size: 100%;
 		color: var(--ui-fg);
 		font: 0.875rem/1 var(--ui-font);

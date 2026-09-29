@@ -1,10 +1,31 @@
 {
-	"name": "sina-ui",
+	"name": "sinaui",
 	"version": "0.1.0",
-	"description": "Add Sina UI components to your Svelte project.",
+	"description": "Add accessible Svelte 5 components from Sina UI to your SvelteKit project.",
 	"type": "module",
-	"bin": { "sina-ui": "./index.js" },
-	"files": ["index.js"],
-	"engines": { "node": ">=20" },
+	"bin": {
+		"sinaui": "./index.js"
+	},
+	"files": [
+		"index.js"
+	],
+	"engines": {
+		"node": ">=20"
+	},
+	"keywords": [
+		"svelte",
+		"sveltekit",
+		"svelte5",
+		"components",
+		"accessible",
+		"cli"
+	],
+	"homepage": "https://ebnsina.github.io/sina-ui/",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ebnsina/sina-ui.git",
+		"directory": "cli"
+	},
+	"bugs": "https://github.com/ebnsina/sina-ui/issues",
 	"license": "MIT"
 }

@@ -60,6 +60,7 @@
 	$effect(() => () => float.destroy());
 
 	// Pointing: opens after a moment and stays open while the pointer travels over to it.
+	// Touch has no hover: a lifted finger fires pointerleave, which must not close what a tap opened.
 	let timer: ReturnType<typeof setTimeout> | undefined;
 	const later = (fn: () => void, ms: number) => {
 		clearTimeout(timer);
@@ -137,8 +138,8 @@
 	onpointermove={() => {
 		if (document.activeElement !== item) item.focus({ preventScroll: true });
 	}}
-	onpointerenter={() => later(() => (open = true), 120)}
-	onpointerleave={() => later(() => (open = false), 300)}
+	onpointerenter={(e) => e.pointerType !== 'touch' && later(() => (open = true), 120)}
+	onpointerleave={(e) => e.pointerType !== 'touch' && later(() => (open = false), 300)}
 >
 	{@render start?.()}
 	<span class="label">{label}</span>
@@ -157,7 +158,7 @@
 	class="menu"
 	onkeydown={menuKeys}
 	onpointerenter={() => clearTimeout(timer)}
-	onpointerleave={() => later(() => (open = false), 300)}
+	onpointerleave={(e) => e.pointerType !== 'touch' && later(() => (open = false), 300)}
 	onpointermovecapture={() => (viaPointer = true)}
 	onfocusin={(e) => {
 		const el = (e.target as HTMLElement).closest<HTMLElement>('[role="menuitem"]');

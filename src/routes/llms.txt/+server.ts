@@ -11,7 +11,7 @@ export const GET: RequestHandler = ({ url }) => {
 
 > Accessible Svelte 5 components that feel finished: copy them into your project with the sina-ui CLI and own the code. Built on CSS variables, with keyboard and screen reader support, right-to-left, light and dark, and motion throughout.
 
-Install any component with \`npx sina-ui add <name>\` (for example \`npx sina-ui add dropdown blocks/chat\`). Components read their colours, corners and type from tokens.css.
+Install any component with \`npx sinaui add <name>\` (for example \`npx sinaui add dropdown blocks/chat\`). Components read their colours, corners and type from tokens.css.
 
 - [Everything in one file](${root(url)}/llms-full.txt): every page with its examples' source
 - [Skill for AI coding assistants](${root(url)}/skill.md): how to build with Sina UI

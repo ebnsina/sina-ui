@@ -9,7 +9,7 @@ describe('docs for language models', () => {
 	it('keeps a page’s install command and example code intact, with project import paths', () => {
 		const md = markdown('/components/sortable');
 		expect(md).toContain('# Sortable');
-		expect(md).toContain('npx sina-ui add sortable');
+		expect(md).toContain('npx sinaui add sortable');
 		expect(md).toContain("import Sortable from '$lib/sina-ui/ui/Sortable.svelte';");
 		expect(md).toContain('{#snippet children(book, handle, { index })}');
 		expect(md).not.toContain('<Example');

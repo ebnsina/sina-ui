@@ -68,7 +68,6 @@
 <Example
 	id="inline"
 	title="On the page"
-	stack
 	description="The calendar on its own, in range mode, showing two months."
 	{...ex('inline')}
 />

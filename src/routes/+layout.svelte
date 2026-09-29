@@ -97,6 +97,8 @@
 		dark = isDark();
 		collapsed = document.documentElement.dataset.sidebar === 'collapsed';
 		if (!isApple()) modKey = 'Ctrl ';
+		// Tells the page checks the app is live, so they don't wait on a fixed network lull.
+		document.documentElement.dataset.hydrated = '';
 		return () => untrack?.();
 	});
 

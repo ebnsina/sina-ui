@@ -11,9 +11,19 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Every page, on every browser and device, must pass axe and fit a 320px screen.
+  # Every page, on every browser and device, must pass axe and fit a 320px screen: one job each, in parallel.
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - { project: chrome, browser: chromium }
+          - { project: android, browser: chromium }
+          - { project: firefox, browser: firefox }
+          - { project: safari, browser: webkit }
+          - { project: iphone, browser: webkit }
+          - { project: ipad, browser: webkit }
+    name: test (${{ matrix.project }})
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -24,8 +34,8 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps chromium firefox webkit
-      - run: pnpm exec playwright test
+      - run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
+      - run: pnpm exec playwright test --project ${{ matrix.project }}
 
   build:
     needs: test

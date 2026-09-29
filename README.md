@@ -25,19 +25,43 @@ the code: no package to update, nothing hidden.
 There are 68 components, 7 widgets and 6 full blocks: an AI chat, a calendar, a dashboard, a file
 explorer, a kanban board and a media generator.
 
-## Using a component
+## Getting started
 
-1. Open the component's page, for example
-   [Dialog](https://ebnsina.github.io/sina-ui/components/dialog).
-2. Copy the files listed under **Installation** into your project. Most need only the component
-   and `tokens.css`.
-3. Import `tokens.css` once in your root layout, then use the component.
+In your SvelteKit project's folder:
 
-Each component's files are also available as JSON, for tools and scripts:
-`https://ebnsina.github.io/sina-ui/r/<name>.json`, with a full list at
-[`/r/index.json`](https://ebnsina.github.io/sina-ui/r/index.json).
+```sh
+npx sinaui add button dialog dropdown
+```
 
-Needs Svelte 5 and SvelteKit.
+That's the whole setup. The command:
+
+1. writes each component, and every file it imports, to `src/lib/sina-ui`
+2. installs the packages they need, with whichever package manager your project uses
+3. imports the design tokens in `src/routes/+layout.svelte`
+
+Then use a component:
+
+```svelte
+<script lang="ts">
+	import Button from '$lib/sina-ui/ui/Button.svelte';
+</script>
+
+<Button onclick={() => alert('Salaam')}>Say hello</Button>
+```
+
+More ways to use it:
+
+```sh
+npx sinaui add --all          # everything
+npx sinaui add blocks/chat    # a full block
+npx sinaui list               # what can be added
+```
+
+The files are yours to change. Running the command again keeps your edited files; add
+`--overwrite` to replace them with the latest version. Each component's page shows its exact
+command, props and examples.
+
+Needs Node 20 or later, Svelte 5 and SvelteKit.
 
 ## Where it's tested
 
@@ -93,6 +117,7 @@ Before you send a pull request, check that these pass:
 pnpm check              # types
 pnpm test:unit --run    # component tests in Chromium and WebKit
 pnpm exec playwright test   # every page on every browser and device
+node --test cli/index.test.js   # the command
 ```
 
 What we look for in a change:
@@ -139,9 +164,13 @@ SITE=http://localhost:5173 pnpm og
 
 ### The command
 
-`cli/` holds the `sina-ui` command: `init`, `add <name…>` and `list`. It isn't published yet, and
-the `sina-ui` name on npm belongs to an unrelated package. Run it from the repository:
+`cli/` is the `sinaui` package. Try it against a local copy of
+the site, then run its tests:
 
 ```sh
-SINA_UI_REGISTRY=https://ebnsina.github.io/sina-ui node cli/index.js add dropdown
+pnpm build && pnpm preview    # serves the registry at http://localhost:4173
+SINA_UI_REGISTRY=http://localhost:4173 node cli/index.js add dropdown
+node --test cli/index.test.js
 ```
+
+To release: bump `version` in `cli/package.json`, then `cd cli && npm publish`.

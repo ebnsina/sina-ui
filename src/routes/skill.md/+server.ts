@@ -29,13 +29,10 @@ Sina UI components are copied into the project and owned there, not imported fro
 
 ## Adding components
 
-1. Once per project: \`npx sina-ui init\`, then import the tokens in \`src/routes/+layout.svelte\`
-   (the command prints the exact line).
-2. For each component: \`npx sina-ui add <name>\` (several at once: \`npx sina-ui add dropdown dialog\`).
-   Blocks are \`blocks/<name>\`. It prints an install command if packages are needed; run it.
-3. Import from where the files were written (\`src/lib/sina-ui/ui/...\` by default).
-
-Set \`SINA_UI_REGISTRY=${root(url)}\` for the command to find the components.
+1. \`npx sinaui add <name>\` (several at once: \`npx sinaui add dropdown dialog\`; everything:
+   \`npx sinaui add --all\`). Blocks are \`blocks/<name>\`. It writes the files, installs the packages
+   they need, and imports the tokens in \`src/routes/+layout.svelte\`.
+2. Import from where the files were written (\`src/lib/sina-ui/ui/...\` by default).
 
 ## Rules
 

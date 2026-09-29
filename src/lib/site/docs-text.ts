@@ -53,7 +53,7 @@ export function markdown(href: string): string {
 		.replace(/<svelte:head>[\s\S]*?<\/svelte:head>/g, '');
 	body = body
 		.replace(/<Install names="([^"]+)"\s*\/?>/g, (_, n) =>
-			keep(`\n\`\`\`sh\nnpx sina-ui add ${n}\n\`\`\`\n`)
+			keep(`\n\`\`\`sh\nnpx sinaui add ${n}\n\`\`\`\n`)
 		)
 		.replace(/<Code\s+code="([^"]*)"[^>]*\/>/g, (_, c) => keep(`\n\`\`\`\n${decode(c)}\n\`\`\`\n`))
 		.replace(/<Example\b([\s\S]*?)\/>/g, (tag) => {

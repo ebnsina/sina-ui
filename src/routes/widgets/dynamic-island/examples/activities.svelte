@@ -257,7 +257,8 @@
 		display: grid;
 		gap: 0.875rem;
 		box-sizing: border-box;
-		inline-size: min(22rem, 100vw - 3rem);
+		/* 100%: the room the island is given, never the whole screen. */
+		inline-size: min(22rem, 100%);
 		padding: 1.25rem;
 	}
 	.times {

@@ -2148,6 +2148,20 @@ describe('sinaui', () => {
 		await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
 	});
 
+	it('dropdown submenu: a tap opens it and it stays open when the finger lifts', async () => {
+		render(DropdownPage);
+		await page.getByRole('button', { name: /Book of Optics/ }).click();
+		const sub = page.getByRole('menuitem', { name: 'Download as' }).element() as HTMLElement;
+		// What iOS sends for a tap: touch enter, click, then touch leave as the finger lifts.
+		const touch = (type: string) =>
+			sub.dispatchEvent(new PointerEvent(type, { pointerType: 'touch', bubbles: true }));
+		touch('pointerenter');
+		sub.click();
+		touch('pointerleave');
+		await new Promise((r) => setTimeout(r, 400));
+		expect(sub.getAttribute('aria-expanded')).toBe('true');
+	});
+
 	it('dashboard: switching the period changes the numbers; overdue going up reads as bad news', async () => {
 		render(DashboardPage);
 		const stats = page.getByRole('list', { name: 'Key numbers' });

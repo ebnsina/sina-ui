@@ -47,13 +47,22 @@
 	// the system radius (0.5rem) plus the card's 1.25rem padding, so 28px.
 	const radius = (h: number) => Math.min(h / 2, 28);
 
+	// The width its container allows: content wraps within it instead of growing past it.
+	let room = $state<number>();
 	function measure(node: HTMLElement) {
-		const fit = () => (size = { w: node.offsetWidth, h: node.offsetHeight });
+		// From the node: bind:this has not set `island` yet when this runs.
+		const parent = node.closest('.island')!.parentElement!;
+		const fit = () => {
+			const cs = getComputedStyle(parent);
+			room = parent.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+			size = { w: node.offsetWidth, h: node.offsetHeight };
+		};
 		fit();
 		// Transitions only after the first size, so the page doesn't open with a morph.
 		requestAnimationFrame(() => (ready = true));
 		const seen = new ResizeObserver(fit);
 		seen.observe(node);
+		seen.observe(parent);
 		return () => seen.disconnect();
 	}
 
@@ -107,6 +116,7 @@
 	style:border-radius={size ? `${radius(size.h)}px` : undefined}
 	style:--ease={closing ? CLOSE : EASE}
 	style:--dur={closing ? '420ms' : '700ms'}
+	style:--room={room ? `${room}px` : undefined}
 >
 	{#key `${view}:${expanded}`}
 		<div class="content" {@attach measure} in:appear out:vanish>
@@ -155,6 +165,7 @@
 		left: 50%;
 		translate: -50% 0;
 		inline-size: max-content;
+		max-inline-size: var(--room, none);
 		transform-origin: 50% 0;
 	}
 	.rest {

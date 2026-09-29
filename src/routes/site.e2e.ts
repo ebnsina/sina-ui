@@ -8,7 +8,7 @@ const axePath = createRequire(import.meta.url).resolve('axe-core/axe.min.js');
 for (const href of nav.flatMap((g) => g.items.map((i) => i.href))) {
 	test(`${href}: no sideways scroll, no axe violations`, async ({ page }) => {
 		await page.goto(href);
-		await page.waitForLoadState('networkidle');
+		await page.locator('html[data-hydrated]').waitFor({ state: 'attached' });
 		const overflow = await page.evaluate(
 			() => document.documentElement.scrollWidth - document.documentElement.clientWidth
 		);
