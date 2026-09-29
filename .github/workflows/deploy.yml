@@ -16,14 +16,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        include:
-          - { project: chrome, browser: chromium }
-          - { project: android, browser: chromium }
-          - { project: firefox, browser: firefox }
-          - { project: safari, browser: webkit }
-          - { project: iphone, browser: webkit }
-          - { project: ipad, browser: webkit }
+        project: [chrome, android, firefox, safari, iphone, ipad]
     name: test (${{ matrix.project }})
+    # Browsers and their system libraries come preinstalled; keep the tag equal to the locked Playwright.
+    container:
+      image: mcr.microsoft.com/playwright:v1.63.0-noble
+      options: --user 1001
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -34,12 +33,12 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
       - run: pnpm exec playwright test --project ${{ matrix.project }}
 
   build:
     needs: test
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -65,6 +64,7 @@ jobs:
     permissions:
       pages: write
       id-token: write
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
