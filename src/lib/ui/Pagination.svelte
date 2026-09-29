@@ -136,6 +136,17 @@
 			block-size: 2.75rem;
 		}
 	}
+	/* Phones: all nine slots fit one row (9 × 2rem) instead of wrapping the next arrow. */
+	@media (max-width: 30rem) {
+		ol {
+			gap: 0.125rem;
+		}
+		.item,
+		.gap {
+			min-inline-size: 2rem;
+			padding: 0 0.25rem;
+		}
+	}
 	.item {
 		position: relative;
 		margin: 0;

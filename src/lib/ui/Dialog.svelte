@@ -101,7 +101,7 @@
 		/* Invisible normally; outlines the dialog in Windows High Contrast. */
 		border: 1px solid transparent;
 		border-radius: calc(var(--ui-radius) * 1.75);
-		background: var(--ui-surface);
+		background: var(--ui-surface-overlay);
 		color: var(--ui-fg);
 		font: 0.9375rem/1.5 var(--ui-font);
 		box-shadow: var(--ui-shadow-overlay);
@@ -117,6 +117,9 @@
 		align-items: start;
 		justify-content: space-between;
 		gap: 1rem;
+	}
+	header:not(:has(+ .desc)) {
+		margin-block-end: 1rem;
 	}
 	h2 {
 		margin: 0.25rem 0 0;

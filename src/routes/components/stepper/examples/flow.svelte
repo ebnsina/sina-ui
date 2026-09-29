@@ -58,6 +58,8 @@
 		display: grid;
 		gap: 1.5rem;
 		inline-size: 100%;
+		/* Fields and buttons share one column, so Continue lines up with the field's edge. */
+		max-inline-size: 36rem;
 	}
 	/* Clips the slide, with room around it so focus rings inside aren't cut off. */
 	.panel {
@@ -70,7 +72,6 @@
 		grid-area: 1 / 1;
 		display: grid;
 		gap: 0.75rem;
-		max-inline-size: 26rem;
 	}
 	h3 {
 		margin: 0;

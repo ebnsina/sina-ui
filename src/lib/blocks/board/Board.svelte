@@ -645,10 +645,12 @@
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: var(--ui-ring-offset);
 	}
+	/* Inset 2px like the cards list, so the field lines up with the cards above it. */
 	.composer {
 		display: grid;
 		gap: 0.5rem;
 		margin-block-start: 0.5rem;
+		padding-inline: 2px;
 	}
 	.composer textarea {
 		box-sizing: border-box;

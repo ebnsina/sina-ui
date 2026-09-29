@@ -30,11 +30,19 @@
 	// Clicks glide the thumb; arrow keys snap it (as the tabs do).
 	let viaPointer = false;
 
+	const place = (animate: boolean) =>
+		glide(thumb, track.querySelector<HTMLElement>('input:checked')?.closest('label'), animate, 240);
+
 	$effect(() => {
 		value;
-		const checked = track.querySelector<HTMLElement>('input:checked')?.closest('label');
-		glide(thumb, checked, viaPointer, 240);
+		place(viaPointer);
 		ready = true;
+	});
+	// Re-place on resize: stretching, wrapping, or first layout inside a dialog that opened after mount.
+	$effect(() => {
+		const ro = new ResizeObserver(() => place(false));
+		ro.observe(track);
+		return () => ro.disconnect();
 	});
 </script>
 
@@ -81,9 +89,10 @@
 		padding: 0;
 		font-weight: 500;
 	}
+	/* Stretches with its fieldset like Input does; in a flex row (toolbars) the fieldset hugs it instead. */
 	.track {
 		position: relative;
-		display: inline-flex;
+		display: flex;
 		box-sizing: border-box;
 		/* Too many segments for a phone wrap onto a second row, never off the page. */
 		flex-wrap: wrap;
@@ -111,8 +120,11 @@
 	.segment {
 		position: relative;
 		display: grid;
+		/* Equal widths when stretched; never narrower than its label. */
+		flex: 1 1 0;
 		place-items: center;
-		min-block-size: 2rem;
+		/* 40px with the track's padding, like Input and Button. */
+		min-block-size: 2.125rem;
 		padding: 0 0.875rem;
 		border-radius: calc(var(--ui-radius-control) - 0.1875rem);
 		color: var(--ui-muted);

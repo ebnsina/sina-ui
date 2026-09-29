@@ -176,6 +176,10 @@
 		justify-content: space-between;
 		gap: 0.75rem;
 	}
+	/* Wrapped under the options on a phone, the button keeps to the end as it does on one line. */
+	.row > :global(.btn) {
+		margin-inline-start: auto;
+	}
 	/* Concentric: the button's corners + the 0.75rem around it. */
 	.player {
 		display: flex;

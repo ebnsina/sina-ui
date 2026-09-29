@@ -46,6 +46,15 @@
 		min-inline-size: 0;
 		border-radius: var(--ui-radius);
 	}
+	/* Beside a vertical list: the first line centres on the first tab (min-block-size 2.5rem). */
+	:global(.tabs[data-orientation='vertical']) > .panel {
+		padding-block-start: calc((2.5rem - 1lh) / 2);
+	}
+	@media (pointer: coarse) {
+		:global(.tabs[data-orientation='vertical']) > .panel {
+			padding-block-start: calc((2.75rem - 1lh) / 2);
+		}
+	}
 	.panel:focus-visible {
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: var(--ui-ring-offset);

@@ -89,14 +89,20 @@
 		<Dropdown.Item>Table of stars</Dropdown.Item>
 	</Dropdown.Root>
 </Toolbar>
-<p class="sample" class:bold class:italic class:underline style:text-align={align}>
-	Light travels in straight lines from every point of a lit object.
-</p>
+<div class="page">
+	<p class="sample" class:bold class:italic class:underline style:text-align={align}>
+		Light travels in straight lines from every point of a lit object.
+	</p>
+</div>
 
 <style>
+	/* Its own row under the toolbar, the text block centred in it. */
+	.page {
+		flex-basis: 100%;
+	}
 	.sample {
 		inline-size: min(26rem, 100%);
-		margin: 1rem 0 0;
+		margin: 1rem auto 0;
 		font-size: 0.9375rem;
 	}
 	.bold {

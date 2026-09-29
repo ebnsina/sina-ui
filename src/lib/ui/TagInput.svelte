@@ -279,7 +279,8 @@
 	}
 	input {
 		flex: 1;
-		min-inline-size: 8rem;
+		/* Room for the default placeholder, so it wraps below the tags instead of being cut off. */
+		min-inline-size: min(100%, 10.5rem);
 		margin: 0;
 		padding: 0 0.25rem;
 		border: 0;

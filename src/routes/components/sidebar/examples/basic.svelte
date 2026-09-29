@@ -55,7 +55,7 @@
 		overflow: hidden;
 		border-radius: calc(var(--ui-radius) * 1.5);
 		background: var(--ui-surface);
-		box-shadow: 0 0 0 1px var(--ui-line);
+		box-shadow: 0 1px 3px rgb(0 0 0 / 0.06);
 	}
 	.brand {
 		display: flex;

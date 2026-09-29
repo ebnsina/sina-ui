@@ -148,8 +148,9 @@
 	.toggle:active:not(:disabled) {
 		transform: scale(0.94);
 	}
+	/* Lifts in dark mode too, like Segmented's thumb (the surface there is darker than the tray). */
 	.toggle[aria-pressed='true'] {
-		background: var(--ui-surface);
+		background: light-dark(var(--ui-surface), rgb(255 255 255 / 0.12));
 		color: var(--ui-fg);
 		box-shadow:
 			0 1px 2px rgb(0 0 0 / 0.08),

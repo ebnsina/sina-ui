@@ -79,6 +79,8 @@
 <style>
 	.compose {
 		display: grid;
+		/* minmax(0): a long file name ellipsizes in its chip instead of widening the form. */
+		grid-template-columns: minmax(0, 1fr);
 		gap: 0.75rem;
 		inline-size: min(28rem, 100%);
 	}
@@ -141,6 +143,7 @@
 	}
 	.x {
 		display: grid;
+		flex: none;
 		place-items: center;
 		inline-size: 1.25rem;
 		block-size: 1.25rem;

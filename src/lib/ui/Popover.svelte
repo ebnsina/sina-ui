@@ -122,9 +122,11 @@
 		/* Invisible normally; outlines it in Windows High Contrast. */
 		border: 1px solid transparent;
 		border-radius: calc(var(--ui-radius) * 1.5);
-		background: var(--ui-surface);
+		background: var(--ui-surface-overlay);
 		color: var(--ui-fg);
 		font: 0.9375rem/1.5 var(--ui-font);
+		/* Rendered inline beside its trigger: don't inherit centred running text. */
+		text-align: start;
 		box-shadow: var(--ui-shadow-overlay);
 	}
 	.popover:focus-visible {

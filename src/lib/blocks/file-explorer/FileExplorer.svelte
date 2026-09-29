@@ -1059,11 +1059,19 @@
 		margin: 0;
 		font-size: 1.125rem;
 	}
+	/* A full-width row under the path: search takes the slack, New (or Empty Trash) ends it. */
 	.tools {
 		display: flex;
+		flex: 1 1 100%;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
+	}
+	.tools :global(.find) {
+		flex: 1 1 12rem;
+	}
+	.tools > :global(button:last-of-type) {
+		margin-inline-start: auto;
 	}
 	.tools :global(.find label) {
 		position: absolute;
@@ -1387,10 +1395,24 @@
 	.bar :global(.btn) {
 		border-radius: 999px;
 	}
-	/* Narrow: the details slide over the files rather than squeezing them. */
+	/* Too narrow for the list's columns and the details side by side: the details slide over the files. */
+	@container (max-width: 56rem) {
+		.details {
+			position: absolute;
+			inset-block-start: auto;
+			inset-inline-end: 1.25rem;
+			z-index: 2;
+			/* The subtle tint laid on the surface, so the files underneath don't show through. */
+			background: linear-gradient(var(--ui-subtle), var(--ui-subtle)) var(--ui-surface);
+			box-shadow: var(--ui-shadow-overlay);
+		}
+	}
 	@container (max-width: 40rem) {
 		.page {
 			padding: 0.75rem;
+		}
+		.details {
+			inset-inline-end: 0.75rem;
 		}
 		/* Search gets its own line; Sort and New become icons (still named) on the line below. */
 		.tools {
@@ -1415,22 +1437,16 @@
 			grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
 			gap: 0.5rem;
 		}
-		.details {
-			position: absolute;
-			inset-inline-end: 1.25rem;
-			z-index: 2;
-			box-shadow: var(--ui-shadow-overlay);
-		}
 		.col.modified,
 		.col-date {
 			display: none;
 		}
 		.cols,
 		.row {
-			grid-template-columns: minmax(0, 1fr) 6rem;
+			grid-template-columns: minmax(0, 1fr) 4.5rem;
 		}
 		.row {
-			grid-template-columns: auto minmax(0, 1fr) 6rem;
+			grid-template-columns: auto minmax(0, 1fr) 4.5rem;
 		}
 	}
 </style>

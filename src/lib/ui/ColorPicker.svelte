@@ -278,7 +278,7 @@
 		inline-size: 1.5rem;
 		block-size: 1.5rem;
 		border-radius: calc(var(--ui-radius-control) * 0.6);
-		box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+		box-shadow: inset 0 0 0 1px var(--ui-field-line);
 		transition: background-color var(--ui-dur) ease;
 	}
 	.hex {
@@ -443,7 +443,7 @@
 		padding: 0;
 		border: 0;
 		border-radius: calc(var(--ui-radius) * 0.6);
-		box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.1);
+		box-shadow: inset 0 0 0 1px var(--ui-field-line);
 		cursor: pointer;
 		transition: transform var(--ui-dur-press) var(--ui-ease-out);
 	}

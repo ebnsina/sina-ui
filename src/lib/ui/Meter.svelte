@@ -85,6 +85,8 @@
 <style>
 	.meter {
 		--tone: var(--ui-accent);
+		/* Fills its column, so its length never follows the label's. */
+		inline-size: 100%;
 		display: grid;
 		gap: 0.375rem;
 		font: 0.875rem/1.4 var(--ui-font);

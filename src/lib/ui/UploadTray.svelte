@@ -176,7 +176,7 @@
 		overflow: hidden;
 		border: 1px solid transparent;
 		border-radius: 1rem;
-		background: var(--ui-surface);
+		background: var(--ui-surface-overlay);
 		color: var(--ui-fg);
 		font: 0.875rem/1.4 var(--ui-font);
 		box-shadow: var(--ui-shadow-overlay);

@@ -278,6 +278,8 @@
 		display: inline-flex;
 		align-items: center;
 		gap: 0.25rem;
+		/* Not baseline: row-reverse takes the arrow's baseline and lifts end-aligned headers 1.3px. */
+		vertical-align: middle;
 		margin: -0.25rem -0.375rem;
 		padding: 0.25rem 0.375rem;
 		border: 0;

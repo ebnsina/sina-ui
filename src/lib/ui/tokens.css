@@ -5,6 +5,8 @@
 	/* Slate neutrals (light) / onyx neutrals (dark, no blue) + emerald (emerald-700 light: white text on it is 5.48:1; emerald-600 fails at 3.77). */
 	--ui-bg: light-dark(#ffffff, #0a0a0a);
 	--ui-surface: light-dark(#ffffff, #141414);
+	/* Menus, popovers, dialogs, toasts: a step lighter in dark mode, where shadows don't show. */
+	--ui-surface-overlay: light-dark(#ffffff, #1f1f1f);
 	--ui-fg: light-dark(#0f172a, #ededed);
 	--ui-muted: light-dark(#475569, #a3a3a3);
 	/* Fills and lines are translucent ink, not solid greys: always a step darker (lighter in dark mode)
@@ -30,7 +32,7 @@
 	--ui-ring: var(--ui-accent);
 	--ui-ring-width: 2px;
 	--ui-ring-offset: 2px;
-	/* Overlays separate by shadow alone, no outline (by request). In dark mode the lighter surface does it. */
+	/* Overlays separate by shadow alone, no outline (by request). In dark mode --ui-surface-overlay does it. */
 	--ui-shadow-overlay:
 		0 1px 2px rgb(0 0 0 / 0.05), 0 4px 12px -2px rgb(0 0 0 / 0.08),
 		0 16px 40px -12px rgb(0 0 0 / 0.22);

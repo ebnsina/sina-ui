@@ -319,7 +319,8 @@
 		display: grid;
 		grid-template-columns: minmax(0, 1fr);
 		place-items: center;
-		padding: 2rem 1.25rem;
+		/* Narrower sides on phones so the card's three buttons stay on one row. */
+		padding: 2rem clamp(0.75rem, 3vw, 1.25rem);
 		border-radius: 1rem;
 		background: var(--ui-bg);
 		color: var(--ui-fg);
@@ -365,13 +366,16 @@
 		gap: 0.5rem;
 		margin-block-start: 0.25rem;
 	}
+	/* middle, not baseline: the swatch otherwise makes colour rows 2px taller. */
 	.token {
 		display: inline-flex;
 		align-items: center;
+		vertical-align: middle;
 		gap: 0.5rem;
 		white-space: nowrap;
 	}
-	.swatch {
+	/* Scoped to the table: a bare .swatch here also shrank the accent dots above to 1rem squares. */
+	.token .swatch {
 		inline-size: 1rem;
 		block-size: 1rem;
 		border-radius: 0.25rem;

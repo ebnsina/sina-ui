@@ -21,7 +21,9 @@
 <div class={['accordion', className]} {...rest}>{@render children()}</div>
 
 <style>
+	/* Fills its column, so opening a section never changes its width. */
 	.accordion {
+		inline-size: 100%;
 		font: 0.9375rem/1.5 var(--ui-font);
 		color: var(--ui-fg);
 	}

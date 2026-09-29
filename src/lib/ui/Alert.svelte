@@ -72,6 +72,8 @@
 		align-items: flex-start;
 		gap: 0.75rem;
 		box-sizing: border-box;
+		/* Fills its column, so a short alert is as wide as its neighbours. */
+		inline-size: 100%;
 		padding: 0.875rem 1rem;
 		/* Invisible normally; outlines it in Windows High Contrast. */
 		border: 1px solid transparent;

@@ -195,7 +195,7 @@
 							{@const s = span(e, day)}
 							<button
 								type="button"
-								class={['event', drag?.id === e.id && 'dragging', s.end - s.start < 40 && 'short']}
+								class={['event', drag?.id === e.id && 'dragging', s.end - s.start < 50 && 'short']}
 								style:--c={color(e)}
 								style:top="{s.start * PX}px"
 								style:height="{Math.max(SNAP, s.end - s.start) * PX - 2}px"
@@ -413,7 +413,12 @@
 		gap: 0.375rem;
 		padding-block: 0.0625rem;
 	}
+	/* On one line the time gives way before the title does. */
+	.short .time {
+		flex-shrink: 100;
+	}
 	.title {
+		min-block-size: 1lh;
 		overflow: hidden;
 		font-weight: 600;
 		text-overflow: ellipsis;
@@ -427,7 +432,9 @@
 		color: var(--c);
 	}
 	.time {
+		overflow: hidden;
 		color: var(--ui-muted);
+		text-overflow: ellipsis;
 		white-space: nowrap;
 	}
 	.resize {
