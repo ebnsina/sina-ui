@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { asset } from '$app/paths';
 	import FileExplorer, { type ExplorerItem } from '#lib/blocks/file-explorer/FileExplorer.svelte';
 	import type { Send } from '#lib/ui/uploads.svelte.js';
 
@@ -59,7 +60,7 @@
 			parent: 'ms',
 			kind: 'image',
 			size: 4_800_000,
-			thumbnail: '/demo/star-tile.svg',
+			thumbnail: asset('demo/star-tile.svg'),
 			modified: day(2)
 		},
 		{

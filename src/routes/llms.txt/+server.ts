@@ -1,5 +1,8 @@
+import { root } from '#lib/site/root.js';
 import { docs } from '#lib/site/docs-text.js';
 import type { RequestHandler } from './$types';
+
+export const prerender = true;
 
 // The llms.txt index (llmstxt.org): what Sina UI is, and every page with a line on what it's for.
 export const GET: RequestHandler = ({ url }) => {
@@ -10,9 +13,9 @@ export const GET: RequestHandler = ({ url }) => {
 
 Install any component with \`npx sina-ui add <name>\` (for example \`npx sina-ui add dropdown blocks/chat\`). Components read their colours, corners and type from tokens.css.
 
-- [Everything in one file](${url.origin}/llms-full.txt): every page with its examples' source
-- [Skill for AI coding assistants](${url.origin}/skill.md): how to build with Sina UI
-- [Registry](${url.origin}/r/index.json): installable items; /r/<name>.json has one item's files
+- [Everything in one file](${root(url)}/llms-full.txt): every page with its examples' source
+- [Skill for AI coding assistants](${root(url)}/skill.md): how to build with Sina UI
+- [Registry](${root(url)}/r/index.json): installable items; /r/<name>.json has one item's files
 
 ${sections
 	.map(
@@ -20,8 +23,7 @@ ${sections
 			`## ${s}\n\n${docs
 				.filter((d) => d.section === s)
 				.map(
-					(d) =>
-						`- [${d.title}](${url.origin}${d.href})${d.description ? `: ${d.description}` : ''}`
+					(d) => `- [${d.title}](${root(url)}${d.href})${d.description ? `: ${d.description}` : ''}`
 				)
 				.join('\n')}`
 	)

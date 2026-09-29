@@ -1,5 +1,8 @@
 import type { RequestHandler } from './$types';
 
+// Reads its title from the query string, so it only runs on the dev server (for scripts/og.ts).
+export const prerender = false;
+
 // The social preview card, 1200 by 630, as a standalone page (none of the docs around it):
 // scripts/og.ts photographs it for each page.
 const escape = (s: string) =>

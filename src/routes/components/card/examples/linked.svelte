@@ -2,13 +2,13 @@
 	import Card from '#lib/ui/Card.svelte';
 
 	const scholars = [
-		{ name: 'Al-Khwarizmi', work: 'Algebra and algorithms, Baghdad', href: '/components/tabs' },
+		{ name: 'Al-Khwarizmi', work: 'Algebra and algorithms, Baghdad', href: '#linked' },
 		{
 			name: 'Ibn al-Haytham',
 			work: 'Optics and the scientific method, Cairo',
-			href: '/components/tabs'
+			href: '#linked'
 		},
-		{ name: 'Fatima al-Fihri', work: 'Founded al-Qarawiyyin, Fez', href: '/components/tabs' }
+		{ name: 'Fatima al-Fihri', work: 'Founded al-Qarawiyyin, Fez', href: '#linked' }
 	];
 </script>
 

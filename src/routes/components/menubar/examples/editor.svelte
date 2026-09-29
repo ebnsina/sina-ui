@@ -41,7 +41,7 @@
 		</Menubar.Menu>
 		<Menubar.Menu label="Help">
 			<Menubar.Item onselect={did('Opened the keyboard guide.')}>Keyboard guide</Menubar.Item>
-			<Menubar.Item href="/components/menubar#accessibility">About the menu bar</Menubar.Item>
+			<Menubar.Item href="#accessibility">About the menu bar</Menubar.Item>
 		</Menubar.Menu>
 	</Menubar.Root>
 	<p role="status">{last}</p>

@@ -1,5 +1,8 @@
+import { root } from '#lib/site/root.js';
 import { docs } from '#lib/site/docs-text.js';
 import type { RequestHandler } from './$types';
+
+export const prerender = true;
 
 // An Agent Skill (Claude Code and others): save as .claude/skills/sina-ui/SKILL.md in a project.
 export const GET: RequestHandler = ({ url }) => {
@@ -32,7 +35,7 @@ Sina UI components are copied into the project and owned there, not imported fro
    Blocks are \`blocks/<name>\`. It prints an install command if packages are needed; run it.
 3. Import from where the files were written (\`src/lib/sina-ui/ui/...\` by default).
 
-Set \`SINA_UI_REGISTRY=${url.origin}\` for the command to find the components.
+Set \`SINA_UI_REGISTRY=${root(url)}\` for the command to find the components.
 
 ## Rules
 
@@ -50,8 +53,8 @@ ${list}
 
 ## More
 
-- Full docs with every example's source: ${url.origin}/llms-full.txt
-- One component's files: ${url.origin}/r/<name>.json
+- Full docs with every example's source: ${root(url)}/llms-full.txt
+- One component's files: ${root(url)}/r/<name>.json
 `;
 	return new Response(text, { headers: { 'content-type': 'text/markdown; charset=utf-8' } });
 };

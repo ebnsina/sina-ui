@@ -1,7 +1,7 @@
-import { nav } from './nav';
+import { nav, type PageId } from './nav';
 
 // What each release contains, for people using Sina UI: newest first, in plain words.
-export type Entry = { text: string; href?: string };
+export type Entry = { text: string; href?: PageId };
 export type Release = {
 	title: string;
 	/** ISO date it shipped; none while it's still coming. */

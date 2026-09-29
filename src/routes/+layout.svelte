@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { link } from '#lib/site/root.js';
+	import { asset, resolve } from '$app/paths';
+	import type { AssetPath } from '$app/types';
 	import './layout.css';
 	import '#lib/ui/tokens.css';
 	import './docs.css';
@@ -30,7 +33,7 @@
 	// From the address the page was served at, so no domain is written into the site.
 	const canonical = $derived(`${page.url.origin}${page.url.pathname}`);
 	const ogImage = $derived(
-		`${page.url.origin}/og/${page.url.pathname === '/' ? 'home' : page.url.pathname.slice(1).replaceAll('/', '-')}.png`
+		`${page.url.origin}${asset(`og/${!page.route.id || page.route.id === '/' ? 'home' : page.route.id.slice(1).replaceAll('/', '-')}.png` as AssetPath)}`
 	);
 
 	let dark = $state(false);
@@ -56,8 +59,8 @@
 				id: item.href,
 				label: item.title,
 				group: group.title,
-				keywords: [group.title, ...('keywords' in item ? item.keywords : [])],
-				onselect: () => goto(item.href)
+				keywords: [group.title, ...(item.keywords ?? [])],
+				onselect: () => goto(link(item.href))
 			}))
 		),
 		...[true, false].map((toDark) => ({
@@ -200,25 +203,30 @@
 	<meta name="twitter:image" content={ogImage} />
 	<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
 	<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
-	<link rel="alternate" type="text/plain" href="/llms.txt" title="Sina UI for language models" />
+	<link
+		rel="alternate"
+		type="text/plain"
+		href={resolve('/llms.txt')}
+		title="Sina UI for language models"
+	/>
 	<!-- The faces nearly every page uses; the rest load as needed. -->
 	<link
 		rel="preload"
-		href="/fonts/plex/IBMPlexSans-Regular-Latin1.woff2"
+		href={asset('fonts/plex/IBMPlexSans-Regular-Latin1.woff2')}
 		as="font"
 		type="font/woff2"
 		crossorigin="anonymous"
 	/>
 	<link
 		rel="preload"
-		href="/fonts/plex/IBMPlexSans-SemiBold-Latin1.woff2"
+		href={asset('fonts/plex/IBMPlexSans-SemiBold-Latin1.woff2')}
 		as="font"
 		type="font/woff2"
 		crossorigin="anonymous"
 	/>
 	<link
 		rel="preload"
-		href="/fonts/plex/IBMPlexMono-Regular-Latin1.woff2"
+		href={asset('fonts/plex/IBMPlexMono-Regular-Latin1.woff2')}
 		as="font"
 		type="font/woff2"
 		crossorigin="anonymous"
@@ -231,7 +239,7 @@
 		<ul>
 			{#each group.items as item (item.href)}
 				<li>
-					<a href={item.href} aria-current={page.url.pathname === item.href ? 'page' : undefined}>
+					<a href={link(item.href)} aria-current={page.route.id === item.href ? 'page' : undefined}>
 						{item.title}
 					</a>
 				</li>

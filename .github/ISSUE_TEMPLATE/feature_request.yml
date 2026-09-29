@@ -1,0 +1,17 @@
+name: Ask for a component or feature
+description: Something you need that Sina UI doesn't have yet.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: What are you building?
+      description: The real situation helps more than a component name.
+      placeholder: e.g. A booking form where people pick a start and end time on a phone.
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+      description: A component, an option on an existing one, or an example. Links to ones you like are welcome.

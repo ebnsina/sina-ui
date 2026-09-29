@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -33,8 +34,8 @@
 		dependencies.
 	</p>
 	<p>
-		For choosing from a list of options while typing, use a <a href="/components/combobox"
-			>Combobox</a
+		For choosing from a list of options while typing, use a <a
+			href={resolve('/components/combobox')}>Combobox</a
 		>.
 	</p>
 </Install>

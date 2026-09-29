@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -104,8 +105,8 @@
   | { type: 'delete'; items };        // gone for good, with everything inside`}
 />
 <p>
-	With <code>send</code> (the same function <a href="/components/upload">Upload</a> takes), a file joins
-	its folder once it has uploaded; without it, files are added straight away.
+	With <code>send</code> (the same function <a href={resolve('/components/upload')}>Upload</a> takes),
+	a file joins its folder once it has uploaded; without it, files are added straight away.
 </p>
 
 <h2 id="keyboard">Keyboard</h2>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Code from '#lib/site/Code.svelte';
@@ -45,7 +46,7 @@
 	<Code code="pnpm add @internationalized/date" lang="shell" label="Install command" />
 	<p>
 		The value is <code>{'{'} start, end {'}'}</code>, two <code>CalendarDate</code>s. For one day,
-		use the <a href="/components/date-picker">Date picker</a>.
+		use the <a href={resolve('/components/date-picker')}>Date picker</a>.
 	</p>
 </Install>
 

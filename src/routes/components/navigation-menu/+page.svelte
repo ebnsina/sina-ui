@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -35,7 +36,9 @@
 		<code>tokens.css</code>. No dependencies.
 	</p>
 	<p>
-		For commands in an app (File, Edit, View), use a <a href="/components/menubar">Menubar</a> instead.
+		For commands in an app (File, Edit, View), use a <a href={resolve('/components/menubar')}
+			>Menubar</a
+		> instead.
 	</p>
 </Install>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import type { Snippet } from 'svelte';
 	import * as Tabs from '#lib/ui/tabs/index.js';
 	import Code from './Code.svelte';
@@ -22,8 +23,8 @@
 			<p>
 				Copy the files listed in
 				{#each names.split(' ') as n, i (n)}{#if i},
-					{/if}<a href="/r/{n}.json">its registry entry</a>{/each}, and install the packages it
-				names.
+					{/if}<a href={resolve('/r/[...path]', { path: `${n}.json` })}>its registry entry</a
+					>{/each}, and install the packages it names.
 			</p>
 		{/if}
 	</Tabs.Panel>

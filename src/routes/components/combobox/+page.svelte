@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Code from '#lib/site/Code.svelte';
@@ -39,8 +40,8 @@
 		<code>Icon.svelte</code> and <code>tokens.css</code>. No other dependencies.
 	</p>
 	<p>
-		For a dozen options or fewer, a <a href="/components/select">Select</a> is quicker to use: nothing
-		to type.
+		For a dozen options or fewer, a <a href={resolve('/components/select')}>Select</a> is quicker to use:
+		nothing to type.
 	</p>
 
 	<p>

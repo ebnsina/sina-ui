@@ -1,5 +1,13 @@
+import type { RouteId } from '$app/types';
+
+/** A page with no parameters, so `resolve(href)` needs nothing else. */
+export type PageId = Exclude<RouteId, `${string}[${string}`>;
+
 // Docs navigation, grouped. Only components that exist are listed: no dead links.
-export const nav = [
+export const nav: {
+	title: string;
+	items: { title: string; href: PageId; keywords?: string[] }[];
+}[] = [
 	{
 		title: 'Getting started',
 		items: [

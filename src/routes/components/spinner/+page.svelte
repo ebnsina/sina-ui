@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -29,7 +30,7 @@
 <Install names="spinner">
 	<p>
 		Copy <code>src/lib/ui/Spinner.svelte</code> and <code>tokens.css</code>. No dependencies. When
-		you know how far along it is, use <a href="/components/progress">Progress</a> instead.
+		you know how far along it is, use <a href={resolve('/components/progress')}>Progress</a> instead.
 	</p>
 </Install>
 

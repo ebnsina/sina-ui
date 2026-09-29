@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -36,7 +37,7 @@
 	</p>
 	<p>
 		You write the rows as ordinary HTML. To sort, search or page through many rows, use the
-		<a href="/components/data-table">Data table</a>.
+		<a href={resolve('/components/data-table')}>Data table</a>.
 	</p>
 </Install>
 

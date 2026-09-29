@@ -8,6 +8,6 @@
 	<p>Save manuscripts from the catalogue to read them later, even offline.</p>
 	{#snippet actions()}
 		<Button variant="secondary">Import a list</Button>
-		<Button href="/components/empty-state#first-use">Browse the catalogue</Button>
+		<Button href="#first-use">Browse the catalogue</Button>
 	{/snippet}
 </EmptyState>

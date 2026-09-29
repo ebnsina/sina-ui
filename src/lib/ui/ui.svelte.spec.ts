@@ -2420,7 +2420,7 @@ describe('sinaui', () => {
 	it('card: a linked card is one link named by its title', async () => {
 		render(CardPage);
 		const link = page.getByRole('link', { name: 'Al-Khwarizmi' });
-		await expect.element(link).toHaveAttribute('href', '/components/tabs');
+		await expect.element(link).toHaveAttribute('href', '#linked');
 		await expect.element(page.getByRole('heading', { name: 'Al-Khwarizmi' })).toBeVisible();
 		expect(document.querySelectorAll('main article a').length).toBe(3);
 	});

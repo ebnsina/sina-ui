@@ -8,4 +8,4 @@
 	size="lg"
 />
 <!-- A broken image falls back to the initials. -->
-<Avatar name="Fāṭima al-Fihrī" src="/demo/missing.png" size="lg" />
+<Avatar name="Fāṭima al-Fihrī" src="https://example.invalid/fatima.png" size="lg" />

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -35,8 +36,8 @@
 		<code>tokens.css</code>. No dependencies.
 	</p>
 	<p>
-		For work on its way to done (an upload, a download), use <a href="/components/progress"
-			>Progress</a
+		For work on its way to done (an upload, a download), use <a
+			href={resolve('/components/progress')}>Progress</a
 		>
 		instead.
 	</p>

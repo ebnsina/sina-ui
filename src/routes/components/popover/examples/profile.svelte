@@ -11,7 +11,7 @@
 		Mathematician and astronomer at the House of Wisdom, Baghdad, around 820. His book on restoring
 		and balancing gave algebra its name.
 	</p>
-	<Button href="/components/tabs" variant="secondary" size="sm">Read more</Button>
+	<Button href="#profile" variant="secondary" size="sm">Read more</Button>
 </Popover>
 
 <style>

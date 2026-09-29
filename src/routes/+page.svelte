@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+	import { link, root } from '#lib/site/root.js';
 	import { page } from '$app/state';
 	import { nav } from '#lib/site/nav.js';
 
@@ -11,7 +13,7 @@
 			name: 'Sina UI',
 			description:
 				'Accessible Svelte 5 components you copy into your project: keyboard support, right-to-left, dark mode and motion.',
-			url: page.url.origin,
+			url: root(page.url),
 			programmingLanguage: ['Svelte', 'TypeScript'],
 			runtimePlatform: 'SvelteKit',
 			keywords: 'Svelte, Svelte 5, SvelteKit, components, accessible, UI library',
@@ -62,7 +64,7 @@
 	<h3>{group.title}</h3>
 	<ul class="cards">
 		{#each group.items as item (item.href)}
-			<li><a class="card" href={item.href}>{item.title}</a></li>
+			<li><a class="card" href={link(item.href)}>{item.title}</a></li>
 		{/each}
 	</ul>
 {/each}

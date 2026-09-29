@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { link } from '#lib/site/root.js';
+	import { resolve } from '$app/paths';
 	import { releases } from '#lib/site/changelog.js';
 
 	const date = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' });
@@ -31,7 +33,7 @@
 			<ul class={['items', group.title !== 'Foundations' && 'columns']}>
 				{#each group.items as item (item.text)}
 					<li>
-						{#if item.href}<a href={item.href}>{item.text}</a>{:else}{item.text}{/if}
+						{#if item.href}<a href={link(item.href)}>{item.text}</a>{:else}{item.text}{/if}
 					</li>
 				{/each}
 			</ul>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -32,7 +33,7 @@
 <p class="lede">
 	A set of tags, such as the filters on a search, each of which can be removed. To type new tags,
 	use
-	<a href="/components/tag-input">Tag input</a>.
+	<a href={resolve('/components/tag-input')}>Tag input</a>.
 </p>
 
 <h2 id="installation">Installation</h2>

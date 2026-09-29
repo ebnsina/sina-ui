@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { link } from '#lib/site/root.js';
+	import { resolve } from '$app/paths';
 	import { Alert02Icon, CloudOffIcon, MapsSearchIcon } from '@hugeicons/core-free-icons';
 	import { page } from '$app/state';
 	import Button from '#lib/ui/Button.svelte';
@@ -27,7 +29,10 @@
 	}
 	const suggestion = $derived.by(() => {
 		if (!missing) return undefined;
-		const here = page.url.pathname.toLowerCase().replace(/\/$/, '');
+		const here = page.url.pathname
+			.slice(resolve('/').length - 1)
+			.toLowerCase()
+			.replace(/\/$/, '');
 		const best = pages.map((p) => ({ p, d: distance(here, p.href) })).sort((a, b) => a.d - b.d)[0];
 		// Close enough to be a slip, not a different page altogether.
 		return best && best.d <= Math.max(3, Math.floor(best.p.href.length / 4)) ? best.p : undefined;
@@ -57,7 +62,7 @@
 		{#if missing}
 			{#if suggestion}
 				<p>
-					Did you mean <a href={suggestion.href}>{suggestion.title}</a>? Otherwise, search the
+					Did you mean <a href={link(suggestion.href)}>{suggestion.title}</a>? Otherwise, search the
 					components, or start from the introduction.
 				</p>
 			{:else}
@@ -80,7 +85,7 @@
 			{:else}
 				<Button variant="secondary" onclick={() => location.reload()}>Try again</Button>
 			{/if}
-			<Button href="/">Go to the introduction</Button>
+			<Button href={resolve('/')}>Go to the introduction</Button>
 		{/snippet}
 	</EmptyState>
 </div>

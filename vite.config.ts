@@ -2,7 +2,7 @@
 import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 import { sveltekit } from '@sveltejs/kit/vite';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,10 +22,21 @@ export default defineConfig({
 					async: true
 				}
 			},
-			// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-			// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-			// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-			adapter: adapter(),
+			// A static site for GitHub Pages; the workflow sets BASE_PATH to /<repo> and ORIGIN to the Pages host.
+			adapter: adapter({ fallback: '404.html' }),
+			paths: {
+				base: process.argv.includes('dev') ? '' : (process.env.BASE_PATH ?? ''),
+				origin: process.env.ORIGIN,
+				// Absolute, so the sitemap and llms.txt write full addresses.
+				relative: false
+			},
+			prerender: {
+				// These demos' sidebars link to a pretend app's pages; any other missing anchor fails the build.
+				handleMissingId: ({ path, message }) => {
+					if (!/\/(blocks\/dashboard|blocks\/file-explorer|components\/sidebar)$/.test(path))
+						throw new Error(message);
+				}
+			},
 			preprocess: [
 				mdsvex({
 					extensions: ['.svx', '.md']

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Code from '#lib/site/Code.svelte';
@@ -41,8 +42,8 @@
 	</p>
 	<Code code="pnpm add @tanstack/svelte-table" lang="shell" label="Install command" />
 	<p>
-		For a short, fixed table with nothing to sort or search, use <a href="/components/table"
-			>Table</a
+		For a short, fixed table with nothing to sort or search, use <a
+			href={resolve('/components/table')}>Table</a
 		>
 		instead: no dependencies.
 	</p>

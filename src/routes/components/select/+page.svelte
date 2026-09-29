@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -138,7 +139,7 @@
 		<tr
 			><td><code>searchable</code></td><td
 				><code>boolean</code>: a search box above the list (<a
-					href="/components/combobox#search-in-list">example</a
+					href={resolve('/components/combobox#search-in-list')}>example</a
 				>)</td
 			><td><code>false</code></td></tr
 		>

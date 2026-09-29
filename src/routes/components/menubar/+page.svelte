@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -38,9 +39,9 @@
 		<code>tokens.css</code>. No dependencies.
 	</p>
 	<p>
-		For a single menu, use a <a href="/components/dropdown">Dropdown</a>. For moving between pages,
-		use links (a <a href="/components/sidebar">Sidebar layout</a> or
-		<a href="/components/navigation-menu">Navigation menu</a>), not a menubar.
+		For a single menu, use a <a href={resolve('/components/dropdown')}>Dropdown</a>. For moving
+		between pages, use links (a <a href={resolve('/components/sidebar')}>Sidebar layout</a> or
+		<a href={resolve('/components/navigation-menu')}>Navigation menu</a>), not a menubar.
 	</p>
 </Install>
 
@@ -75,7 +76,8 @@
 	</tbody>
 </table>
 <p>
-	Items are the <a href="/components/dropdown#props">Dropdown</a>’s: <code>onselect</code>,
+	Items are the <a href={resolve('/components/dropdown#props')}>Dropdown</a>’s:
+	<code>onselect</code>,
 	<code>href</code>, <code>disabled</code>, <code>variant</code>.
 </p>
 

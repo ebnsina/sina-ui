@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Install from '#lib/site/Install.svelte';
 	import type { Component } from 'svelte';
 	import Example from '#lib/site/Example.svelte';
@@ -38,7 +39,11 @@
 		<code>floating.ts</code>, <code>Icon.svelte</code> and <code>tokens.css</code>. No other
 		dependencies.
 	</p>
-	<p>To choose exactly one option, use a <a href="/components/segmented">Segmented control</a>.</p>
+	<p>
+		To choose exactly one option, use a <a href={resolve('/components/segmented')}
+			>Segmented control</a
+		>.
+	</p>
 </Install>
 
 <h2 id="examples">Examples</h2>
