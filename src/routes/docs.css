@@ -1,0 +1,211 @@
+/* Docs site: page shell and article typography. Not part of the component library. */
+html {
+	scroll-padding-top: 4.5rem;
+}
+/* The site frame is grey; content sits on a white panel. Components keep --ui-bg / --ui-surface. */
+:root {
+	--page: light-dark(#f3f5f8, #0a0a0a);
+	--code-bg: light-dark(#f3f3f4, #222222);
+}
+body {
+	margin: 0;
+	background: var(--page);
+	color: var(--ui-fg);
+	font: 400 1rem/1.65 var(--ui-font);
+	font-optical-sizing: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Theme reveal: the new theme wipes over the old in one clean circle, no crossfade. */
+::view-transition-image-pair(root) {
+	isolation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+	animation: none;
+	mix-blend-mode: normal;
+	display: block;
+}
+
+/* Examples, code and tables use the full column; only running text keeps a readable line length. */
+main > :is(p, ul, ol, blockquote) {
+	max-inline-size: 72ch;
+}
+main .eyebrow {
+	margin: 0 0 0.5rem;
+	color: var(--ui-accent);
+	font: 500 0.8125rem var(--ui-font-mono);
+}
+main h1 {
+	margin: 0;
+	font-size: clamp(2rem, 4vw, 2.5rem);
+	font-weight: 650;
+	line-height: 1.15;
+	letter-spacing: -0.025em;
+	text-wrap: balance;
+}
+main .lede {
+	margin: 0.75rem 0 0;
+	color: var(--ui-muted);
+	font-size: 1.125rem;
+	text-wrap: pretty;
+}
+/* Hierarchy: sections (h2) clearly outrank examples (h3), and sit further from what came before
+   than from what follows, so each section visibly owns the examples under it. */
+main h2 {
+	margin: 3.5rem 0 1rem;
+	font-size: 1.5rem;
+	font-weight: 650;
+	line-height: 1.25;
+	letter-spacing: -0.02em;
+}
+main h3 {
+	margin: 2rem 0 0.5rem;
+	font-size: 1rem;
+	font-weight: 600;
+}
+main :is(h2 + h3, h2 + .example > h3) {
+	margin-block-start: 1.25rem;
+}
+main p {
+	text-wrap: pretty;
+}
+main a:not([class]) {
+	color: var(--ui-accent);
+	text-underline-offset: 3px;
+}
+
+/* Live example: a faint tint, lighter than code blocks, instead of an outline. */
+.preview {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	/* Centred, so a narrow example doesn't leave the frame's right side empty. */
+	justify-content: center;
+	gap: 0.75rem;
+	padding: 2rem 1.5rem;
+	background: light-dark(rgb(15 23 42 / 0.025), rgb(255 255 255 / 0.03));
+	border-radius: calc(var(--ui-radius) * 1.5);
+}
+/* A caption or status line after the component goes under it, centred, never beside it. */
+:where(.preview:not(.stack)) > p {
+	flex-basis: 100%;
+	margin-block: 0;
+	text-align: center;
+}
+.preview.stack {
+	flex-direction: column;
+	align-items: center;
+}
+/* Stacked examples are as wide as their content (up to 24rem) and centred, so a short radio list
+   sits in the middle rather than at the left of an empty column. :where() keeps this at zero
+   specificity: an example's own width always wins. */
+:where(.preview.stack) > * {
+	box-sizing: border-box;
+	inline-size: max-content;
+	max-inline-size: min(100%, 24rem);
+}
+/* Form fields keep the full column, so their width never follows what's typed or chosen. */
+:where(.preview.stack) > :where(.field, .password, .range, form) {
+	inline-size: 100%;
+}
+
+/* Syntax colours for @tanstack/highlight's class names. Every colour is 4.5:1+ on the code background
+   in both themes (comments included). */
+.th-token.th-tag,
+.th-token.th-command,
+.th-token.th-selector {
+	color: light-dark(#047857, #34d399);
+}
+.th-token.th-attr,
+.th-token.th-property {
+	color: light-dark(#9a3412, #fdba74);
+}
+.th-token.th-string,
+.th-token.th-link {
+	color: light-dark(#0e7490, #67e8f9);
+}
+.th-token.th-keyword,
+.th-token.th-operator {
+	color: light-dark(#9d174d, #f9a8d4);
+}
+.th-token.th-function {
+	color: light-dark(#1d4ed8, #93c5fd);
+}
+.th-token.th-number,
+.th-token.th-literal {
+	color: light-dark(#854d0e, #fde68a);
+}
+.th-token.th-type,
+.th-token.th-meta {
+	color: light-dark(#6d28d9, #c4b5fd);
+}
+.th-token.th-comment {
+	color: light-dark(#57606a, #a3a3a3);
+	font-style: italic;
+}
+.th-token.th-inserted {
+	color: light-dark(#047857, #34d399);
+}
+.th-token.th-deleted {
+	color: light-dark(#b42318, #ff8a7a);
+}
+
+main :not(pre) > code {
+	overflow-wrap: anywhere;
+	padding: 0.1em 0.35em;
+	border-radius: 4px;
+	background: var(--ui-subtle);
+}
+
+/* In tables, code needs no chip (grey on the grey stripes): the name column leads, the rest recede. */
+main > table code {
+	padding: 0;
+	background: none;
+}
+main > table td:first-child {
+	font-weight: 500;
+}
+main > table td:not(:first-child) {
+	color: var(--ui-muted);
+}
+
+/* Props and keyboard tables in the page text only, never a component's own table (calendar grid). */
+main > table {
+	inline-size: 100%;
+	border-collapse: collapse;
+	font-size: 0.9375rem;
+}
+main > table :is(th, td) {
+	padding: 0.625rem 0.75rem;
+	text-align: start;
+	vertical-align: top;
+	/* Long prop types break rather than push a phone-width page sideways. */
+	overflow-wrap: anywhere;
+}
+/* Rows separate by a faint stripe instead of rules. */
+main > table tbody tr:nth-child(odd) {
+	background: var(--ui-subtle);
+}
+main > table :is(th, td):first-child {
+	border-start-start-radius: var(--ui-radius);
+	border-end-start-radius: var(--ui-radius);
+}
+main > table :is(th, td):last-child {
+	border-start-end-radius: var(--ui-radius);
+	border-end-end-radius: var(--ui-radius);
+}
+main > table th {
+	color: var(--ui-muted);
+	font-size: 0.8125rem;
+	font-weight: 500;
+}
+main kbd {
+	display: inline-block;
+	min-inline-size: 1.5em;
+	padding: 0.05em 0.4em;
+	border-radius: 4px;
+	background: var(--ui-hover);
+	font-size: 0.8125rem;
+	text-align: center;
+}

@@ -1,0 +1,23 @@
+// src/routes/api/chat/+server.ts — streams Claude's replies to the chat block.
+import { chat, toServerSentEventsResponse } from '@tanstack/ai';
+import { createAnthropicChat } from '@tanstack/ai-anthropic';
+import { error } from '@sveltejs/kit';
+import { ANTHROPIC_API_KEY } from '$app/env/private';
+
+export async function POST({ request }) {
+	const body = await request.json().catch(() => undefined);
+	if (!Array.isArray(body?.messages)) error(400, 'Expected { messages: [...] }');
+
+	const abortController = new AbortController();
+	// Stop, or leaving the page, stops the model too.
+	request.signal.addEventListener('abort', () => abortController.abort());
+
+	const stream = chat({
+		adapter: createAnthropicChat('claude-sonnet-5', ANTHROPIC_API_KEY),
+		messages: body.messages,
+		systemPrompts: ['You are a helpful librarian. Answer briefly and plainly.'],
+		modelOptions: { max_tokens: 1024 },
+		abortController
+	});
+	return toServerSentEventsResponse(stream, { abortController });
+}
