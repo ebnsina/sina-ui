@@ -20,12 +20,12 @@
 		"accessible",
 		"cli"
 	],
-	"homepage": "https://ebnsina.github.io/sina-ui/",
+	"homepage": "https://ebnsina.github.io/sinaui/",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ebnsina/sina-ui.git",
+		"url": "git+https://github.com/ebnsina/sinaui.git",
 		"directory": "cli"
 	},
-	"bugs": "https://github.com/ebnsina/sina-ui/issues",
+	"bugs": "https://github.com/ebnsina/sinaui/issues",
 	"license": "MIT"
 }

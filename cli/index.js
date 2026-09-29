@@ -14,14 +14,14 @@ const HELP = `Sina UI
   npx sinaui list            Show what can be added
 
 Options
-  --dir <path>     Where files go (default src/lib/sina-ui)
+  --dir <path>     Where files go (default src/lib/sinaui)
   --overwrite      Replace files you already have (normally they're kept)
   --no-install     Only print the packages to install
 
-Browse the components at https://ebnsina.github.io/sina-ui/`;
+Browse the components at https://ebnsina.github.io/sinaui/`;
 
-// The published site; SINA_UI_REGISTRY points it at a local copy while working on Sina UI itself.
-const REGISTRY = process.env.SINA_UI_REGISTRY || 'https://ebnsina.github.io/sina-ui';
+// The published site; SINAUI_REGISTRY points it at a local copy while working on Sina UI itself.
+const REGISTRY = process.env.SINAUI_REGISTRY || 'https://ebnsina.github.io/sinaui';
 
 /** '#lib/ui/Button.svelte' in a file at blocks/chat/Chat.svelte becomes '../../ui/Button.svelte'. */
 export function rewrite(content, filePath) {
@@ -82,7 +82,7 @@ async function main(argv) {
 	const args = argv.filter((a) => !a.startsWith('--'));
 	const flag = (name) => argv.includes(`--${name}`);
 	const dirAt = argv.indexOf('--dir');
-	const dir = dirAt >= 0 ? argv[dirAt + 1] : 'src/lib/sina-ui';
+	const dir = dirAt >= 0 ? argv[dirAt + 1] : 'src/lib/sinaui';
 	if (dirAt >= 0) args.splice(args.indexOf(dir), 1);
 	const [command, ...names] = args;
 

@@ -1,4 +1,4 @@
-// The registry the sina-ui CLI installs from: for each component, its source files (following every
+// The registry the sinaui CLI installs from: for each component, its source files (following every
 // local import) and the npm packages they need. Built from the real source, so it never drifts.
 import pkg from '../../../package.json';
 

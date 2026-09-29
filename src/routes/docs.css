@@ -83,7 +83,8 @@ main a:not([class]) {
 	/* Centred, so a narrow example doesn't leave the frame's right side empty. */
 	justify-content: center;
 	gap: 0.75rem;
-	padding: 2rem 1.5rem;
+	/* Side padding scales down on a phone, so a full app block keeps the width it needs. */
+	padding: 2rem clamp(0.5rem, 4vw, 1.5rem);
 	background: light-dark(rgb(15 23 42 / 0.025), rgb(255 255 255 / 0.03));
 	border-radius: calc(var(--ui-radius) * 1.5);
 }

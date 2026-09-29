@@ -32,6 +32,7 @@
 
 <script lang="ts">
 	import {
+		Add01Icon,
 		ArrowDown01Icon,
 		ArrowUp01Icon,
 		Cancel01Icon,
@@ -48,6 +49,7 @@
 		Pdf01Icon,
 		PencilEdit02Icon,
 		RestoreBinIcon,
+		Sorting01Icon,
 		SourceCodeIcon,
 		StarIcon,
 		Table01Icon,
@@ -722,8 +724,8 @@
 					<Dropdown.Root>
 						{#snippet trigger(props)}
 							<Button variant="secondary" {...props}
-								>Sort<span class="vh"
-									>: {sortKeys.find((s) => s.key === sort.by)?.label}, {sortedAs}</span
+								><Icon icon={Sorting01Icon} size={16} /><span class="label">Sort</span><span
+									class="vh">: {sortKeys.find((s) => s.key === sort.by)?.label}, {sortedAs}</span
 								></Button
 							>
 						{/snippet}
@@ -765,7 +767,9 @@
 					{:else}
 						<Dropdown.Root>
 							{#snippet trigger(props)}
-								<Button {...props}>New</Button>
+								<Button {...props}
+									><Icon icon={Add01Icon} size={16} /><span class="label">New</span></Button
+								>
 							{/snippet}
 							<Dropdown.Item onselect={() => rename()}
 								><Icon icon={FolderAddIcon} /> New folder</Dropdown.Item
@@ -1385,6 +1389,32 @@
 	}
 	/* Narrow: the details slide over the files rather than squeezing them. */
 	@container (max-width: 40rem) {
+		.page {
+			padding: 0.75rem;
+		}
+		/* Search gets its own line; Sort and New become icons (still named) on the line below. */
+		.tools {
+			inline-size: 100%;
+		}
+		.tools :global(.find) {
+			flex: 1 0 100%;
+		}
+		.tools .label {
+			position: absolute;
+			inline-size: 1px;
+			block-size: 1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+		}
+		/* Smaller tiles, so a phone shows a few at a time rather than one. */
+		.folders {
+			grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr));
+		}
+		.files {
+			grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr));
+			gap: 0.5rem;
+		}
 		.details {
 			position: absolute;
 			inset-inline-end: 1.25rem;

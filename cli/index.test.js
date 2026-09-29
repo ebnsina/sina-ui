@@ -23,7 +23,7 @@ test('the tokens import goes into the layout once, and a missing layout is creat
 	const { join } = await import('node:path');
 	const { importIn } = await import('./index.js');
 	const dir = await mkdtemp(join(tmpdir(), 'sinaui-'));
-	const line = "import '../lib/sina-ui/ui/tokens.css';";
+	const line = "import '../lib/sinaui/ui/tokens.css';";
 
 	const made = join(dir, 'new/+layout.svelte');
 	assert.equal(await importIn(made, line), true);

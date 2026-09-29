@@ -486,12 +486,15 @@
 
 <style>
 	.board {
+		container-type: inline-size;
 		inline-size: 100%;
 	}
+	/* A swipe settles on a list's edge; proximity, so it never fights a drag. */
 	.board :global(.lists) {
 		--sortable-gap: 0.75rem;
 		align-items: flex-start;
 		padding-block-end: 0.5rem;
+		scroll-snap-type: x proximity;
 	}
 	.dragging {
 		cursor: grabbing;
@@ -502,8 +505,10 @@
 	.column {
 		display: flex;
 		flex-direction: column;
-		inline-size: 17rem;
+		/* On a phone, a list fills the width with the next one peeking in. */
+		inline-size: min(17rem, 100cqi - 3rem);
 		max-block-size: 32rem;
+		scroll-snap-align: start;
 		padding: 0.5rem;
 		box-sizing: border-box;
 		border-radius: 1.25rem;

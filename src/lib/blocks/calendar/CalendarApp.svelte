@@ -24,6 +24,7 @@
 	import Switch from '#lib/ui/Switch.svelte';
 	import TimeRangeField, { type TimeRange } from '#lib/ui/TimeRangeField.svelte';
 	import { at, dayOf, minutesOf, type CalendarDef, type CalendarEvent } from './events';
+	import Agenda from './Agenda.svelte';
 	import MonthGrid from './MonthGrid.svelte';
 	import TimeGrid from './TimeGrid.svelte';
 
@@ -51,6 +52,9 @@
 	// Narrow, seven columns are too thin to tap: start on one day, as phone calendars do.
 	onMount(() => (view ??= app.clientWidth < 640 ? 'day' : 'week'));
 	let app = $state<HTMLElement>()!;
+	// Under 40rem wide, week reads as a list and month as a grid of dots with the chosen day below.
+	let width = $state(0);
+	const narrow = $derived(width > 0 && width < 640);
 	let hidden = $state<string[]>([]);
 	const visible = $derived(events.filter((e) => !hidden.includes(e.calendar)));
 	const days = $derived(
@@ -65,7 +69,11 @@
 		const d = date.toDate('UTC');
 		if (view === 'month') return utc({ month: 'long', year: 'numeric' }).format(d);
 		if (view === 'day')
-			return utc({ weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }).format(d);
+			return utc(
+				narrow
+					? { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }
+					: { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }
+			).format(d);
 		return utc({ month: 'short', day: 'numeric', year: 'numeric' }).formatRange(
 			startOfWeek(date, locale).toDate('UTC'),
 			endOfWeek(date, locale).toDate('UTC')
@@ -170,7 +178,7 @@
 	}
 </script>
 
-<section bind:this={app} class={['app', className]} aria-label="Calendar">
+<section bind:this={app} bind:clientWidth={width} class={['app', className]} aria-label="Calendar">
 	<div class="layout">
 		<aside class="side" {@attach scrollEdges} data-fade>
 			<Button onclick={newEvent}><Icon icon={Add01Icon} size={16} /> New event</Button>
@@ -227,7 +235,24 @@
 			</header>
 			{#key `${view}:${view === 'month' ? `${date.year}-${date.month}` : days[0].toString()}`}
 				<div class="range" style:--from="{Math.sign(dir) * 1.5}rem">
-					{#if view === 'month'}
+					{#if view === 'month' && narrow}
+						<div class="month-narrow">
+							<MonthGrid
+								month={date}
+								events={visible}
+								{calendars}
+								{locale}
+								onopen={openEvent}
+								oncreate={create}
+								onday={(d) => (date = d)}
+								compact
+								selected={date}
+							/>
+							<Agenda days={[date]} events={visible} {calendars} {locale} onopen={openEvent} />
+						</div>
+					{:else if view === 'week' && narrow}
+						<Agenda {days} events={visible} {calendars} {locale} onopen={openEvent} />
+					{:else if view === 'month'}
 						<MonthGrid
 							month={date}
 							events={visible}
@@ -412,6 +437,57 @@
 		}
 		header :global(.new-compact) {
 			display: inline-flex;
+		}
+	}
+	.month-narrow {
+		display: grid;
+		align-content: start;
+		gap: 1rem;
+		min-block-size: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+	/* Phone: the date with paging and New event on one line; Today and a full-width view switch below. */
+	@container calendar (width < 40rem) {
+		.layout {
+			padding: 0.75rem;
+			border-radius: 1.25rem;
+		}
+		h2 {
+			order: -3;
+			flex: 1 0 calc(100% - 10rem);
+			margin-inline: 0;
+			white-space: normal;
+		}
+		.paging {
+			order: -2;
+		}
+		header :global(.new-compact) {
+			order: -1;
+		}
+		header :global(.segmented) {
+			flex: 1;
+		}
+		header :global(.segmented .track) {
+			display: flex;
+		}
+		header :global(.segmented .segment) {
+			flex: 1;
+		}
+	}
+	/* The smallest phones: title and New event, then paging and Today, then the view switch. */
+	@container calendar (width < 22rem) {
+		h2 {
+			flex-basis: calc(100% - 3.5rem);
+		}
+		header :global(.new-compact) {
+			order: -2;
+		}
+		.paging {
+			order: -1;
+		}
+		header :global(.segmented) {
+			flex-basis: 100%;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {

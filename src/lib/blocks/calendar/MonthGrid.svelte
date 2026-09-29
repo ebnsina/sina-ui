@@ -22,9 +22,13 @@
 		onopen: (e: CalendarEvent) => void;
 		oncreate: (start: CalendarDateTime, end: CalendarDateTime, allDay?: boolean) => void;
 		onday: (day: CalendarDate) => void;
+		/** Narrow: each day is one button with a dot per event; `selected` is the chosen day. */
+		compact?: boolean;
+		selected?: CalendarDate;
 	}
 
-	let { month, events, calendars, locale, onopen, oncreate, onday }: Props = $props();
+	let { month, events, calendars, locale, onopen, oncreate, onday, compact, selected }: Props =
+		$props();
 
 	const SHOWN = 3;
 	const calOf = (e: CalendarEvent) => calendars.find((c) => c.id === e.calendar);
@@ -48,7 +52,7 @@
 			.sort((a, b) => Number(!a.allDay) - Number(!b.allDay) || a.start.compare(b.start));
 </script>
 
-<div class="month">
+<div class={['month', compact && 'compact']}>
 	<div class="names" aria-hidden="true">
 		{#each cells.slice(0, 7) as d (d.toString())}
 			<span>{weekday.format(d.toDate('UTC'))}</span>
@@ -57,43 +61,59 @@
 	<div class="cells">
 		{#each cells as day (day.toString())}
 			{@const list = dayEvents(day)}
-			<!-- Pointer only: pressing an empty part of a day adds an all-day event; keyboard users
-			     have the New event button. -->
-			<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
-			<div
-				class={['cell', !isSameMonth(day, month) && 'outside']}
-				onclick={(ev) => ev.target === ev.currentTarget && oncreate(at(day, 0), at(day, 0), true)}
-			>
+			{#if compact}
 				<button
 					type="button"
-					class={['num', todayDate && isSameDay(day, todayDate) && 'today']}
+					class={['cell', 'pick', !isSameMonth(day, month) && 'outside']}
 					aria-label="{longDay.format(day.toDate('UTC'))}, {list.length} events"
-					onclick={() => onday(day)}>{day.day}</button
+					aria-pressed={!!selected && isSameDay(day, selected)}
+					onclick={() => onday(day)}
 				>
-				{#each list.slice(0, list.length > SHOWN ? SHOWN - 1 : SHOWN) as e (e.id)}
+					<span class={['num', todayDate && isSameDay(day, todayDate) && 'today']}>{day.day}</span>
+					<span class="dots" aria-hidden="true">
+						{#each list.slice(0, 3) as e (e.id)}<span class="dot" style:--c={color(e)}
+							></span>{/each}
+					</span>
+				</button>
+			{:else}
+				<!-- Pointer only: pressing an empty part of a day adds an all-day event; keyboard users
+			     have the New event button. -->
+				<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
+				<div
+					class={['cell', !isSameMonth(day, month) && 'outside']}
+					onclick={(ev) => ev.target === ev.currentTarget && oncreate(at(day, 0), at(day, 0), true)}
+				>
 					<button
 						type="button"
-						class={['item', e.allDay && 'all-day']}
-						style:--c={color(e)}
-						onclick={() => onopen(e)}
+						class={['num', todayDate && isSameDay(day, todayDate) && 'today']}
+						aria-label="{longDay.format(day.toDate('UTC'))}, {list.length} events"
+						onclick={() => onday(day)}>{day.day}</button
 					>
-						{#if e.allDay && calOf(e)?.icon}<Icon
-								icon={calOf(e)!.icon!}
-								size={13}
-							/>{/if}{#if !e.allDay}<span class="dot"></span><span class="time"
-								>{time.format(e.start.toDate('UTC'))}</span
-							>{/if}
-						<span class="title">{e.title}</span>
-					</button>
-				{/each}
-				{#if list.length > SHOWN}
-					{@const n = list.length - SHOWN + 1}
-					<button type="button" class="more" onclick={() => onday(day)}>
-						{n} more
-						<span class="sr-only">events</span>
-					</button>
-				{/if}
-			</div>
+					{#each list.slice(0, list.length > SHOWN ? SHOWN - 1 : SHOWN) as e (e.id)}
+						<button
+							type="button"
+							class={['item', e.allDay && 'all-day']}
+							style:--c={color(e)}
+							onclick={() => onopen(e)}
+						>
+							{#if e.allDay && calOf(e)?.icon}<Icon
+									icon={calOf(e)!.icon!}
+									size={13}
+								/>{/if}{#if !e.allDay}<span class="dot"></span><span class="time"
+									>{time.format(e.start.toDate('UTC'))}</span
+								>{/if}
+							<span class="title">{e.title}</span>
+						</button>
+					{/each}
+					{#if list.length > SHOWN}
+						{@const n = list.length - SHOWN + 1}
+						<button type="button" class="more" onclick={() => onday(day)}>
+							{n} more
+							<span class="sr-only">events</span>
+						</button>
+					{/if}
+				</div>
+			{/if}
 		{/each}
 	</div>
 </div>
@@ -217,6 +237,44 @@
 	:is(.num, .item, .more):focus-visible {
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: calc(var(--ui-ring-offset) * -1);
+	}
+	/* Compact: short rows, and the whole day is the target. */
+	.compact .cells {
+		grid-template-rows: repeat(6, 3rem);
+	}
+	.compact .names span {
+		padding: 0.375rem 0;
+		font-size: 0.6875rem;
+	}
+	.pick {
+		align-items: center;
+		justify-content: start;
+		gap: 0.25rem;
+		padding: 0.25rem 0 0;
+		border: 0;
+		background: none;
+		font: inherit;
+		cursor: pointer;
+		touch-action: manipulation;
+	}
+	.pick .num {
+		cursor: inherit;
+	}
+	.pick[aria-pressed='true'] .num:not(.today) {
+		background: var(--ui-fg);
+		color: var(--ui-bg);
+	}
+	.pick:focus-visible {
+		outline: var(--ui-ring-width) solid var(--ui-ring);
+		outline-offset: calc(var(--ui-ring-offset) * -1);
+	}
+	.dots {
+		display: flex;
+		gap: 3px;
+	}
+	.dots .dot {
+		inline-size: 0.375rem;
+		block-size: 0.375rem;
 	}
 	.sr-only {
 		position: absolute;

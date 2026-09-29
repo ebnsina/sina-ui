@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 
 export const prerender = true;
 
-// An Agent Skill (Claude Code and others): save as .claude/skills/sina-ui/SKILL.md in a project.
+// An Agent Skill (Claude Code and others): save as .claude/skills/sinaui/SKILL.md in a project.
 export const GET: RequestHandler = ({ url }) => {
 	const list = docs
 		.filter(
@@ -19,7 +19,7 @@ export const GET: RequestHandler = ({ url }) => {
 		)
 		.join('\n');
 	const text = `---
-name: sina-ui
+name: sinaui
 description: Build Svelte 5 interfaces with Sina UI components. Use when adding UI to a Svelte or SvelteKit app that uses (or could use) Sina UI: forms, overlays, menus, tables, date and time pickers, drag and drop, charts, AI chat, calendars, boards.
 ---
 
@@ -32,7 +32,7 @@ Sina UI components are copied into the project and owned there, not imported fro
 1. \`npx sinaui add <name>\` (several at once: \`npx sinaui add dropdown dialog\`; everything:
    \`npx sinaui add --all\`). Blocks are \`blocks/<name>\`. It writes the files, installs the packages
    they need, and imports the tokens in \`src/routes/+layout.svelte\`.
-2. Import from where the files were written (\`src/lib/sina-ui/ui/...\` by default).
+2. Import from where the files were written (\`src/lib/sinaui/ui/...\` by default).
 
 ## Rules
 

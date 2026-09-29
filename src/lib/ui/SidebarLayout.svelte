@@ -184,6 +184,7 @@
 				>
 					<Icon icon={Menu01Icon} size={20} />
 				</button>
+				{#if header}<div class="bar-head">{@render header(false)}</div>{/if}
 			</div>
 			{@render children()}
 		</div>
@@ -193,6 +194,8 @@
 <!-- Narrow screens: the same navigation in a sheet from the start edge. -->
 <Dialog bind:open={drawer} side="start" title={label}>
 	<nav class="sheet-nav" aria-label={label}>{@render list(false)}</nav>
+	<!-- The sidebar's footer too (a folder tree, storage), so nothing is desktop-only. -->
+	{#if footer}<div class="sheet-foot">{@render footer()}</div>{/if}
 </Dialog>
 
 <style>
@@ -347,6 +350,15 @@
 		color: var(--ui-fg);
 		cursor: pointer;
 	}
+	.bar-head {
+		min-inline-size: 0;
+		font-weight: 600;
+	}
+	.sheet-foot {
+		display: grid;
+		gap: 1rem;
+		margin-block-start: 1rem;
+	}
 	.sheet-nav ul {
 		margin-block-end: 0.5rem;
 	}
@@ -361,6 +373,8 @@
 		}
 		.bar {
 			display: flex;
+			align-items: center;
+			gap: 0.25rem;
 			padding: 0.25rem;
 		}
 	}

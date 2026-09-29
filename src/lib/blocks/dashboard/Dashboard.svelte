@@ -177,7 +177,7 @@
 					<Segmented label="Period" hideLabel options={ranges} bind:value={range} />
 					{#if onexport}
 						<Button variant="secondary" onclick={onexport}>
-							<Icon icon={Download04Icon} size={16} /> Export
+							<Icon icon={Download04Icon} size={16} /><span class="export">Export</span>
 						</Button>
 					{/if}
 				</div>
@@ -277,7 +277,8 @@
 	.page {
 		display: grid;
 		gap: 1rem;
-		padding: 1.25rem;
+		/* Tighter on a phone: 3% of the layout's width, between 0.75 and 1.25rem. */
+		padding: clamp(0.75rem, 3cqi, 1.25rem);
 		container: page / inline-size;
 	}
 	.top {
@@ -356,6 +357,52 @@
 		.charts,
 		.lower {
 			grid-template-columns: minmax(0, 1fr);
+		}
+	}
+	/* Phone: numbers two by two, the period switch across the width, Export as an icon (still named). */
+	@container page (width < 36rem) {
+		/* Export moves up beside the title; the period switch takes the whole next line. */
+		.top {
+			align-items: start;
+			flex-wrap: wrap;
+		}
+		.top > div:first-child {
+			flex: 1;
+		}
+		.actions {
+			display: contents;
+		}
+		.actions :global(.segmented) {
+			order: 1;
+			flex: 1 0 100%;
+		}
+		.actions :global(.segmented .segment) {
+			padding-inline: 0.5rem;
+		}
+		.actions :global(.segmented .track) {
+			display: flex;
+		}
+		.actions :global(.segmented .segment) {
+			flex: 1;
+		}
+		.export,
+		.vs {
+			position: absolute;
+			inline-size: 1px;
+			block-size: 1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+		}
+		.stats {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 0.5rem;
+		}
+		.stat {
+			padding: 0.75rem;
+		}
+		.value {
+			font-size: 1.25rem;
 		}
 	}
 	.panel {

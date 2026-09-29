@@ -9,7 +9,7 @@ export const GET: RequestHandler = ({ url }) => {
 	const sections = [...new Set(docs.map((d) => d.section))];
 	const text = `# Sina UI
 
-> Accessible Svelte 5 components that feel finished: copy them into your project with the sina-ui CLI and own the code. Built on CSS variables, with keyboard and screen reader support, right-to-left, light and dark, and motion throughout.
+> Accessible Svelte 5 components that feel finished: copy them into your project with the sinaui CLI and own the code. Built on CSS variables, with keyboard and screen reader support, right-to-left, light and dark, and motion throughout.
 
 Install any component with \`npx sinaui add <name>\` (for example \`npx sinaui add dropdown blocks/chat\`). Components read their colours, corners and type from tokens.css.
 

@@ -6,7 +6,7 @@ body:
     id: component
     attributes:
       label: Which component or page?
-      placeholder: e.g. Date picker, or https://ebnsina.github.io/sina-ui/components/date-picker
+      placeholder: e.g. Date picker, or https://ebnsina.github.io/sinaui/components/date-picker
     validations:
       required: true
   - type: textarea

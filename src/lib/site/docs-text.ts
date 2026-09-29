@@ -46,7 +46,7 @@ export function markdown(href: string): string {
 	const kept: string[] = [];
 	// Imports point where the CLI puts files in your project, not at this site's own folders.
 	const keep = (block: string) =>
-		`\u0000${kept.push(block.replaceAll("'#lib/ui/", "'$lib/sina-ui/ui/").replaceAll("'#lib/blocks/", "'$lib/sina-ui/blocks/")) - 1}\u0000`;
+		`\u0000${kept.push(block.replaceAll("'#lib/ui/", "'$lib/sinaui/ui/").replaceAll("'#lib/blocks/", "'$lib/sinaui/blocks/")) - 1}\u0000`;
 	let body = src
 		.replace(/<script[\s\S]*?<\/script>/g, '')
 		.replace(/<style[\s\S]*?<\/style>/g, '')

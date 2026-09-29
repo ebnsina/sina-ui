@@ -3,10 +3,10 @@
 Accessible Svelte 5 components that feel finished. You copy a component into your project and own
 the code: no package to update, nothing hidden.
 
-**[Browse the components →](https://ebnsina.github.io/sina-ui/)**
+**[Browse the components →](https://ebnsina.github.io/sinaui/)**
 
-[Report a bug](https://github.com/ebnsina/sina-ui/issues/new?template=bug_report.yml) ·
-[Ask for a component](https://github.com/ebnsina/sina-ui/issues/new?template=feature_request.yml) ·
+[Report a bug](https://github.com/ebnsina/sinaui/issues/new?template=bug_report.yml) ·
+[Ask for a component](https://github.com/ebnsina/sinaui/issues/new?template=feature_request.yml) ·
 [Contribute](#contributing)
 
 ## What you get
@@ -20,7 +20,7 @@ the code: no package to update, nothing hidden.
 - **Calm motion.** Animations are short, and they turn down for readers who ask their system for
   less motion.
 - **Your brand.** Change colours, corners, type and motion with a few CSS variables. See
-  [Theming](https://ebnsina.github.io/sina-ui/theming).
+  [Theming](https://ebnsina.github.io/sinaui/theming).
 
 There are 68 components, 7 widgets and 6 full blocks: an AI chat, a calendar, a dashboard, a file
 explorer, a kanban board and a media generator.
@@ -35,7 +35,7 @@ npx sinaui add button dialog dropdown
 
 That's the whole setup. The command:
 
-1. writes each component, and every file it imports, to `src/lib/sina-ui`
+1. writes each component, and every file it imports, to `src/lib/sinaui`
 2. installs the packages they need, with whichever package manager your project uses
 3. imports the design tokens in `src/routes/+layout.svelte`
 
@@ -43,7 +43,7 @@ Then use a component:
 
 ```svelte
 <script lang="ts">
-	import Button from '$lib/sina-ui/ui/Button.svelte';
+	import Button from '$lib/sinaui/ui/Button.svelte';
 </script>
 
 <Button onclick={() => alert('Salaam')}>Say hello</Button>
@@ -79,7 +79,7 @@ If something is off on your device, please [tell us](#reporting-a-bug).
 
 ## Reporting a bug
 
-[Open a bug report](https://github.com/ebnsina/sina-ui/issues/new?template=bug_report.yml). The
+[Open a bug report](https://github.com/ebnsina/sinaui/issues/new?template=bug_report.yml). The
 form asks for:
 
 - the component and what you did
@@ -89,12 +89,12 @@ form asks for:
 A link to a small reproduction, or a screen recording, makes a fix much faster.
 
 **Found a security problem?** Please don't open a public issue. Use
-[Report a vulnerability](https://github.com/ebnsina/sina-ui/security/advisories/new) instead, which
+[Report a vulnerability](https://github.com/ebnsina/sinaui/security/advisories/new) instead, which
 only the maintainer can see.
 
 ## Asking for a component
 
-[Open a request](https://github.com/ebnsina/sina-ui/issues/new?template=feature_request.yml) and
+[Open a request](https://github.com/ebnsina/sinaui/issues/new?template=feature_request.yml) and
 describe what you're building. The real situation helps more than a component name.
 
 ## Contributing
@@ -105,8 +105,8 @@ open an issue first so we can agree on the approach before you spend time on it.
 You'll need Node 24 and [pnpm](https://pnpm.io) 11.
 
 ```sh
-git clone git@github.com:ebnsina/sina-ui.git
-cd sina-ui
+git clone git@github.com:ebnsina/sinaui.git
+cd sinaui
 pnpm install
 pnpm dev                # the docs site, at http://localhost:5173
 ```
@@ -169,7 +169,7 @@ the site, then run its tests:
 
 ```sh
 pnpm build && pnpm preview    # serves the registry at http://localhost:4173
-SINA_UI_REGISTRY=http://localhost:4173 node cli/index.js add dropdown
+SINAUI_REGISTRY=http://localhost:4173 node cli/index.js add dropdown
 node --test cli/index.test.js
 ```
 

@@ -10,7 +10,7 @@ describe('docs for language models', () => {
 		const md = markdown('/components/sortable');
 		expect(md).toContain('# Sortable');
 		expect(md).toContain('npx sinaui add sortable');
-		expect(md).toContain("import Sortable from '$lib/sina-ui/ui/Sortable.svelte';");
+		expect(md).toContain("import Sortable from '$lib/sinaui/ui/Sortable.svelte';");
 		expect(md).toContain('{#snippet children(book, handle, { index })}');
 		expect(md).not.toContain('<Example');
 	});
