@@ -3,6 +3,7 @@
 	import { type CalendarDate, DateFormatter, getLocalTimeZone } from '@internationalized/date';
 	import Calendar, { type DateRange } from './Calendar.svelte';
 	import Icon from './Icon.svelte';
+	import { MediaQuery } from 'svelte/reactivity';
 	import Popover from './Popover.svelte';
 	import { scrollEdges } from './scroll-edges';
 	import type { CustomCalendar } from './calendars/bangla';
@@ -18,7 +19,7 @@
 		endName?: string;
 		/** Quick picks shown beside the calendar ("Next 7 days"). */
 		presets?: ({ label: string } & DateRange)[];
-		/** Months side by side; they stack on narrow screens. */
+		/** Months side by side; phones show one at a time. */
 		months?: number;
 		locale?: string;
 		calendar?: string | CustomCalendar;
@@ -49,6 +50,8 @@
 	const id = $props.id();
 	const tz = getLocalTimeZone();
 	let open = $state(false);
+	// Stacked months overflow a phone screen: one month there, paged with the arrows.
+	const phone = new MediaQuery('max-width: 40rem');
 	let grid = $state<ReturnType<typeof Calendar>>();
 	// Intl writes ranges compactly ("12 – 18 Mar 2026"); a custom calendar joins its two dates.
 	const text = $derived(
@@ -111,7 +114,7 @@
 				bind:this={grid}
 				mode="range"
 				bind:range={value}
-				{months}
+				months={phone.current ? 1 : months}
 				{label}
 				{locale}
 				{calendar}

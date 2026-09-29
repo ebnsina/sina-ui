@@ -48,6 +48,9 @@ export const releases: Release[] = [
 					{ text: 'Popovers centre on their button on phones instead of hugging the edge' },
 					{ text: 'Long file names in uploads shorten instead of covering the cancel button' },
 					{ text: 'Pagination fits on one row on phones' },
+					{
+						text: 'On phones, submenus open below their item and the date range picker shows one month'
+					},
 					{ text: 'Alignment and spacing fixes across the drawer, tabs, tables and every block' }
 				]
 			},

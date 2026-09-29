@@ -7,8 +7,9 @@ const opposite: Record<Side, Side> = { top: 'bottom', bottom: 'top', left: 'righ
 
 /**
  * Positions a top-layer element (popover) beside its anchor. Prefers `side` and flips to the opposite
- * side when only that one fits. Above/below it aligns to the anchor's start edge (or its end near the
- * viewport edge; RTL mirrors both) or its centre; left/right it centres vertically. Always stays 8px
+ * side when only that one fits; left/right drop below when neither fits. Above/below it aligns to the
+ * anchor's start edge (or its end near the viewport edge; RTL mirrors both) or its centre; left/right
+ * it centres vertically. Always stays 8px
  * inside the viewport. Sets transform-origin to the point facing the anchor so scale animations grow out
  * of it, and exposes that point as --anchor-x / --anchor-y plus data-side for arrows.
  * Returns the side used, or null once the anchor has scrolled off-screen.
@@ -37,7 +38,10 @@ export function place(
 		right: vw - t.right - gap - edge
 	};
 	const needed = side === 'top' || side === 'bottom' ? m.height : m.width;
-	const s = needed > room[side] && room[opposite[side]] > room[side] ? opposite[side] : side;
+	let s = needed > room[side] && room[opposite[side]] > room[side] ? opposite[side] : side;
+	// Too wide for either side (a submenu on a phone): drop below its item, or above, rather than cover it.
+	if ((s === 'left' || s === 'right') && m.width > room[s])
+		s = room.bottom >= m.height || room.bottom >= room.top ? 'bottom' : 'top';
 	const clamp = (n: number, max: number) => Math.min(Math.max(edge, n), max - edge);
 
 	let x: number;
