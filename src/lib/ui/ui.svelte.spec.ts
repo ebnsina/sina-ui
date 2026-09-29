@@ -1584,6 +1584,8 @@ describe('sinaui', () => {
 	});
 
 	it('date range: two clicks choose a span, Escape drops a half-chosen one, presets apply', async () => {
+		// Desktop width: phones show one month at a time.
+		await page.viewport(1280, 900);
 		render(DateRangePickerPage);
 		const trigger = page.getByRole('button', { name: /Study leave/ });
 		await trigger.click();
@@ -1606,9 +1608,19 @@ describe('sinaui', () => {
 		await trigger.click();
 		await page.getByRole('button', { name: 'Next 7 days' }).click();
 		await expect.element(page.getByText('6 nights away', { exact: false })).toBeVisible();
+		await page.viewport(414, 896);
+	});
+
+	it('date range, narrow: one month at a time', async () => {
+		await page.viewport(414, 896);
+		render(DateRangePickerPage);
+		await page.getByRole('button', { name: /Study leave/ }).click();
+		const pop = () => document.querySelector<HTMLElement>('[popover]:popover-open');
+		await expect.poll(() => pop()?.querySelectorAll('[role="grid"]').length).toBe(1);
 	});
 
 	it('date range: cannot span a closed day', async () => {
+		await page.viewport(1280, 900);
 		render(DateRangePickerPage);
 		await page.getByRole('button', { name: /Reading room booking/ }).click();
 		const pop = () => document.querySelector<HTMLElement>('[popover]:popover-open')!;
@@ -1623,6 +1635,7 @@ describe('sinaui', () => {
 			`[data-date="${new Date(Date.parse(open[0].dataset.date!) + 7 * 864e5).toISOString().slice(0, 10)}"]`
 		)!;
 		await expect.poll(() => nextSat.getAttribute('aria-disabled')).toBe('true');
+		await page.viewport(414, 896);
 	});
 
 	it('time field: typed digits fill and advance; arrows wrap; value follows', async () => {
