@@ -80,7 +80,7 @@
 		<tr><td><code>dismiss(id)</code></td><td>Removes one early.</td></tr>
 		<tr
 			><td><code>options</code></td><td
-				><code>description</code>, <code>action: {'{'} label, onclick {'}'}</code>,
+				><code>description</code>, <code>action: {'{'} label, onclick }</code>,
 				<code>duration</code> (ms)</td
 			></tr
 		>

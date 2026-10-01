@@ -42,9 +42,7 @@
 	}: Props = $props();
 
 	const id = $props.id();
-	// svelte-ignore state_referenced_locally
 	let start = $state(value?.start);
-	// svelte-ignore state_referenced_locally
 	let end = $state(value?.end);
 	const minutesOf = (t: Time) => t.hour * 60 + t.minute;
 	let startBox = $state<HTMLElement>();

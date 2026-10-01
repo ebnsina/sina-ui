@@ -23,7 +23,10 @@ export function arrowTarget(key: string, from: HTMLElement, all: HTMLElement[]) 
 		if (dy < -2) continue;
 		// The next row first, then the closest across it.
 		const s = Math.round(dy) * 1e4 + Math.abs(b.left + b.width / 2 - x);
-		if (s < score) ((score = s), (best = el));
+		if (s < score) {
+			score = s;
+			best = el;
+		}
 	}
 	return best;
 }

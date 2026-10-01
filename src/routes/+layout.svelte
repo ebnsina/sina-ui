@@ -73,7 +73,9 @@
 		else delete document.documentElement.dataset.sidebar;
 		try {
 			localStorage.setItem('sidebar', collapsed ? 'collapsed' : 'expanded');
-		} catch {}
+		} catch {
+			// Storage blocked: the choice lasts until reload.
+		}
 	}
 	// ⌘K on Apple devices, Ctrl K elsewhere; decided in the browser.
 	let modKey = $state('⌘');

@@ -25,6 +25,7 @@ export class UploadError extends Error {}
  */
 export function createUploads(send: Send) {
 	const items = $state<Upload[]>([]);
+	// eslint-disable-next-line svelte/prefer-svelte-reactivity -- abort handles, never rendered
 	const controllers = new Map<number, AbortController>();
 	let nextId = 0;
 

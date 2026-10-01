@@ -45,8 +45,8 @@
 	</p>
 	<Code code="pnpm add @internationalized/date" lang="shell" label="Install command" />
 	<p>
-		The value is <code>{'{'} start, end {'}'}</code>, two <code>CalendarDate</code>s. For one day,
-		use the <a href={resolve('/components/date-picker')}>Date picker</a>.
+		The value is <code>{'{'} start, end }</code>, two <code>CalendarDate</code>s. For one day, use
+		the <a href={resolve('/components/date-picker')}>Date picker</a>.
 	</p>
 </Install>
 
@@ -77,14 +77,8 @@
 	<thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead>
 	<tbody>
 		<tr><td><code>label</code></td><td><code>string</code> (required)</td><td></td></tr>
-		<tr
-			><td><code>value</code></td><td><code>{'{'} start, end {'}'}</code>, bindable</td><td
-			></td></tr
-		>
-		<tr
-			><td><code>presets</code></td><td><code>{'{'} label, start, end {'}'}[]</code></td><td
-			></td></tr
-		>
+		<tr><td><code>value</code></td><td><code>{'{'} start, end }</code>, bindable</td><td></td></tr>
+		<tr><td><code>presets</code></td><td><code>{'{'} label, start, end }[]</code></td><td></td></tr>
 		<tr><td><code>months</code></td><td><code>number</code></td><td><code>2</code></td></tr>
 		<tr><td><code>min</code>, <code>max</code></td><td><code>CalendarDate</code></td><td></td></tr>
 		<tr><td><code>isUnavailable</code></td><td><code>(date) =&gt; boolean</code></td><td></td></tr>

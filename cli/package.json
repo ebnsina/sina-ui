@@ -1,6 +1,6 @@
 {
 	"name": "sinaui",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Add accessible Svelte 5 components from Sina UI to your SvelteKit project.",
 	"type": "module",
 	"bin": {

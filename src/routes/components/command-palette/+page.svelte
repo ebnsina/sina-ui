@@ -52,7 +52,7 @@
 	<tbody>
 		<tr>
 			<td><code>commands</code></td>
-			<td><code>{'{'} id, label, onselect, group?, keywords?, shortcut?, icon? {'}'}[]</code></td>
+			<td><code>{'{'} id, label, onselect, group?, keywords?, shortcut?, icon? }[]</code></td>
 			<td></td>
 		</tr>
 		<tr

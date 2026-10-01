@@ -66,7 +66,6 @@
 	{#if error}<p class="error" role="alert">{error}</p>{/if}
 	{#snippet footer()}
 		<!-- Focus starts on the safe choice, so a stray Enter never confirms. -->
-		<!-- svelte-ignore a11y_autofocus -->
 		<Button variant="secondary" autofocus disabled={pending} onclick={() => (open = false)}
 			>{cancelLabel}</Button
 		>

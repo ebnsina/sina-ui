@@ -78,6 +78,7 @@
 		globalFilterFn: (row, columnId, q: string) =>
 			fold(String(row.getValue(columnId) ?? '')).includes(fold(q.trim())),
 		initialState: {
+			// eslint-disable-next-line svelte/no-unused-svelte-ignore -- svelte-check needs it; eslint's parser misses the warning
 			// svelte-ignore state_referenced_locally
 			pagination: { pageIndex: 0, pageSize }
 		}

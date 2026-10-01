@@ -116,7 +116,7 @@
 		{@attach scrollEdges}
 		data-fade="x"
 	>
-		<div class="grid" style:--lines={count}>
+		<div class="sheet" style:--lines={count}>
 			{#if lineNumbers}
 				<ol class="gutter" aria-hidden="true">
 					{#each { length: count }, i (i)}<li class:hit={marked.has(i + 1)}>{i + 1}</li>{/each}
@@ -198,17 +198,17 @@
 		overflow-x: auto;
 	}
 	/* As wide as the longest line, so scrolled-to text and line highlights aren't cut at the box edge. */
-	.grid {
+	.sheet {
 		display: grid;
 		grid-template-columns: auto minmax(0, 1fr);
 		inline-size: max-content;
 		min-inline-size: 100%;
 		padding-block: 0.875rem;
 	}
-	.armed:not(.seen) .grid {
+	.armed:not(.seen) .sheet {
 		clip-path: inset(0 0 100% 0);
 	}
-	.armed.seen .grid {
+	.armed.seen .sheet {
 		clip-path: inset(0 0 0 0);
 		transition: clip-path calc(200ms + var(--lines) * 18ms) var(--ui-ease-out);
 	}
@@ -249,7 +249,7 @@
 		line-height: var(--line);
 		tab-size: 2;
 	}
-	.grid:not(:has(.gutter)) pre {
+	.sheet:not(:has(.gutter)) pre {
 		padding-inline-start: 1rem;
 	}
 	code {
@@ -301,8 +301,8 @@
 		color: light-dark(#b42318, #ff8a7a);
 	}
 	@media (prefers-reduced-motion: reduce) {
-		.armed:not(.seen) .grid,
-		.armed.seen .grid {
+		.armed:not(.seen) .sheet,
+		.armed.seen .sheet {
 			clip-path: none;
 			transition: none;
 		}

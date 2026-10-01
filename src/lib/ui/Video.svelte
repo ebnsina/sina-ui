@@ -205,7 +205,7 @@
 <!-- svelte-ignore a11y_no_noninteractive_tabindex, a11y_no_noninteractive_element_interactions -->
 <div
 	bind:this={wrap}
-	class={['player', hidden && 'hidden', full && 'full', className]}
+	class={['player', hidden && 'faded', full && 'full', className]}
 	style:aspect-ratio={aspectRatio}
 	role="region"
 	aria-label={title ?? 'Video player'}
@@ -314,7 +314,7 @@
 				}}
 			/>
 			<span class="time"><span>{clock(time)}</span> / <span>{clock(duration)}</span></span>
-			<span class="grow"></span>
+			<span class="spacer"></span>
 			{@render controls?.()}
 			<Dropdown.Root bind:open={menuOpen}>
 				{#snippet trigger(props)}
@@ -379,7 +379,7 @@
 	.full {
 		border-radius: 0;
 	}
-	.hidden {
+	.faded {
 		cursor: none;
 	}
 	video {
@@ -442,7 +442,7 @@
 			opacity var(--ui-dur) var(--ui-ease-out),
 			translate var(--ui-dur) var(--ui-ease-out);
 	}
-	.hidden .bar {
+	.faded .bar {
 		opacity: 0;
 		translate: 0 0.5rem;
 		transition-timing-function: var(--ui-ease-in-out);
@@ -453,7 +453,7 @@
 		align-items: center;
 		gap: 0.125rem;
 	}
-	.grow {
+	.spacer {
 		flex: 1;
 	}
 	.ctl {
@@ -584,7 +584,7 @@
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.bar,
-		.hidden .bar {
+		.faded .bar {
 			translate: none;
 		}
 		.big,

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { asset } from '$app/paths';
+	import starTile from './star-tile.svg';
 	import Chat from '#lib/ui/Chat.svelte';
 	import { conversation, me, users, wait } from './data';
 
@@ -14,7 +14,7 @@
 							name: 'star-tile.svg',
 							size: 4_812,
 							type: 'image/svg+xml',
-							url: asset('demo/star-tile.svg'),
+							url: starTile,
 							width: 1,
 							height: 1
 						}

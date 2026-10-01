@@ -27,7 +27,6 @@
 
 	const id = $props.id();
 	// Kept apart from the hex, so hue survives grays and blacks (where the hex has none).
-	// svelte-ignore state_referenced_locally
 	let hsv = $state<Hsv>(hexToHsv(value) ?? { h: 160, s: 1, v: 0.47 });
 	const hex = $derived(hsvToHex(hsv));
 	let typed = $state<string>();

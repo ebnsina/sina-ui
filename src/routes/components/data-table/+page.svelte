@@ -67,7 +67,7 @@
 <p>
 	Columns are TanStack <code>ColumnDef</code>s; the <code>Column&lt;Row&gt;</code> type fills in the
 	table's features for you. Format numbers and dates in <code>cell</code> with <code>Intl</code>,
-	and set <code>meta: {'{'} align: 'end' {'}'}</code> on numeric columns.
+	and set <code>meta: {'{'} align: 'end' }</code> on numeric columns.
 </p>
 
 <h2 id="props">Props</h2>

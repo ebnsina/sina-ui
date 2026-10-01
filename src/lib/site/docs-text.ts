@@ -75,11 +75,14 @@ export function markdown(href: string): string {
 		.replace(/\{'([^']*)'\}/g, '$1')
 		.replace(/<[^>]+>/g, '')
 		.replace(/\{[^{}]*\}/g, '');
-	return decode(body)
-		.split('\n')
-		.map((l) => l.replace(/\s+$/, '').replace(/^\t+/, ''))
-		.join('\n')
-		.replace(/\n{3,}/g, '\n\n')
-		.replace(/\u0000(\d+)\u0000/g, (_, i) => kept[+i])
-		.trim();
+	return (
+		decode(body)
+			.split('\n')
+			.map((l) => l.replace(/\s+$/, '').replace(/^\t+/, ''))
+			.join('\n')
+			.replace(/\n{3,}/g, '\n\n')
+			// eslint-disable-next-line no-control-regex -- NUL marks the kept code blocks; it can't occur in source text
+			.replace(/\u0000(\d+)\u0000/g, (_, i) => kept[+i])
+			.trim()
+	);
 }

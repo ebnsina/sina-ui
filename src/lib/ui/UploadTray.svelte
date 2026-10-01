@@ -116,7 +116,7 @@
 				<header>
 					{#if !open}
 						<!-- A ring for overall progress stands in for the bar while folded. -->
-						<svg class="ring" viewBox="0 0 20 20" aria-hidden="true">
+						<svg class="dial" viewBox="0 0 20 20" aria-hidden="true">
 							<circle class="track" cx="10" cy="10" r="8" />
 							<circle
 								class="done"
@@ -218,20 +218,20 @@
 		padding-block: 0.375rem;
 		padding-inline: 0.75rem 0.375rem;
 	}
-	.ring {
+	.dial {
 		flex: none;
 		inline-size: 1.25rem;
 		block-size: 1.25rem;
 		rotate: -90deg;
 	}
-	.ring circle {
+	.dial circle {
 		fill: none;
 		stroke-width: 2.5;
 	}
-	.ring .track {
+	.dial .track {
 		stroke: var(--ui-subtle);
 	}
-	.ring .done {
+	.dial .done {
 		stroke: var(--ui-accent);
 		stroke-dasharray: 1;
 		stroke-linecap: round;
@@ -320,7 +320,7 @@
 	@media (prefers-reduced-motion: reduce) {
 		.ready,
 		.fill,
-		.ring .done {
+		.dial .done {
 			transition: none;
 		}
 	}

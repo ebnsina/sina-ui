@@ -173,7 +173,7 @@
 				<h2>Account</h2>
 				<p class="lede">Take your data with you, or close your account.</p>
 				<div class="row">
-					<div class="grow">
+					<div class="stretch">
 						<strong>Export your data</strong>
 						<span>Everything you’ve made, as files. We email a link when it’s ready.</span>
 					</div>
@@ -187,7 +187,7 @@
 					</ActionButton>
 				</div>
 				<div class="row danger">
-					<div class="grow">
+					<div class="stretch">
 						<strong>Delete your account</strong>
 						<span>Removes your profile and everything in it. This can’t be undone.</span>
 					</div>
@@ -236,6 +236,8 @@
 	h2 {
 		margin: 0;
 		font-size: 1.125rem;
+		font-weight: 650;
+		letter-spacing: -0.02em;
 	}
 	.lede {
 		margin: 0.25rem 0 1.5rem;
@@ -257,12 +259,12 @@
 	.danger {
 		background: color-mix(in srgb, var(--ui-danger) 6%, transparent);
 	}
-	.grow {
+	.stretch {
 		display: grid;
 		flex: 1 1 16rem;
 		gap: 0.125rem;
 	}
-	.grow span,
+	.stretch span,
 	.gone {
 		color: var(--ui-muted);
 		font-size: 0.875rem;

@@ -325,7 +325,6 @@
 		{/if}
 		<!-- Focus never enters the list: the combobox keeps it and points at the highlighted option.
 		     No tabindex, and presses anywhere inside (scrollbar too) are kept from taking focus. -->
-		<!-- svelte-ignore a11y_interactive_supports_focus -->
 		<div
 			bind:this={list}
 			id="{id}-list"

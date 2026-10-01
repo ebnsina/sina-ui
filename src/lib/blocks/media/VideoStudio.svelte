@@ -94,7 +94,6 @@
 		{:else if gen.error}
 			<p class="note failed" role="alert">The video didn't come through. Try again in a moment.</p>
 		{:else if gen.result}
-			<!-- svelte-ignore a11y_media_has_caption -->
 			<video src={gen.result.url} controls autoplay muted loop playsinline aria-label={prompt}
 			></video>
 		{:else}

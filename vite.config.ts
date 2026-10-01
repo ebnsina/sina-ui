@@ -1,4 +1,3 @@
-/// <reference types="vitest/config" />
 import { mdsvex } from 'mdsvex';
 import { defineConfig } from 'vitest/config';
 import { playwright } from '@vitest/browser-playwright';

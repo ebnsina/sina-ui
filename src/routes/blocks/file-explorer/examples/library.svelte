@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { asset } from '$app/paths';
+	import starTile from './star-tile.svg';
 	import FileExplorer, { type ExplorerItem } from '#lib/blocks/file-explorer/FileExplorer.svelte';
 	import type { Send } from '#lib/ui/uploads.svelte.js';
 
@@ -60,7 +60,7 @@
 			parent: 'ms',
 			kind: 'image',
 			size: 4_800_000,
-			thumbnail: asset('demo/star-tile.svg'),
+			thumbnail: starTile,
 			modified: day(2)
 		},
 		{
@@ -139,7 +139,10 @@
 			let p = 0;
 			const timer = setInterval(() => {
 				onprogress((p += 0.05 + Math.random() * 0.1));
-				if (p >= 1) (clearInterval(timer), resolve());
+				if (p >= 1) {
+					clearInterval(timer);
+					resolve();
+				}
 			}, 150);
 			signal.addEventListener('abort', () => (clearInterval(timer), reject(signal.reason)));
 		});

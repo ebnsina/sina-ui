@@ -95,7 +95,6 @@
 		{onkeydown}
 	>
 		{#each items as item, i (i)}
-			<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 			<div class={['row', i === index && 'chosen']} aria-hidden="true" onclick={() => goTo(i)}>
 				{item.label}
 			</div>

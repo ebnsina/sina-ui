@@ -63,7 +63,7 @@
 	<thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead>
 	<tbody>
 		<tr
-			><td><code>steps</code></td><td><code>{'{'} label, description?, error? {'}'}[]</code></td><td
+			><td><code>steps</code></td><td><code>{'{'} label, description?, error? }[]</code></td><td
 			></td></tr
 		>
 		<tr

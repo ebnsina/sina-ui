@@ -71,7 +71,9 @@
 		threads = threads.filter((x) => x.id !== t.id);
 		try {
 			persistence.removeItem(t.id);
-		} catch {}
+		} catch {
+			// Storage blocked: the thread is still gone from the list.
+		}
 		announce(`${t.title} deleted`);
 		if (t.id === active) start();
 	}
@@ -79,6 +81,7 @@
 	// Grouped by age, as chat apps do.
 	const groups = $derived.by(() => {
 		const day = 86_400_000;
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- a one-off timestamp, never mutated after
 		const midnight = new Date().setHours(0, 0, 0, 0);
 		const by: [string, Thread[]][] = [
 			['Today', []],
@@ -432,6 +435,7 @@
 		margin: 0;
 		font-size: 0.9375rem;
 		font-weight: 600;
+		letter-spacing: -0.02em;
 		text-overflow: ellipsis;
 		white-space: nowrap;
 	}

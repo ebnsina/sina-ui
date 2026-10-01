@@ -29,7 +29,6 @@
 	let dots = $state<HTMLDivElement>();
 	let marker = $state<HTMLSpanElement>();
 	let current = $state(0);
-	let viaPointer = false;
 	// svelte-ignore state_referenced_locally
 	let playing = $state(!!autoplay);
 	let hovered = $state(false);
@@ -50,6 +49,7 @@
 
 	// The slide in view is whichever is most visible; scrolling, swiping and buttons all land here.
 	$effect(() => {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- observer bookkeeping; `current` is the reactive result
 		const visible = new Set<number>();
 		const seen = new IntersectionObserver(
 			(entries) => {

@@ -18,4 +18,8 @@ npx sinaui list          # what can be added
 ```
 
 Your edited files are kept on later runs; pass `--overwrite` to replace them. Needs Node 20+,
-Svelte 5 and SvelteKit.
+Svelte 5 and SvelteKit 2 or later. Works with or without Tailwind.
+
+Components take your page's font. To use Sina UI's font tokens everywhere, add
+`html { font-family: var(--ui-font); }` to your CSS. Colors and corners live in
+`src/lib/sinaui/ui/tokens.css`; see [Theming](https://ebnsina.github.io/sinaui/theming).

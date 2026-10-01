@@ -111,20 +111,26 @@
 	color-scheme: dark;
 }
 
-/* Zero specificity, so any app style wins. */
-:where(code, kbd, samp, pre) {
-	font-family: var(--ui-font-mono);
-	font-size: 0.9em;
-}
-
-/* Links read as links in the accent (pulled toward the text color for 4.5:1 on any surface).
-   :where() keeps this at zero specificity: any link style of the app's own wins. */
-:where(a) {
-	color: color-mix(in srgb, var(--ui-accent) 80%, var(--ui-fg));
-	text-underline-offset: 0.2em;
-}
-:where(a:hover) {
-	text-decoration-thickness: 2px;
+/* Gentle defaults for plain elements. In a layer, so any app CSS wins, Tailwind's base included. */
+@layer base {
+	/* Text the components inherit, for apps that don't set their own. */
+	:where(html) {
+		color: var(--ui-fg);
+		font-family: var(--ui-font);
+		line-height: 1.5;
+	}
+	:where(code, kbd, samp, pre) {
+		font-family: var(--ui-font-mono);
+		font-size: 0.9em;
+	}
+	/* Links in the accent, pulled toward the text color for 4.5:1 on any surface. */
+	:where(a) {
+		color: color-mix(in srgb, var(--ui-accent) 80%, var(--ui-fg));
+		text-underline-offset: 0.2em;
+	}
+	:where(a:hover) {
+		text-decoration-thickness: 2px;
+	}
 }
 
 /* Scroll edges (see scroll-edges.ts): a fade appears at an edge only while there's more past it. */

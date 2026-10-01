@@ -82,7 +82,7 @@
 <Code code={env} lang="ts" label="src/env.ts" />
 <p>
 	Then give the block its connection:
-	<code>connection={'{'}fetchServerSentEvents('/api/chat'){'}'}</code>.
+	<code>connection={'{'}fetchServerSentEvents('/api/chat')}</code>.
 </p>
 
 <h2 id="props">Props</h2>

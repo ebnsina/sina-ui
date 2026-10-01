@@ -108,7 +108,7 @@
 					<!-- Time to the next message, drawn round the pause button. -->
 					<button
 						type="button"
-						class="ring"
+						class="dial"
 						aria-label={paused ? 'Play announcements' : 'Pause announcements'}
 						onclick={() => (paused = !paused)}
 					>
@@ -234,7 +234,7 @@
 		border-block-end: 1px solid transparent;
 		background: var(--bg);
 	}
-	.bar:has(.ring) {
+	.bar:has(.dial) {
 		padding-inline-start: 0.375rem;
 	}
 
@@ -342,7 +342,7 @@
 	}
 
 	.icon,
-	.ring {
+	.dial {
 		position: relative;
 		display: grid;
 		flex: none;
@@ -362,22 +362,22 @@
 	}
 	@media (hover: hover) {
 		.icon:hover,
-		.ring:hover {
+		.dial:hover {
 			background: color-mix(in srgb, currentColor 14%, transparent);
 			color: var(--fg);
 		}
 	}
 	.icon:active,
-	.ring:active {
+	.dial:active {
 		scale: 0.94;
 	}
-	.ring svg {
+	.dial svg {
 		inline-size: 1.25rem;
 		block-size: 1.25rem;
 		overflow: visible;
 		rotate: -90deg;
 	}
-	.ring circle {
+	.dial circle {
 		fill: none;
 		stroke: currentColor;
 		stroke-width: 1.75;
@@ -405,7 +405,7 @@
 		display: grid;
 		place-items: center;
 	}
-	:is(.cta, .icon, .ring):focus-visible {
+	:is(.cta, .icon, .dial):focus-visible {
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: 2px;
 	}
@@ -419,7 +419,7 @@
 	}
 	@media (pointer: coarse) {
 		.icon,
-		.ring {
+		.dial {
 			inline-size: 2.75rem;
 			block-size: 2.75rem;
 		}
