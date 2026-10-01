@@ -44,10 +44,17 @@
 	{...ex('voice')}
 />
 <Example
-	id="sizes"
-	title="Sizes"
-	description="sm sits beside a message, md in a toolbar, lg on a voice screen, xl full screen. Or give a number of pixels."
-	{...ex('sizes')}
+	id="small"
+	title="Small"
+	description="Sits beside a message. The default, lg, is the voice screen above; any number of pixels works too."
+	{...ex('small')}
+/>
+<Example id="medium" title="Medium" description="For a toolbar or a card." {...ex('medium')} />
+<Example
+	id="extra-large"
+	title="Extra large"
+	description="For a full-screen call."
+	{...ex('extra-large')}
 />
 
 <h2 id="props">Props</h2>
@@ -71,7 +78,7 @@
 				><code>'sm' | 'md' | 'lg' | 'xl'</code> (32, 64, 160, 240px), or a number of px</td
 			><td><code>'lg'</code></td></tr
 		>
-		<tr><td><code>color</code></td><td>any CSS colour</td><td>the accent</td></tr>
+		<tr><td><code>color</code></td><td>any CSS color</td><td>the accent</td></tr>
 	</tbody>
 </table>
 

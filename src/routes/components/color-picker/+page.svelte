@@ -18,18 +18,18 @@
 	<title>Color picker — Sina UI</title>
 	<meta
 		name="description"
-		content="Choose a colour by eye, by hex value, or from suggested swatches."
+		content="Choose a color by eye, by hex value, or from suggested swatches."
 	/>
 	<meta property="og:title" content="Color picker — Sina UI" />
 	<meta
 		property="og:description"
-		content="Choose a colour by eye, by hex value, or from suggested swatches."
+		content="Choose a color by eye, by hex value, or from suggested swatches."
 	/>
 </svelte:head>
 
 <p class="eyebrow">Forms</p>
 <h1>Color picker</h1>
-<p class="lede">Choose a colour by eye, by typing its hex value, or from a set of suggestions.</p>
+<p class="lede">Choose a color by eye, by typing its hex value, or from a set of suggestions.</p>
 
 <h2 id="installation">Installation</h2>
 <Install names="color-picker">
@@ -43,8 +43,8 @@
 <h2 id="examples">Examples</h2>
 <Example
 	id="pigments"
-	title="Labelling a collection"
-	description="Choose a label colour and see it in place. Swatches are read by name; in Chrome and Edge, the pipette picks a colour from anywhere on screen."
+	title="Labeling a collection"
+	description="Choose a label color and see it in place. Swatches are read by name; in Chrome and Edge, the pipette picks a color from anywhere on screen."
 	{...ex('pigments')}
 />
 
@@ -76,7 +76,7 @@
 	<thead><tr><th>Key</th><th>Does</th></tr></thead>
 	<tbody>
 		<tr
-			><td>Arrow keys (colour area)</td><td
+			><td>Arrow keys (color area)</td><td
 				>Saturation left and right, brightness up and down; 10× with Shift</td
 			></tr
 		>
@@ -87,8 +87,8 @@
 
 <h2 id="accessibility">Accessibility</h2>
 <ul>
-	<li>Colours are read in words as well as values: “dark green, #047857”.</li>
-	<li>The colour area is a single two-way slider: one Tab stop, both directions by arrow keys.</li>
+	<li>Colors are read in words as well as values: “dark green, #047857”.</li>
+	<li>The color area is a single two-way slider: one Tab stop, both directions by arrow keys.</li>
 	<li>Swatches are read by name when given one (“Lapis lazuli”), and the chosen one is marked.</li>
 	<li>Everything the pointer can do, the keyboard can do; the hex field takes a value directly.</li>
 </ul>

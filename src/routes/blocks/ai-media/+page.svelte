@@ -39,7 +39,7 @@
 <Example
 	id="image"
 	title="Images"
-	description="Describe an image, pick a shape and generate two. The demo draws star patterns coloured by your words; your app shows the model's images."
+	description="Describe an image, pick a shape and generate two. The demo draws star patterns colored by your words; your app shows the model's images."
 	{...ex('image')}
 />
 <Example

@@ -2,7 +2,7 @@
 	import { QueryClient, createInfiniteQuery } from '@tanstack/svelte-query';
 	import Combobox from '#lib/ui/Combobox.svelte';
 
-	// Stands in for your API: 10,000 catalogue entries, searched on the "server", 40 to a page.
+	// Stands in for your API: 10,000 catalog entries, searched on the "server", 40 to a page.
 	const subjects = [
 		'Optics',
 		'Algebra',
@@ -23,7 +23,7 @@
 		'Samarkand',
 		'Isfahan'
 	];
-	const catalogue = Array.from({ length: 10_000 }, (_, i) => ({
+	const catalog = Array.from({ length: 10_000 }, (_, i) => ({
 		value: `ms-${i + 1}`,
 		label: `${subjects[i % 8]}, ${cities[Math.floor(i / 8) % 8]} copy ${Math.floor(i / 64) + 1}`,
 		description: `Shelf ${(i % 400) + 1}`
@@ -32,7 +32,7 @@
 	async function fetchPage(search: string, page: number) {
 		await new Promise((r) => setTimeout(r, 350));
 		const q = fold(search.trim());
-		const hits = q ? catalogue.filter((m) => fold(m.label).includes(q)) : catalogue;
+		const hits = q ? catalog.filter((m) => fold(m.label).includes(q)) : catalog;
 		const next = (page + 1) * 40 < hits.length ? page + 1 : undefined;
 		return { items: hits.slice(page * 40, page * 40 + 40), next };
 	}
@@ -48,7 +48,7 @@
 
 	const query = createInfiniteQuery(
 		() => ({
-			queryKey: ['catalogue', search],
+			queryKey: ['catalog', search],
 			queryFn: ({ pageParam }) => fetchPage(search, pageParam),
 			initialPageParam: 0,
 			getNextPageParam: (last) => last.next
@@ -61,7 +61,7 @@
 
 <Combobox
 	label="Manuscript"
-	placeholder="Search the catalogue"
+	placeholder="Search the catalog"
 	hint="10,000 entries, loaded 40 at a time as you scroll."
 	{options}
 	bind:value={manuscript}

@@ -30,7 +30,8 @@
 <p class="eyebrow">Display</p>
 <h1>Scroll area</h1>
 <p class="lede">
-	A box that scrolls, and says so: its edges fade where there's more, and a button offers the rest.
+	A box that scrolls, and says so: its edges fade where there's more, a thin scrollbar shows while
+	you scroll or point at it, and a button offers the rest.
 </p>
 
 <h2 id="installation">Installation</h2>
@@ -78,6 +79,10 @@
 		Space.
 	</li>
 	<li>The arrow button is for pointers and touch; keyboard users already scroll the region.</li>
+	<li>
+		The thin scrollbar is for pointers too: drag its thumb, or press above or below it to move a
+		screenful. Scrolling itself stays native.
+	</li>
 	<li>
 		With reduced motion, the button fades without rising and scrolling jumps instead of gliding.
 	</li>

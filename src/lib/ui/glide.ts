@@ -1,4 +1,4 @@
-import { reduced } from './motion';
+import { ease, reduced } from './motion';
 /**
  * One highlight that glides to the active item (menus, listboxes, tabs, nav links) instead of each item
  * lighting up on its own. It moves and resizes with FLIP: jump to the final box, then animate a transform
@@ -42,6 +42,6 @@ export function glide(
 			},
 			{ transform: end }
 		],
-		{ duration, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+		{ duration, easing: ease.standard }
 	);
 }

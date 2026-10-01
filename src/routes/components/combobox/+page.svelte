@@ -80,7 +80,7 @@
 	description="With TanStack Query: the search goes to the server as you type, and the next page loads as you scroll near the end."
 	{...ex('infinite')}
 />
-<Example id="error" title="With an error" stack {...ex('error')} />
+<Example id="error" title="With an error" stack {...ex('invalid')} />
 
 <h2 id="props">Props</h2>
 <table>

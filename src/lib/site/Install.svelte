@@ -14,7 +14,7 @@
 		<Tabs.Tab value="manual">Manual</Tabs.Tab>
 	</Tabs.List>
 	<Tabs.Panel value="cli">
-		<Code code="npx sinaui add {names}" lang="shell" label="Add command" />
+		<Code code="npx sinaui add {names}" lang="shell" label="Add command for {names}" />
 	</Tabs.Panel>
 	<Tabs.Panel value="manual">
 		{#if children}

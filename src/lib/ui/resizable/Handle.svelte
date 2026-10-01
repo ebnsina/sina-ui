@@ -2,7 +2,7 @@
 	import { getGroup } from './context';
 
 	interface Props {
-		/** What it resizes, for screen readers ("Resize the catalogue"). */
+		/** What it resizes, for screen readers ("Resize the catalog"). */
 		label: string;
 	}
 
@@ -113,7 +113,7 @@
 		background: var(--ui-line);
 		transition: background-color var(--ui-dur) ease;
 	}
-	/* 12px to grab (more by touch), centred on the line. */
+	/* 12px to grab (more by touch), centered on the line. */
 	.handle::after {
 		content: '';
 		position: absolute;

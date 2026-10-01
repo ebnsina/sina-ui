@@ -59,12 +59,12 @@
 		for (const d of fieldset.querySelectorAll<HTMLElement>('.dot')) d.style.opacity = '';
 
 		const box = drop.getBoundingClientRect();
-		const centre = (el: HTMLElement) => {
+		const center = (el: HTMLElement) => {
 			const r = el.getBoundingClientRect();
 			return { x: r.left + r.width / 2 - box.left, y: r.top + r.height / 2 - box.top };
 		};
-		const p = centre(a);
-		const q = centre(b);
+		const p = center(a);
+		const q = center(b);
 		const d = b.offsetWidth;
 		const length = Math.hypot(q.x - p.x, q.y - p.y) || 1;
 		const [ux, uy] = [(q.x - p.x) / length, (q.y - p.y) / length];

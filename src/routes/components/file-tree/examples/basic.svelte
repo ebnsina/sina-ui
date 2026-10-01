@@ -27,7 +27,7 @@
 			]
 		},
 		{ id: 'optics', name: 'Optics', children: [{ id: 'manazir', name: 'Kitāb al-Manāẓir.pdf' }] },
-		{ id: 'readme', name: 'Catalogue notes.md' }
+		{ id: 'readme', name: 'Catalog notes.md' }
 	];
 
 	let expanded = $state(['medicine', 'canon']);

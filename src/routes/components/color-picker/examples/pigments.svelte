@@ -16,7 +16,7 @@
 	let name = $state('Astronomy');
 	let color = $state('#1f4e9c');
 
-	// Dark or light text, whichever reads better on the chosen colour (WCAG relative luminance).
+	// Dark or light text, whichever reads better on the chosen color (WCAG relative luminance).
 	const text = $derived.by(() => {
 		const [r, g, b] = [1, 3, 5].map((i) => {
 			const c = parseInt(color.slice(i, i + 2), 16) / 255;
@@ -29,10 +29,10 @@
 <div class="editor">
 	<div class="fields">
 		<Input label="Collection" bind:value={name} />
-		<ColorPicker label="Label colour" bind:value={color} swatches={pigments} name="color" />
+		<ColorPicker label="Label color" bind:value={color} swatches={pigments} name="color" />
 	</div>
-	<div class="catalogue">
-		<p class="caption">How it looks in the catalogue</p>
+	<div class="catalog">
+		<p class="caption">How it looks in the catalog</p>
 		<div class="row">
 			<span class="title">Book of Optics</span>
 			<span class="tag" style:background={color} style:color={text}>{name || 'Untitled'}</span>
@@ -56,7 +56,7 @@
 		align-content: start;
 		gap: 1rem;
 	}
-	.catalogue {
+	.catalog {
 		display: grid;
 		align-content: start;
 		gap: 0.5rem;

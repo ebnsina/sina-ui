@@ -49,8 +49,14 @@
 <Example
 	id="circle"
 	title="As a ring"
-	description="shape=circle: the value sits in the middle and the label under it. With no value, an arc turns."
+	description="shape=circle: the value sits in the middle and the label under it."
 	{...ex('circle')}
+/>
+<Example
+	id="circle-indeterminate"
+	title="Ring, indeterminate"
+	description="With no value, an arc turns."
+	{...ex('circle-indeterminate')}
 />
 
 <h2 id="props">Props</h2>
@@ -80,7 +86,7 @@
 <h2 id="accessibility">Accessibility</h2>
 <ul>
 	<li>
-		<code>role="progressbar"</code> labelled by its label, with <code>aria-valuenow</code> and a
+		<code>role="progressbar"</code> labeled by its label, with <code>aria-valuenow</code> and a
 		formatted <code>aria-valuetext</code>.
 	</li>
 	<li>Numbers go through <code>Intl.NumberFormat</code>.</li>

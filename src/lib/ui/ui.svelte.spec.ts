@@ -73,7 +73,7 @@ import AlarmClockPage from '../../routes/widgets/alarm-clock/+page.svelte';
 import HourglassPage from '../../routes/widgets/hourglass/+page.svelte';
 import DynamicIslandPage from '../../routes/widgets/dynamic-island/+page.svelte';
 import AiChatPage from '../../routes/blocks/ai-chat/+page.svelte';
-import CalendarPage from '../../routes/blocks/calendar/+page.svelte';
+import CalendarPage from '../../routes/pro/calendar/+page.svelte';
 import AiMediaPage from '../../routes/blocks/ai-media/+page.svelte';
 import SortablePage from '../../routes/components/sortable/+page.svelte';
 import BoardPage from '../../routes/blocks/board/+page.svelte';
@@ -185,7 +185,7 @@ const pages = {
 };
 
 async function expectNoAxeViolations() {
-	// Theme flips animate colours; let transitions settle so axe measures final values.
+	// Theme flips animate colors; let transitions settle so axe measures final values.
 	await Promise.allSettled(
 		document
 			.getAnimations()
@@ -322,7 +322,7 @@ describe('sinaui', () => {
 		expect(dialog.element().contains(focused())).toBe(true);
 		await expect
 			.element(dialog)
-			.toHaveAccessibleDescription('Changes appear in the House of Wisdom catalogue right away.');
+			.toHaveAccessibleDescription('Changes appear in the House of Wisdom catalog right away.');
 
 		await userEvent.keyboard('{Escape}');
 		await expect.element(dialog).not.toBeInTheDocument();
@@ -427,7 +427,7 @@ describe('sinaui', () => {
 
 		// Disabled items are announced but can't be chosen; an outside click dismisses.
 		await trigger.click();
-		// Clipped parts of the menu don't take clicks until the opening morph ends.
+		// Let the opening animation finish before clicking inside the menu.
 		const menu = page.getByRole('menu', { name: 'Canon of Medicine' }).element();
 		await Promise.all(menu.getAnimations().map((a) => a.finished));
 		// force: Playwright won't click aria-disabled elements; the point is that the menu ignores it.
@@ -437,7 +437,7 @@ describe('sinaui', () => {
 		await expect.element(trigger).toHaveAttribute('aria-expanded', 'false');
 	});
 
-	it('icons are real SVG in the markup, hidden from screen readers unless labelled', async () => {
+	it('icons are real SVG in the markup, hidden from screen readers unless labeled', async () => {
 		render(ButtonPage);
 		const svg = page
 			.getByRole('button', { name: 'Share manuscript' })
@@ -552,7 +552,7 @@ describe('sinaui', () => {
 		render(TooltipPage);
 		for (const side of ['top', 'right', 'bottom', 'left']) {
 			const trigger = page
-				.getByRole('button', { name: side, exact: true })
+				.getByRole('button', { name: side[0].toUpperCase() + side.slice(1), exact: true })
 				.element() as HTMLElement;
 			// Follow the trigger's own link to its tooltip; "any open tooltip" can match a stray one.
 			const tip = document.getElementById(trigger.getAttribute('aria-describedby')!)!;
@@ -610,7 +610,7 @@ describe('sinaui', () => {
 		await expect.element(loan).toHaveAttribute('aria-expanded', 'false');
 	});
 
-	it('select: labelled native select; the error clears once something is chosen', async () => {
+	it('select: labeled native select; the error clears once something is chosen', async () => {
 		render(SelectPage);
 		const room = page.getByRole('combobox', { name: 'Reading room' });
 		await expect.element(room).toHaveAttribute('aria-invalid', 'true');
@@ -629,7 +629,7 @@ describe('sinaui', () => {
 		await expect.element(region).toBeInTheDocument();
 		expect(region.element().querySelector('[aria-live="polite"]')).not.toBeNull();
 
-		await page.getByRole('button', { name: 'Error' }).click();
+		await page.getByRole('button', { name: 'Send to Córdoba' }).click();
 		await expect
 			.element(region)
 			.toHaveTextContent('Error: The Córdoba library is closed for the night.');
@@ -794,7 +794,7 @@ describe('sinaui', () => {
 		expect(pageRange(2, 5)).toEqual([1, 2, 3, 4, 5]);
 
 		render(PaginationPage);
-		const nav = page.getByRole('navigation', { name: 'Catalogue pages' });
+		const nav = page.getByRole('navigation', { name: 'Catalog pages' });
 		await expect
 			.element(nav.getByRole('button', { name: 'Previous page' }))
 			.toHaveAttribute('aria-disabled', 'true');
@@ -1452,7 +1452,7 @@ describe('sinaui', () => {
 		render(SidebarPage);
 		const nav = page.getByRole('navigation', { name: 'Library' });
 		await expect
-			.element(nav.getByRole('link', { name: 'Catalogue' }))
+			.element(nav.getByRole('link', { name: 'Catalog' }))
 			.toHaveAttribute('aria-current', 'page');
 		await nav.getByRole('link', { name: 'My loans' }).click();
 		await expect
@@ -1543,17 +1543,15 @@ describe('sinaui', () => {
 		await expect.element(title).toBeVisible();
 		await page.getByRole('button', { name: 'Clear search' }).first().click();
 		await expect.element(title).not.toBeInTheDocument();
-		await expect
-			.element(page.getByRole('searchbox', { name: 'Search the catalogue' }))
-			.toHaveFocus();
+		await expect.element(page.getByRole('searchbox', { name: 'Search the catalog' })).toHaveFocus();
 		await expect.element(page.getByText('Book of Optics', { exact: true }).first()).toBeVisible();
 	});
 
-	it('spinner: named progress when labelled, hidden beside text; delay skips quick loads', async () => {
+	it('spinner: named progress when labeled, hidden beside text; delay skips quick loads', async () => {
 		render(SpinnerPage);
 		expect(
 			document.querySelectorAll('.spinner[role="progressbar"][aria-label="Loading"]').length
-		).toBeGreaterThanOrEqual(4);
+		).toBeGreaterThanOrEqual(3);
 		expect(document.querySelector('.status .spinner')!.getAttribute('aria-hidden')).toBe('true');
 		await page.getByRole('button', { name: 'Slow load' }).click();
 		const spin = document.querySelector('.out .spinner') as HTMLElement;
@@ -1561,7 +1559,7 @@ describe('sinaui', () => {
 		await expect.element(page.getByText(/Loaded in 2,000/), { timeout: 4000 }).toBeVisible();
 	});
 
-	it('separator: horizontal and vertical roles; labelled one reads its words', async () => {
+	it('separator: horizontal and vertical roles; labeled one reads its words', async () => {
 		render(SeparatorPage);
 		const seps = page.getByRole('separator').all();
 		expect(seps.length).toBe(3);
@@ -1750,7 +1748,7 @@ describe('sinaui', () => {
 		await expect.element(box).toHaveValue('Optics, Córdoba copy 3');
 	});
 
-	it('meter: ranges follow HTML meter; value read with its label; colour follows the range', async () => {
+	it('meter: ranges follow HTML meter; value read with its label; color follows the range', async () => {
 		// Lower is better (optimum 0): under low good, between fair, over high poor.
 		expect([45, 72, 93].map((v) => tone(v, 0, 100, 60, 85, 0))).toEqual(['good', 'fair', 'poor']);
 		// Higher is better, and no ranges at all.
@@ -1835,7 +1833,7 @@ describe('sinaui', () => {
 	it('resizable: separator reports size; arrows, limits, collapse and reset; collapsed panel is inert', async () => {
 		localStorage.removeItem('sinaui-reading-room');
 		render(ResizablePage);
-		const handle = page.getByRole('separator', { name: 'Resize the catalogue' });
+		const handle = page.getByRole('separator', { name: 'Resize the catalog' });
 		const el = handle.element() as HTMLElement;
 		const value = () => Number(el.getAttribute('aria-valuenow'));
 		await expect.poll(value).toBe(24);
@@ -1844,11 +1842,11 @@ describe('sinaui', () => {
 		await expect.poll(value).toBe(29);
 		await userEvent.keyboard('{Home}');
 		await expect.poll(value).toBe(16);
-		// Enter collapses the catalogue: out of reach while closed, and back where it was after.
+		// Enter collapses the catalog: out of reach while closed, and back where it was after.
 		await userEvent.keyboard('{Enter}');
 		await expect.poll(value).toBe(0);
-		const catalogue = document.getElementById(el.getAttribute('aria-controls')!)!;
-		expect(catalogue.inert).toBe(true);
+		const catalog = document.getElementById(el.getAttribute('aria-controls')!)!;
+		expect(catalog.inert).toBe(true);
 		await userEvent.keyboard('{Enter}');
 		await expect.poll(value).toBe(16);
 		// The middle panel's 30% minimum stops the line.
@@ -1866,15 +1864,15 @@ describe('sinaui', () => {
 		expect(hexToHsv('nope')).toBeUndefined();
 		expect(
 			['#047857', '#d9381e', '#1f4e9c', '#292d33', '#ffffff'].map((h) => colorName(hexToHsv(h)!))
-		).toEqual(['green', 'red', 'blue', 'dark grey', 'white']);
+		).toEqual(['green', 'red', 'blue', 'dark gray', 'white']);
 	});
 
 	it('color picker: 2D slider and hue by keyboard, named swatches, typed hex, hidden input', async () => {
 		render(ColorPickerPage);
-		const trigger = page.getByRole('button', { name: /Label colour/ });
+		const trigger = page.getByRole('button', { name: /Label color/ });
 		await expect.element(trigger).toHaveAccessibleName(/#1F4E9C ?, blue/i);
 		await trigger.click();
-		const area = page.getByRole('slider', { name: 'Colour' });
+		const area = page.getByRole('slider', { name: 'Color' });
 		await expect.element(area).toHaveAttribute('aria-roledescription', '2D slider');
 		(area.element() as HTMLElement).focus();
 		await userEvent.keyboard('{Shift>}{ArrowUp}{ArrowUp}{/Shift}');
@@ -2073,7 +2071,7 @@ describe('sinaui', () => {
 		const box = term.getByRole('textbox', { name: 'Message' });
 		await userEvent.fill(box, 'How did Ibn al-Haytham explain sight?');
 		await userEvent.keyboard('{Enter}');
-		await expect.element(term.getByText('search_catalogue("Ibn al-Haytham optics")')).toBeVisible();
+		await expect.element(term.getByText('search_catalog("Ibn al-Haytham optics")')).toBeVisible();
 		await expect.element(term.getByText('Found 3 manuscripts'), { timeout: 5000 }).toBeVisible();
 		await expect
 			.element(term.getByText(/Kitab al-Manazir \(MS-1021\)/), { timeout: 8000 })
@@ -2333,7 +2331,7 @@ describe('sinaui', () => {
 
 	it('virtual list: ten thousand entries, only a few dozen in the page, each told its place', async () => {
 		render(VirtualListPage);
-		const list = page.getByRole('group', { name: 'Catalogue' });
+		const list = page.getByRole('group', { name: 'Catalog' });
 		await expect
 			.poll(() => list.element().querySelectorAll('[role="listitem"]').length)
 			.toBeGreaterThan(5);
@@ -2352,7 +2350,7 @@ describe('sinaui', () => {
 		// Busy while streaming, so screen readers wait for the whole reply.
 		await expect.element(log).toHaveAttribute('aria-busy', 'true');
 		await expect
-			.element(chat.getByText(/translation centre of Abbasid Baghdad/), { timeout: 8000 })
+			.element(chat.getByText(/translation center of Abbasid Baghdad/), { timeout: 8000 })
 			.toBeVisible();
 		await expect.element(log, { timeout: 8000 }).toHaveAttribute('aria-busy', 'false');
 		await expect.element(chat.getByRole('button', { name: 'Copy reply' })).toBeVisible();
@@ -2370,7 +2368,7 @@ describe('sinaui', () => {
 
 	it('search field: clear appears with text, clears and refocuses; Escape clears', async () => {
 		render(SearchFieldPage);
-		const box = page.getByRole('searchbox', { name: 'Search the catalogue' });
+		const box = page.getByRole('searchbox', { name: 'Search the catalog' });
 		// Hidden (and out of the accessibility tree) until there's text to clear.
 		const clearEl = document.querySelector<HTMLButtonElement>('button[aria-label="Clear search"]')!;
 		expect(clearEl.tabIndex).toBe(-1);
@@ -2419,7 +2417,7 @@ describe('sinaui', () => {
 		await expect.element(loan).toHaveAccessibleDescription(/Arrow keys move one day/);
 	});
 
-	it('progress: labelled, with value and custom value text; indeterminate has no value', async () => {
+	it('progress: labeled, with value and custom value text; indeterminate has no value', async () => {
 		render(ProgressPage);
 		const t = page.getByRole('progressbar', { name: 'Transcription' });
 		await expect.element(t).toHaveAttribute('aria-valuenow', '42');
@@ -2429,7 +2427,7 @@ describe('sinaui', () => {
 		await page.getByRole('button', { name: 'Copy seven more' }).click();
 		await expect.element(folios).toHaveAttribute('aria-valuetext', '19 of 40 folios');
 		await expect
-			.element(page.getByRole('progressbar', { name: 'Searching the Córdoba catalogue' }))
+			.element(page.getByRole('progressbar', { name: 'Searching the Córdoba catalog' }))
 			.not.toHaveAttribute('aria-valuenow');
 	});
 
@@ -2456,7 +2454,10 @@ describe('sinaui', () => {
 		render(SkeletonPage);
 		const region = document.querySelector<HTMLElement>('[aria-busy]')!;
 		expect(region.getAttribute('aria-busy')).toBe('true');
-		expect(region.querySelectorAll('.skeleton[aria-hidden="true"]').length).toBe(4);
+		// Every placeholder is hidden, itself or through its lines wrapper.
+		const blocks = region.querySelectorAll('.skeleton');
+		expect(blocks.length).toBe(4);
+		expect([...blocks].every((b) => b.closest('[aria-hidden="true"]'))).toBe(true);
 		await page.getByRole('button', { name: 'Finish loading' }).click();
 		await expect.element(page.getByText('Ibn Sina', { exact: true }).first()).toBeVisible();
 		expect(region.getAttribute('aria-busy')).toBe('false');

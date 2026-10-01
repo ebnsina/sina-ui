@@ -12,7 +12,7 @@
 			<Menubar.Item onselect={did('Started a new page.')}>
 				New page <span class="keys"><Kbd keys={['mod', 'N']} /></span>
 			</Menubar.Item>
-			<Menubar.Item onselect={did('Opened the catalogue.')}>Open from the catalogue…</Menubar.Item>
+			<Menubar.Item onselect={did('Opened the catalog.')}>Open from the catalog…</Menubar.Item>
 			<Menubar.Item onselect={did('Saved the page.')}>
 				Save <span class="keys"><Kbd keys={['mod', 'S']} /></span>
 			</Menubar.Item>

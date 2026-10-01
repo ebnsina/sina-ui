@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { ease } from '../motion';
 	import { AlertCircleIcon, Cancel01Icon, CheckmarkCircle02Icon } from '@hugeicons/core-free-icons';
 	import Button from '../Button.svelte';
 	import Icon from '../Icon.svelte';
@@ -75,13 +76,13 @@
 		if (dx > 80 || (dx > 10 && velocity > 0.11)) {
 			card.animate([from, { translate: `${card.offsetWidth * dir}px 0`, opacity: 0 }], {
 				duration: 200,
-				easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+				easing: ease.standard,
 				fill: 'forwards'
 			}).onfinish = close;
 		} else if (dx !== 0) {
 			card.animate([from, { translate: '0 0', opacity: 1 }], {
 				duration: 300,
-				easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
+				easing: ease.standard
 			});
 		}
 	}
@@ -127,7 +128,7 @@
 			</span>
 		{/if}
 		<div class="text">
-			<!-- The kind in words too, so it isn't carried by colour and icon alone. -->
+			<!-- The kind in words too, so it isn't carried by color and icon alone. -->
 			<p class="message">
 				{#if t.kind !== 'default'}<span class="sr-only"
 						>{t.kind === 'error' ? 'Error: ' : 'Success: '}</span

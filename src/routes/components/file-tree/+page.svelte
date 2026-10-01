@@ -49,11 +49,11 @@
 	{...ex('basic')}
 />
 <Example
-	id="catalogue"
+	id="catalog"
 	title="Over 120,000 items, with search"
 	stack
 	description="Only the rows in view are ever drawn, so it scrolls as easily as a short list. Search looks through everything and opens the folders that hold the matches."
-	{...ex('catalogue')}
+	{...ex('catalog')}
 />
 <Example
 	id="lazy"

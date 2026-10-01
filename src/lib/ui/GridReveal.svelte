@@ -17,7 +17,7 @@
 
 	let { src, alt, ratio = 1, onrevealed, status = true, class: className }: Props = $props();
 
-	// A quadtree of tiles: each is a rectangle (fractions of the frame) filled with one colour. Splitting
+	// A quadtree of tiles: each is a rectangle (fractions of the frame) filled with one color. Splitting
 	// the busiest tile first is what makes the picture sharpen where its detail is.
 	type Tile = {
 		id: string;
@@ -60,7 +60,7 @@
 						() => Math.random()
 					);
 			} else {
-				// Settled: gently recolour a few tiles now and then, like work going on underneath.
+				// Settled: gently recolor a few tiles now and then, like work going on underneath.
 				const t = tiles[Math.floor(Math.random() * tiles.length)];
 				tiles = tiles.map((x) => (x === t ? { ...x, color: tint() } : x));
 			}
@@ -86,8 +86,8 @@
 		return [...list.filter((x) => x !== t), ...quads];
 	}
 
-	// The finished image, read small: each tile's colour is the average of its pixels, and how busy it
-	// is (colour spread times size) decides which splits next.
+	// The finished image, read small: each tile's color is the average of its pixels, and how busy it
+	// is (color spread times size) decides which splits next.
 	async function reveal(url: string) {
 		stop();
 		const img = new Image();

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Sortable from '#lib/ui/Sortable.svelte';
 
-	let chapters = $state(['Light', 'Colour', 'The eye', 'Reflection', 'Refraction']);
+	let chapters = $state(['Light', 'Color', 'The eye', 'Reflection', 'Refraction']);
 </script>
 
 <Sortable

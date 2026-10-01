@@ -36,6 +36,10 @@
 		showValue?: boolean;
 		/** Formats the value for display and for screen readers. Defaults to a percentage of the range. */
 		format?: (value: number, min: number, max: number) => string;
+		/** What makes up the value (storage by type): drawn as parts of one bar, with a legend. */
+		segments?: { label: string; value: number }[];
+		/** Formats each part's amount in the legend. */
+		formatSegment?: (value: number) => string;
 		locale?: string;
 	}
 
@@ -50,6 +54,8 @@
 		optimum,
 		showValue = true,
 		format,
+		segments,
+		formatSegment = (v) => new Intl.NumberFormat(locale).format(v),
 		locale = 'en',
 		class: className,
 		...rest
@@ -62,6 +68,21 @@
 			: new Intl.NumberFormat(locale, { style: 'percent' }).format(ratio)
 	);
 	const level = $derived(tone(value, min, max, low, high, optimum));
+	// Each part starts where the one before ended; all in fractions of the whole range.
+	const parts = $derived.by(() => {
+		let start = 0;
+		return (segments ?? []).map((s, i) => {
+			const size = Math.max(0, s.value) / (max - min);
+			const part = {
+				...s,
+				i,
+				start: Math.min(start, 1),
+				size: Math.min(size, 1 - Math.min(start, 1))
+			};
+			start += size;
+			return part;
+		});
+	});
 </script>
 
 <div class={['meter', level, className]} {...rest}>
@@ -78,8 +99,25 @@
 		aria-valuenow={value}
 		aria-valuetext={text}
 	>
-		<div class="fill" style:transform="scaleX({ratio})"></div>
+		{#if segments?.length}
+			{#each parts as p (p.label)}
+				<div class="fill part" style:--i={p.i} style:--start={p.start} style:--size={p.size}></div>
+			{/each}
+		{:else}
+			<div class="fill" style:transform="scaleX({ratio})"></div>
+		{/if}
 	</div>
+	{#if segments?.length}
+		<ul class="legend">
+			{#each parts as p (p.label)}
+				<li style:--i={p.i}>
+					<span class="dot" aria-hidden="true"></span>
+					<span class="name">{p.label}</span>
+					<span class="amount"><RollingNumber value={formatSegment(p.value)} /></span>
+				</li>
+			{/each}
+		</ul>
+	{/if}
 </div>
 
 <style>
@@ -108,33 +146,87 @@
 		font-variant-numeric: tabular-nums;
 		transition: color var(--ui-dur) ease;
 	}
-	/* Out of the good range, the number takes the colour too, not just the bar. */
+	/* Out of the good range, the number takes the color too, not just the bar. */
 	:is(.fair, .poor) .value {
 		color: var(--tone);
 	}
 	.track {
+		position: relative;
 		block-size: 0.5rem;
 		overflow: hidden;
 		border-radius: 999px;
 		background: var(--ui-hover);
 	}
-	/* scaleX, not width: it fills on the compositor, and grows in from empty the first time. */
+	/* scaleX, not width: it fills on the compositor, grows in from empty the first time and settles
+	   on a soft spring when the value changes. */
 	.fill {
 		block-size: 100%;
 		border-radius: inherit;
 		background: var(--tone);
 		transform-origin: left;
 		transition:
-			transform 500ms var(--ui-ease-out),
+			transform var(--ui-dur-spring) var(--ui-ease-spring),
 			background-color var(--ui-dur) ease;
 	}
+	/* Parts: full-width layers moved to their start and scaled to their size. Each is a step lighter,
+	   so they read as one family; a thin surface-colored edge keeps neighbors apart. */
+	.part {
+		position: absolute;
+		inset: 0;
+		border-radius: 0;
+		background: color-mix(in srgb, var(--tone) calc(100% - var(--i) * 28%), var(--ui-hover));
+		box-shadow: inset -2px 0 0 var(--ui-surface);
+		transition-delay: calc(var(--i) * 60ms);
+	}
+	.legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem 1.25rem;
+		margin: 0.25rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	.legend li {
+		display: grid;
+		grid-template-columns: auto auto;
+		align-items: center;
+		column-gap: 0.375rem;
+	}
+	.dot {
+		inline-size: 0.5rem;
+		block-size: 0.5rem;
+		border-radius: 2px;
+		background: color-mix(in srgb, var(--tone) calc(100% - var(--i) * 28%), var(--ui-hover));
+	}
+	.name {
+		color: var(--ui-muted);
+	}
+	.amount {
+		grid-column: 2;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+	}
+	.track:dir(rtl) .fill {
+		transform-origin: right;
+	}
+	.part {
+		transform: translateX(calc(var(--start) * 100%)) scaleX(var(--size));
+	}
+	/* In right-to-left the parts run from the right edge. */
+	.track:dir(rtl) .part {
+		transform: translateX(calc(var(--start) * -100%)) scaleX(var(--size));
+	}
+	/* Last, so it wins over the rules above: everything grows in from empty the first time. */
 	@starting-style {
 		.fill {
 			transform: scaleX(0);
 		}
-	}
-	.track:dir(rtl) .fill {
-		transform-origin: right;
+		.part {
+			transform: translateX(calc(var(--start) * 100%)) scaleX(0);
+		}
+		.track:dir(rtl) .part {
+			transform: translateX(calc(var(--start) * -100%)) scaleX(0);
+		}
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.fill {

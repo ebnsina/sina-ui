@@ -1,5 +1,4 @@
-import { reduced } from './motion';
-import { spring } from './spring';
+import { ease, reduced } from './motion';
 
 export type Side = 'top' | 'bottom' | 'left' | 'right';
 
@@ -8,8 +7,8 @@ const opposite: Record<Side, Side> = { top: 'bottom', bottom: 'top', left: 'righ
 /**
  * Positions a top-layer element (popover) beside its anchor. Prefers `side` and flips to the opposite
  * side when only that one fits; left/right drop below when neither fits. Above/below it aligns to the
- * anchor's start edge (or its end near the viewport edge; RTL mirrors both) or its centre; left/right
- * it centres vertically. Always stays 8px
+ * anchor's start edge (or its end near the viewport edge; RTL mirrors both) or its center; left/right
+ * it centers vertically. Always stays 8px
  * inside the viewport. Sets transform-origin to the point facing the anchor so scale animations grow out
  * of it, and exposes that point as --anchor-x / --anchor-y plus data-side for arrows.
  * Returns the side used, or null once the anchor has scrolled off-screen.
@@ -53,13 +52,13 @@ export function place(
 			const start = rtl ? t.right - m.width : t.left;
 			const end = rtl ? t.left : t.right - m.width;
 			const fits = (n: number) => n >= edge && n + m.width <= vw - edge;
-			// Neither edge fits (a phone): centre on the anchor rather than pin to one side.
+			// Neither edge fits (a phone): center on the anchor rather than pin to one side.
 			x = fits(start) ? start : fits(end) ? end : t.left + t.width / 2 - m.width / 2;
 		}
 		y = s === 'top' ? t.top - gap - m.height : t.bottom + gap;
 	} else {
 		x = s === 'left' ? t.left - gap - m.width : t.right + gap;
-		// top: its first row lines up with the anchor (a submenu beside its item); otherwise centred.
+		// top: its first row lines up with the anchor (a submenu beside its item); otherwise centered.
 		y =
 			align === 'top'
 				? t.top - (parseFloat(getComputedStyle(el).paddingTop) || 0) - el.clientTop
@@ -70,7 +69,7 @@ export function place(
 	el.style.left = `${x}px`;
 	el.style.top = `${y}px`;
 
-	// Where the anchor's centre falls on the element: the scale origin, and where an arrow should point.
+	// Where the anchor's center falls on the element: the scale origin, and where an arrow should point.
 	const ax = Math.min(Math.max(0, t.left + t.width / 2 - x), m.width);
 	const ay = Math.min(Math.max(0, t.top + t.height / 2 - y), m.height);
 	const origin = {
@@ -90,53 +89,16 @@ type PlaceOptions = {
 	side?: Side;
 	align?: 'start' | 'center' | 'top';
 	gap?: number;
-	/** Grow out of the trigger's own shape (a container transform); false fades in beside it instead. */
-	morph?: boolean;
 };
 
-const OPEN = spring(0.12);
-
-/**
- * A reveal that starts as a small round blob where the trigger points from, and swells out to the
- * panel. Its corners stay generous while it grows, then settle to the panel's own.
- */
-function morphFrom(a: HTMLElement, e: HTMLElement) {
-	const t = a.getBoundingClientRect();
-	const x = parseFloat(e.style.left);
-	const y = parseFloat(e.style.top);
-	const w = e.offsetWidth;
-	const h = e.offsetHeight;
-	const side = e.dataset.side ?? 'bottom';
-	const blob = Math.min(32, w, h);
-	const r = parseFloat(getComputedStyle(e).borderTopLeftRadius) || 0;
-	// Ends 40px beyond the panel, so its shadow isn't clipped; the panel's own corners take over there.
-	const out = 40;
-	const clamp = (n: number, max: number) => Math.min(Math.max(0, n), max);
-	let top: number;
-	let left: number;
-	if (side === 'top' || side === 'bottom') {
-		// Above or below: under the trigger's trailing end, where its chevron or icon sits.
-		const rtl = getComputedStyle(a).direction === 'rtl';
-		top = side === 'bottom' ? 0 : h - blob;
-		left = clamp(rtl ? t.left - x : t.right - x - blob, w - blob);
-	} else {
-		// Beside it (a submenu): at the edge facing it, level with the trigger.
-		left = side === 'right' ? 0 : w - blob;
-		top = clamp(t.top + t.height / 2 - y - blob / 2, h - blob);
-	}
-	return {
-		from: {
-			clipPath: `inset(${top}px ${w - left - blob}px ${h - top - blob}px ${left}px round ${blob / 2}px)`,
-			transform: 'none'
-		},
-		to: { clipPath: `inset(-${out}px round ${r + out}px)`, transform: 'none' }
-	};
-}
+/** The rows inside a panel that stagger in: visible children, not aria-hidden decoration. */
+const rows = (e: HTMLElement) =>
+	[...e.children].filter((c): c is HTMLElement => !c.hasAttribute('aria-hidden')).slice(0, 12);
 
 /**
  * Shows and hides a top-layer element beside its anchor: grows out of it (transform + opacity only, so it
  * stays smooth on a busy page), follows scroll/resize, and calls onDismiss for an outside press or when the
- * anchor leaves the screen. Closing plays the opening backwards, faster; reopening mid-close turns it around.
+ * anchor leaves the screen. Closing mid-open plays it backwards; reopening mid-close turns it around.
  */
 export function anchored(
 	anchor: () => HTMLElement,
@@ -171,45 +133,25 @@ export function anchored(
 				closing = false;
 				if (reduce) {
 					anim = e.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 150, fill: 'both' });
-				} else if (options.morph !== false) {
-					// Swells out of the corner by the trigger on a spring; the contents come into focus a beat later.
-					const { from, to } = morphFrom(a, e);
-					anim = e.animate(
-						[
-							{ ...from, opacity: 0 },
-							{ opacity: 1, offset: 0.15 },
-							{ ...to, opacity: 1 }
-						],
-						{ duration: 520, easing: OPEN, fill: 'both' }
-					);
-					contentAnims = [...e.children].map((c) =>
-						c.animate(
-							[
-								{ opacity: 0, filter: 'blur(4px)' },
-								{ opacity: 1, filter: 'blur(0)' }
-							],
-							{
-								duration: 260,
-								delay: 90,
-								easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
-								fill: 'both'
-							}
-						)
-					);
 				} else {
-					// A 4px drift toward the anchor says where it came from.
-					const drift = {
-						top: 'translateY(4px)',
-						bottom: 'translateY(-4px)',
-						left: 'translateX(4px)',
-						right: 'translateX(-4px)'
-					}[side];
+					// Rises 6px toward its anchor and settles from 94% on a spring; its rows follow a beat apart.
+					const [x, y] = { top: [0, 6], bottom: [0, -6], left: [6, 0], right: [-6, 0] }[side];
 					anim = e.animate(
 						[
-							{ opacity: 0, transform: `${drift} scale(0.96)`, filter: 'blur(4px)' },
-							{ opacity: 1, transform: 'none', filter: 'blur(0)' }
+							{ opacity: 0, translate: `${x}px ${y}px`, scale: 0.94 },
+							{ opacity: 1, offset: 0.3 },
+							{ opacity: 1, translate: '0 0', scale: 1 }
 						],
-						{ duration: 200, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'both' }
+						{ duration: 480, easing: ease.spring, fill: 'both' }
+					);
+					// Decorative layers (a hover highlight) keep their own opacity.
+					contentAnims = rows(e).map((c, i) =>
+						c.animate([{ opacity: 0, translate: `${x / 2}px ${y / 2}px` }, {}], {
+							duration: 240,
+							delay: 40 + Math.min(i, 8) * 20,
+							easing: ease.enter,
+							fill: 'backwards'
+						})
 					);
 				}
 			}
@@ -260,33 +202,26 @@ export function anchored(
 				e.hidePopover();
 				return;
 			}
-			// Mid-open: back the way it came. Settled: a quick, bounceless shrink into the trigger
-			// (the spring's overshoot, played backwards, would wobble on the way out).
+			// Mid-open: back the way it came. Settled: a short fade that shrinks 3% toward the anchor.
 			closing = true;
 			const hide = () => {
 				closing = false;
 				e.hidePopover();
 			};
+			for (const c of contentAnims) c.cancel();
+			contentAnims = [];
 			if (anim.playState === 'running') {
 				anim.onfinish = hide;
 				anim.reverse();
-				anim.updatePlaybackRate(-1.6);
+				anim.updatePlaybackRate(-2);
 			} else {
-				const done = (anim.effect as KeyframeEffect | null)?.getKeyframes() ?? [];
 				anim.cancel();
-				anim = e.animate(
-					[...done].reverse().map(({ offset, computedOffset, ...k }) => k),
-					{
-						duration: 200,
-						easing: 'cubic-bezier(0.4, 0, 1, 1)',
-						fill: 'both'
-					}
-				);
+				anim = e.animate([{}, { opacity: 0, scale: 0.97 }], {
+					duration: 130,
+					easing: ease.standard,
+					fill: 'both'
+				});
 				anim.onfinish = hide;
-			}
-			for (const c of contentAnims) {
-				c.reverse();
-				c.updatePlaybackRate(-2.5);
 			}
 		},
 		/** Unmounting mid-close: cancel, so the finish callback never touches a removed element. */

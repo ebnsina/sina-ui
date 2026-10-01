@@ -43,10 +43,10 @@
 
 <h2 id="examples">Examples</h2>
 <Example
-	id="catalogue"
+	id="catalog"
 	title="Ten thousand rows"
 	description="Scroll as fast as you like: only about twenty rows exist in the page at any moment."
-	{...ex('catalogue')}
+	{...ex('catalog')}
 />
 <Example
 	id="load-more"

@@ -33,12 +33,12 @@
 		},
 		{
 			id: 'search',
-			label: 'Search the catalogue',
+			label: 'Search the catalog',
 			group: 'Library',
 			icon: Search01Icon,
 			keywords: ['find', 'look up'],
 			shortcut: ['/'],
-			onselect: did('Search the catalogue')
+			onselect: did('Search the catalog')
 		},
 		{
 			id: 'share',

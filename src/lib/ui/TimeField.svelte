@@ -552,7 +552,7 @@
 			background-color var(--ui-dur-press) ease,
 			color var(--ui-dur-press) ease;
 	}
-	/* An unpadded hour ("8") sits against the colon, not centred in a two-digit slot. */
+	/* An unpadded hour ("8") sits against the colon, not centered in a two-digit slot. */
 	.hour {
 		text-align: end;
 	}

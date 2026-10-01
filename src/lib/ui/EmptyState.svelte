@@ -85,9 +85,10 @@
 	.actions > :global(*) {
 		flex: 1 1 auto;
 	}
+	/* Reduced motion: it's simply there, no fade. */
 	@media (prefers-reduced-motion: reduce) {
 		.empty {
-			transition: opacity var(--ui-dur) ease;
+			transition: none;
 		}
 		.icon {
 			transition: none;

@@ -45,8 +45,14 @@
 <Example
 	id="led"
 	title="LED"
-	description="Seven-segment digits on a dark panel. Segments fade as they change, the colon blinks each second, and the colour is yours to set."
+	description="Seven-segment digits on a dark panel. Segments fade as they change, the colon blinks each second."
 	{...ex('led')}
+/>
+<Example
+	id="led-color"
+	title="LED, your own color"
+	description="Any color for the segments; here without seconds, in another time zone."
+	{...ex('led-color')}
 />
 
 <h2 id="props">Props</h2>
@@ -65,7 +71,7 @@
 			></tr
 		>
 		<tr
-			><td><code>color</code></td><td><code>string</code>: lit colour, LED only</td><td
+			><td><code>color</code></td><td><code>string</code>: lit color, LED only</td><td
 				><code>'#3ee6a2'</code></td
 			></tr
 		>

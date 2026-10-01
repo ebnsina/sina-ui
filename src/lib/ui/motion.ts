@@ -1,6 +1,16 @@
 import { flip } from 'svelte/animate';
 import { cubicOut } from 'svelte/easing';
 import { scale } from 'svelte/transition';
+import { spring } from './spring';
+
+/** The house curves, for the Web Animations API (same as the --ui-ease-* tokens). */
+export const ease = {
+	enter: 'cubic-bezier(0.16, 1, 0.3, 1)',
+	standard: 'cubic-bezier(0.22, 1, 0.36, 1)',
+	exit: 'cubic-bezier(0.7, 0, 0.84, 0)',
+	inOut: 'cubic-bezier(0.65, 0, 0.35, 1)',
+	spring: spring(0.12)
+};
 
 /** People who ask their system for less motion get none. */
 export const reduced = () =>

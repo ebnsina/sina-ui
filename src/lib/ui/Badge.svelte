@@ -14,7 +14,7 @@
 	interface Props extends HTMLAttributes<HTMLSpanElement> {
 		tone?: 'neutral' | 'accent' | 'warning' | 'danger';
 		/**
-		 * The tone's icon, as in Alert: on by default, so meaning never rests on colour alone.
+		 * The tone's icon, as in Alert: on by default, so meaning never rests on color alone.
 		 * false hides it; pass any Hugeicons icon to use your own.
 		 */
 		icon?: boolean | IconNode;
@@ -65,7 +65,7 @@
 		border: 1px solid transparent;
 		border-radius: calc(var(--ui-radius-control) * 0.75);
 		background: color-mix(in srgb, var(--tone) 10%, transparent);
-		/* Tone pulled 20% toward the text colour: darker in light mode, lighter in dark, so small text
+		/* Tone pulled 20% toward the text color: darker in light mode, lighter in dark, so small text
 		   keeps 4.5:1 even on a tinted surface. */
 		color: color-mix(in srgb, var(--tone) 80%, var(--ui-fg));
 		font: 500 0.75rem/1 var(--ui-font);

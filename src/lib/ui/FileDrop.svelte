@@ -3,6 +3,7 @@
 	import { Cancel01Icon, CloudUploadIcon, File02Icon } from '@hugeicons/core-free-icons';
 	import { announce } from './announce';
 	import Icon from './Icon.svelte';
+	import Morph from './Morph.svelte';
 
 	interface Props {
 		label: string;
@@ -39,6 +40,8 @@
 	const id = $props.id();
 	let input: HTMLInputElement;
 	let over = $state(false);
+	// What's held over the zone, judged by type before it's dropped (names aren't known until then).
+	let incoming = $state<{ count: number; refused: boolean }>({ count: 0, refused: false });
 	let depth = 0; // dragenter/leave fire for every child; count them so the zone doesn't flicker
 	let problems = $state<string[]>([]);
 
@@ -53,14 +56,36 @@
 			n
 		);
 	};
-	const accepted = (f: File) =>
+	const matches = (name: string | undefined, type: string) =>
 		!accept ||
 		accept.split(',').some((rule) => {
 			const r = rule.trim().toLowerCase();
-			if (r.startsWith('.')) return f.name.toLowerCase().endsWith(r);
-			if (r.endsWith('/*')) return f.type.startsWith(r.slice(0, -1));
-			return f.type === r;
+			// An extension rule can't be judged from a type alone: while dragging, give it the benefit.
+			if (r.startsWith('.')) return name === undefined || name.toLowerCase().endsWith(r);
+			if (r.endsWith('/*')) return type.startsWith(r.slice(0, -1));
+			return type === r;
 		});
+	const accepted = (f: File) => matches(f.name, f.type);
+	function judge(dt: DataTransfer) {
+		const items = [...dt.items].filter((i) => i.kind === 'file');
+		const room = maxFiles ? maxFiles - (multiple ? value.length : 0) : Infinity;
+		incoming = {
+			count: items.length,
+			refused:
+				items.some((i) => !matches(undefined, i.type)) ||
+				(!multiple && items.length > 1) ||
+				items.length > room
+		};
+	}
+	const dropText = $derived(
+		incoming.refused
+			? !multiple && incoming.count > 1
+				? 'One file at a time'
+				: maxFiles && incoming.count > maxFiles - value.length
+					? `Room for ${Math.max(0, maxFiles - value.length)} more`
+					: 'Not a file type this takes'
+			: `Drop to add ${incoming.count > 1 ? `${incoming.count} files` : 'it'}`
+	);
 
 	// Previews for images, freed when the file leaves the list.
 	const previews = new Map<File, string>();
@@ -127,13 +152,26 @@
 <div class="field">
 	<span id="{id}-label" class="label">{label}</span>
 	<!-- The drop target is for pointers; the button inside is the keyboard and screen-reader way in. -->
+	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
 	<div
-		class={['zone', over && 'over', disabled && 'disabled']}
+		class={['zone', over && 'over', over && incoming.refused && 'refused', disabled && 'disabled']}
 		role="group"
 		aria-labelledby="{id}-label"
+		onclick={(e) => {
+			// Anywhere on the zone opens the file picker, as the link inside does.
+			if (!disabled && !(e.target as Element).closest('label, input')) input.click();
+		}}
+		onpaste={(e) => {
+			const files = [...(e.clipboardData?.files ?? [])];
+			if (!disabled && files.length) {
+				e.preventDefault();
+				add(files);
+			}
+		}}
 		ondragenter={(e) => {
 			if (disabled || !e.dataTransfer?.types.includes('Files')) return;
 			e.preventDefault();
+			if (!depth) judge(e.dataTransfer);
 			depth++;
 			over = true;
 		}}
@@ -152,12 +190,22 @@
 		}}
 	>
 		<span class="icon"><Icon icon={CloudUploadIcon} size={24} /></span>
-		<p class="lead">
+		{#snippet prompt()}
 			<!-- Touch screens can't drag files in: there it reads just "Choose files". -->
 			<span class="drag">Drag {multiple ? 'files' : 'a file'} here, or{' '}</span><label
 				class="choose"
 				for="{id}-input">choose {multiple ? 'files' : 'a file'}</label
 			>
+		{/snippet}
+		<!-- While files are held over it, the prompt says whether they'll be taken. -->
+		<p class="lead">
+			<Morph
+				current={over ? 'drop' : 'idle'}
+				states={[
+					{ key: 'idle', label: prompt },
+					{ key: 'drop', text: dropText }
+				]}
+			/>
 		</p>
 		{#if hint}<p id="{id}-hint" class="hint">{hint}</p>{/if}
 		<input
@@ -218,6 +266,7 @@
 	/* A tinted well, no dashed border; dragging over deepens the tint and lifts the icon. */
 	.zone {
 		position: relative;
+		cursor: pointer;
 		display: grid;
 		justify-items: center;
 		gap: 0.25rem;
@@ -225,13 +274,23 @@
 		border-radius: calc(var(--ui-radius) * 1.5);
 		background: var(--ui-subtle);
 		text-align: center;
-		transition:
-			background-color var(--ui-dur) ease,
-			box-shadow var(--ui-dur) ease;
+		transition: background-color var(--ui-dur) ease;
 	}
 	.zone.over {
-		background: color-mix(in srgb, var(--ui-accent) 10%, transparent);
-		box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--ui-accent) 45%, transparent);
+		background: color-mix(in srgb, var(--ui-accent) 14%, transparent);
+	}
+	@media (hover: hover) {
+		.zone:not(.disabled):not(.over):hover {
+			background: var(--ui-hover);
+		}
+	}
+	/* Held over but won't be taken: the same well, in the danger color, before anything is dropped. */
+	.zone.refused {
+		background: color-mix(in srgb, var(--ui-danger) 10%, transparent);
+		color: var(--ui-danger);
+	}
+	.zone.disabled {
+		cursor: not-allowed;
 	}
 	.zone:has(input:focus-visible) {
 		outline: var(--ui-ring-width) solid var(--ui-ring);
@@ -247,9 +306,20 @@
 			transform var(--ui-dur-overlay) var(--ui-ease-out),
 			color var(--ui-dur) ease;
 	}
+	/* Files held over it: the icon lifts and bobs gently, waiting for the drop. */
 	.over .icon {
 		color: var(--ui-accent);
 		transform: translateY(-3px) scale(1.08);
+		animation: bob 1.1s ease-in-out 250ms infinite alternate;
+	}
+	.refused .icon {
+		color: var(--ui-danger);
+		animation: none;
+	}
+	@keyframes bob {
+		to {
+			transform: translateY(-6px) scale(1.08);
+		}
 	}
 	.lead,
 	.hint {
@@ -387,6 +457,7 @@
 		}
 		.over .icon {
 			transform: none;
+			animation: none;
 		}
 	}
 	.sr-only {

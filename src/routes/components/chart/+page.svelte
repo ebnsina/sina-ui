@@ -55,7 +55,7 @@
 <Example
 	id="lines"
 	title="Line"
-	description="Series take their colours from the theme, in order, in light and dark."
+	description="Series take their colors from the theme, in order, in light and dark."
 	{...ex('lines')}
 />
 <Example id="pie" title="Pie" description="A donut, with the total in the middle." {...ex('pie')} />

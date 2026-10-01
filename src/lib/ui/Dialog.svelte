@@ -11,8 +11,8 @@
 		description?: string;
 		/** Accessible name of the close button; translate it for non-English UIs. */
 		closeLabel?: string;
-		/** center: modal in the middle. start: full-height sheet sliding in from the reading-start edge. */
-		side?: 'center' | 'start';
+		/** center: modal in the middle. start / end: full-height sheet sliding in from that edge. */
+		side?: 'center' | 'start' | 'end';
 		/** false: no close button, and a press on the backdrop doesn't close it (confirmations). */
 		dismissible?: boolean;
 		children?: Snippet;
@@ -50,7 +50,7 @@
 <dialog
 	bind:this={dialog}
 	tabindex="-1"
-	class={['dialog', side === 'start' && 'sheet', className]}
+	class={['dialog', side !== 'center' && 'sheet', side === 'end' && 'end', className]}
 	aria-labelledby="{id}-title"
 	aria-describedby={description ? `${id}-desc` : undefined}
 	{@attach scrollEdges}
@@ -92,7 +92,7 @@
 		box-sizing: border-box;
 		/* Padding lives on .body so a click on the dialog element itself always means the backdrop. */
 		padding: 0;
-		/* Explicit: CSS resets (Tailwind preflight etc.) zero the UA margin that centres a modal dialog. */
+		/* Explicit: CSS resets (Tailwind preflight etc.) zero the UA margin that centers a modal dialog. */
 		margin: auto;
 		inline-size: min(32rem, 100vw - 2rem);
 		max-block-size: calc(100dvh - 2rem);
@@ -176,24 +176,27 @@
 	.dialog:focus {
 		outline: none;
 	}
-	/* Modal recipe: centred scale + fade, backdrop fading with it so they read as one surface. */
+	/* Modal: rises 8px from 96% on the way in; leaves quicker, shrinking only to 98%. */
 	.dialog,
 	.dialog::backdrop {
 		opacity: 0;
-		transition-property: opacity, scale, overlay, display;
-		transition-duration: var(--ui-dur-overlay);
+		transition-property: opacity, scale, translate, overlay, display;
+		transition-duration: var(--ui-dur-exit);
 		transition-timing-function: var(--ui-ease-out);
 		transition-behavior: allow-discrete;
 	}
 	.dialog {
-		scale: 0.96;
+		scale: 0.98;
 	}
 	.dialog[open],
 	.dialog[open]::backdrop {
 		opacity: 1;
+		transition-duration: var(--ui-dur-overlay);
+		transition-timing-function: var(--ui-ease-enter);
 	}
 	.dialog[open] {
 		scale: 1;
+		translate: 0 0;
 	}
 	@starting-style {
 		.dialog[open],
@@ -202,6 +205,7 @@
 		}
 		.dialog[open] {
 			scale: 0.96;
+			translate: 0 8px;
 		}
 	}
 
@@ -223,6 +227,19 @@
 	.sheet:dir(rtl) {
 		--from: 100%;
 	}
+	/* From the reading-end edge instead (a cart, a details panel). */
+	.end {
+		--from: 100%;
+		margin-inline: auto 0;
+	}
+	.end:dir(rtl) {
+		--from: -100%;
+	}
+	.sheet,
+	.sheet[open] {
+		transition-duration: var(--ui-dur-overlay);
+		transition-timing-function: var(--ui-ease-drawer);
+	}
 	.sheet[open] {
 		translate: 0 0;
 	}
@@ -238,6 +255,7 @@
 		.dialog,
 		.dialog[open] {
 			scale: 1;
+			translate: 0 0;
 		}
 		.sheet,
 		.sheet[open] {

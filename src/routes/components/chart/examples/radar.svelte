@@ -6,8 +6,8 @@
 	import { tooltip } from '@tanstack/charts/tooltip';
 	import Chart from '#lib/ui/Chart.svelte';
 
-	// Share of each subject's shelf that is catalogued, 0 to 1.
-	const catalogued = [
+	// Share of each subject's shelf that is cataloged, 0 to 1.
+	const cataloged = [
 		{ subject: 'Medicine', share: 0.92 },
 		{ subject: 'Astronomy', share: 0.78 },
 		{ subject: 'Mathematics', share: 0.85 },
@@ -16,7 +16,7 @@
 		{ subject: 'Poetry', share: 0.7 }
 	];
 	// Repeating the first point closes the shape.
-	const closed = [...catalogued, catalogued[0]];
+	const closed = [...cataloged, cataloged[0]];
 
 	const definition = defineChart({
 		marks: [
@@ -24,7 +24,7 @@
 				radiusRatio: 0.72,
 				scales: {
 					angle: {
-						scale: scalePoint<string>().domain(catalogued.map((c) => c.subject)),
+						scale: scalePoint<string>().domain(cataloged.map((c) => c.subject)),
 						wrap: true
 					},
 					radius: { scale: scaleLinear().domain([0, 1]) }
@@ -56,7 +56,7 @@
 </script>
 
 <Chart
-	title="How much of each shelf is catalogued"
+	title="How much of each shelf is cataloged"
 	description="Medicine and mathematics are nearly done; geography is under half."
 	{definition}
 />

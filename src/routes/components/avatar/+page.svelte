@@ -35,16 +35,24 @@
 
 <h2 id="examples">Examples</h2>
 <Example
-	id="basic"
-	title="Initials and sizes"
+	id="initials"
+	title="Initials"
 	description="Initials come from the first and last words of the name."
-	{...ex('basic')}
+	{...ex('initials')}
 />
+<Example id="small" title="Small" description="For lists and dense rows." {...ex('small')} />
+<Example id="large" title="Large" description="For profiles and headers." {...ex('large')} />
 <Example
 	id="image"
 	title="With a picture"
-	description="The picture fades in over the initials once it has loaded, so nothing pops in; if it fails, the initials stay."
+	description="The picture fades in over the initials once it has loaded, so nothing pops in."
 	{...ex('image')}
+/>
+<Example
+	id="fallback"
+	title="When the picture fails"
+	description="A picture that can't load leaves the initials in place."
+	{...ex('fallback')}
 />
 <Example
 	id="with-name"

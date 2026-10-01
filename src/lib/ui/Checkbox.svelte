@@ -68,7 +68,7 @@
 		position: relative;
 		display: grid;
 		flex: none;
-		/* Box centred on the first line of the label. */
+		/* Box centered on the first line of the label. */
 		block-size: 1.5em;
 		place-items: center;
 	}

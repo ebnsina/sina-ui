@@ -191,7 +191,7 @@
 		cursor: not-allowed;
 		transform: none;
 	}
-	/* Busy, not unavailable: keep full colour so the spinner reads as progress. */
+	/* Busy, not unavailable: keep full color so the spinner reads as progress. */
 	/* Plain arrow: macOS draws the progress cursor as the spinning "app frozen" wheel. */
 	.loading {
 		cursor: default;

@@ -10,7 +10,7 @@
 		label?: string;
 		/** led: seven-segment digits on a dark panel, like a bedside clock. */
 		variant?: 'analog' | 'digital' | 'led';
-		/** The lit colour of an led clock. */
+		/** The lit color of an led clock. */
 		color?: string;
 		seconds?: boolean;
 		/** Diameter of the analog face, in px. */

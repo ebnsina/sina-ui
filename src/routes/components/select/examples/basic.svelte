@@ -4,7 +4,7 @@
 	let city = $state('');
 </script>
 
-<Select label="Centre of learning" placeholder="Choose a city" bind:value={city}>
+<Select label="Center of learning" placeholder="Choose a city" bind:value={city}>
 	<option value="baghdad">Baghdad</option>
 	<option value="cordoba">Córdoba</option>
 	<option value="cairo">Cairo</option>

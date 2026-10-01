@@ -11,7 +11,7 @@
 		label?: string;
 		/** sm 32, md 64, lg 160, xl 240, or any diameter in px. */
 		size?: 'sm' | 'md' | 'lg' | 'xl' | number;
-		/** The liquid's colour: any CSS colour. */
+		/** The liquid's color: any CSS color. */
 		color?: string;
 		class?: string;
 	}

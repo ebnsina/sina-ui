@@ -30,7 +30,7 @@
 <p class="eyebrow">Overlays</p>
 <h1>Dialog</h1>
 <p class="lede">
-	Interrupts the page for a focused task, as a centred modal or a sheet from the side.
+	Interrupts the page for a focused task, as a centered modal or a sheet from the side.
 </p>
 
 <h2 id="installation">Installation</h2>
@@ -47,7 +47,7 @@
 <Example
 	id="modal"
 	title="Modal"
-	description="Centred, with a title, description and footer actions. Clicking the backdrop or pressing Escape closes it."
+	description="Centered, with a title, description and footer actions. Clicking the backdrop or pressing Escape closes it."
 	{...ex('modal')}
 />
 
@@ -86,7 +86,7 @@
 		Built on <code>&lt;dialog&gt;</code> with <code>showModal()</code>: focus stays inside, the page
 		behind is inert, and focus returns to the trigger on close.
 	</li>
-	<li>Labelled by its <code>title</code> and described by its <code>description</code>.</li>
+	<li>Labeled by its <code>title</code> and described by its <code>description</code>.</li>
 	<li>Dragging a text selection out onto the backdrop doesn't close it.</li>
 	<li>
 		Add <code>autofocus</code> to the field that should receive focus when it opens. Translate

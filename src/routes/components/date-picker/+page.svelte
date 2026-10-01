@@ -64,7 +64,7 @@
 	description="Type “tomorrow”, “next friday”, “in 2 weeks”, “15 june” or 2026-10-02, or click an example to type it in: what it means shows underneath, and Enter or leaving the field takes it. The calendar button is still there for picking."
 	{...ex('natural')}
 />
-<Example id="error" title="With an error" stack {...ex('error')} />
+<Example id="error" title="With an error" stack {...ex('invalid')} />
 <Example
 	id="calendar"
 	title="Calendar on its own"
@@ -122,7 +122,7 @@
 		full (“Saturday, 14 June 2025, today”).
 	</li>
 	<li>
-		Changing month is announced, and today is marked by a dot as well as by name, not by colour
+		Changing month is announced, and today is marked by a dot as well as by name, not by color
 		alone.
 	</li>
 	<li>Choosing a date closes the picker and puts focus back on it.</li>

@@ -13,7 +13,7 @@
 {#if result === 'saved'}
 	<Alert live tone="success" title="Note saved to the margin." />
 {:else if result === 'failed'}
-	<Alert live tone="danger" title="Couldn't save: the catalogue is unreachable." />
+	<Alert live tone="danger" title="Couldn't save: the catalog is unreachable." />
 {/if}
 
 <style>

@@ -1,0 +1,9 @@
+<script lang="ts">
+	import Button from '#lib/ui/Button.svelte';
+	import { toast } from '#lib/ui/toast/index.js';
+</script>
+
+<!-- Add <Toaster /> once, in your root layout. -->
+<Button variant="secondary" onclick={() => toast('Manuscript added to your reading list.')}>
+	Show a toast
+</Button>

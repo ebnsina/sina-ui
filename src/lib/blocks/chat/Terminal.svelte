@@ -125,7 +125,7 @@
 		return 'Thinking';
 	});
 
-	// search_catalogue {"query":"optics"} reads as search_catalogue("optics").
+	// search_catalog {"query":"optics"} reads as search_catalog("optics").
 	function call(name: string, args: string) {
 		try {
 			const values = Object.values(JSON.parse(args || '{}')).map((v) => JSON.stringify(v));
@@ -253,7 +253,7 @@
 </section>
 
 <style>
-	/* A terminal in the system's own colours: mono type, the accent for prompts and status. */
+	/* A terminal in the system's own colors: mono type, the accent for prompts and status. */
 	.term {
 		display: grid;
 		grid-template-rows: auto minmax(0, 1fr) auto auto auto;

@@ -35,16 +35,35 @@
 
 <h2 id="examples">Examples</h2>
 <Example
-	id="tones"
-	title="Tones"
-	description="Each tone carries its icon, as Alert does, so the meaning never rests on colour alone."
-	{...ex('tones')}
+	id="neutral"
+	title="Neutral"
+	description="The default, for plain facts. Each tone carries its icon, as Alert does, so the meaning never rests on color alone."
+	{...ex('neutral')}
+/>
+<Example id="accent" title="Accent" description="For something new or good." {...ex('accent')} />
+<Example
+	id="warning"
+	title="Warning"
+	description="For something that needs attention soon."
+	{...ex('warning')}
 />
 <Example
-	id="icons"
+	id="danger"
+	title="Danger"
+	description="For something wrong or missing."
+	{...ex('danger')}
+/>
+<Example
+	id="icon"
 	title="Your own icon"
-	description="Any Hugeicons icon in place of the tone's, or none."
-	{...ex('icons')}
+	description="Any Hugeicons icon in place of the tone's."
+	{...ex('icon')}
+/>
+<Example
+	id="no-icon"
+	title="No icon"
+	description="Pass false as the icon to show the label alone."
+	{...ex('no-icon')}
 />
 <Example
 	id="dot"
@@ -71,7 +90,7 @@
 <h2 id="accessibility">Accessibility</h2>
 <ul>
 	<li>
-		Plain text in a <code>&lt;span&gt;</code>: the words carry the meaning, never the colour alone.
+		Plain text in a <code>&lt;span&gt;</code>: the words carry the meaning, never the color alone.
 	</li>
 	<li>
 		Every tone keeps at least 4.5:1 text contrast on its tint, and its icon at least 3:1, in light

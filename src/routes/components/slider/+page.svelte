@@ -33,6 +33,20 @@
 <h2 id="examples">Examples</h2>
 <Example id="basic" title="Basic" stack {...ex('basic')} />
 <Example id="days" title="With units and a hint" stack {...ex('days')} />
+<Example
+	id="range"
+	title="A range"
+	stack
+	description="Give value a pair for two thumbs. Drag either; a bubble shows its value over your finger."
+	{...ex('range')}
+/>
+<Example
+	id="marks"
+	title="With marks"
+	stack
+	description="Ticks on the track; press a label to jump there."
+	{...ex('marks')}
+/>
 
 <h2 id="props">Props</h2>
 <table>
@@ -40,13 +54,25 @@
 	<tbody>
 		<tr><td><code>label</code></td><td><code>string</code> (required)</td><td></td></tr>
 		<tr
-			><td><code>value</code></td><td><code>number</code>, bindable</td><td><code>50</code></td></tr
+			><td><code>value</code></td><td
+				><code>number | [number, number]</code>, bindable: a pair is a range</td
+			><td><code>50</code></td></tr
 		>
 		<tr><td><code>min</code></td><td><code>number</code></td><td><code>0</code></td></tr>
 		<tr><td><code>max</code></td><td><code>number</code></td><td><code>100</code></td></tr>
 		<tr><td><code>step</code></td><td><code>number</code></td><td><code>1</code></td></tr>
 		<tr><td><code>format</code></td><td><code>(value) =&gt; string</code></td><td>number</td></tr>
 		<tr><td><code>hint</code></td><td><code>string</code></td><td></td></tr>
+		<tr
+			><td><code>marks</code></td><td
+				><code>(number | &lbrace; value, label? &rbrace;)[]</code>: labeled ones can be pressed</td
+			><td></td></tr
+		>
+		<tr
+			><td><code>thumbLabels</code></td><td
+				><code>[string, string]</code>: names of a range's two thumbs</td
+			><td>“Lowest …”, “Highest …”</td></tr
+		>
 	</tbody>
 </table>
 
@@ -58,6 +84,10 @@
 		“40”.
 	</li>
 	<li>The grab area is taller than the track, and 44px on touch screens.</li>
+	<li>
+		A range is a group named by the label, with each thumb its own slider; the two can't cross.
+	</li>
+	<li>The value bubble and marks are for sight only: the thumbs carry the value.</li>
 </ul>
 <table>
 	<thead><tr><th>Key</th><th>Action</th></tr></thead>

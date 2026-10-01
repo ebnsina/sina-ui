@@ -28,7 +28,7 @@
 		() => card,
 		() => (open = false),
 		// svelte-ignore state_referenced_locally
-		{ side, align: 'start', gap: 8, morph: false }
+		{ side, align: 'start', gap: 8 }
 	);
 	$effect(() => {
 		if (open) float.open();
@@ -105,7 +105,7 @@
 		background: var(--ui-surface-overlay);
 		color: var(--ui-fg);
 		font: 0.875rem/1.5 var(--ui-font);
-		/* Rendered inline beside its trigger: don't inherit centred running text. */
+		/* Rendered inline beside its trigger: don't inherit centered running text. */
 		text-align: start;
 		box-shadow: var(--ui-shadow-overlay);
 	}

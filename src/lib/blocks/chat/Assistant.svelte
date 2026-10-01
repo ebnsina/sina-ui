@@ -413,7 +413,7 @@
 		font-size: 0.8125rem;
 		line-height: 1.45;
 	}
-	/* A button's height, so the title centres on the rail's (or the list's) first row of buttons. */
+	/* A button's height, so the title centers on the rail's (or the list's) first row of buttons. */
 	.bar {
 		display: flex;
 		align-items: center;

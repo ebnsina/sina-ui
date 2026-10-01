@@ -1,12 +1,12 @@
 <script lang="ts">
 	import FileDrop from '#lib/ui/FileDrop.svelte';
 
-	let catalogue = $state<File[]>([]);
+	let catalog = $state<File[]>([]);
 </script>
 
 <FileDrop
-	label="Catalogue"
-	bind:value={catalogue}
+	label="Catalog"
+	bind:value={catalog}
 	accept=".pdf"
 	hint="One PDF. Choosing another replaces it."
 />

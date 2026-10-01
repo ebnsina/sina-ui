@@ -28,5 +28,10 @@ test-results
 storybook-static
 
 # Local plans and reference
-docs/
-data/
+/docs/
+/data/
+
+# Pro lives in the private ebnsina/sinaui-pro repo, checked out in place (pnpm pro <git command>)
+/src/lib/pro/
+/src/routes/pro/
+/.pro.git/

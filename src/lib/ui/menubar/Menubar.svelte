@@ -69,7 +69,7 @@
 	};
 </script>
 
-<!-- Keys from inside an open menu bubble here: Left and Right move to the neighbouring menu. -->
+<!-- Keys from inside an open menu bubble here: Left and Right move to the neighboring menu. -->
 <div
 	bind:this={bar}
 	role="menubar"

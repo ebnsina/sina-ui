@@ -43,10 +43,22 @@
 
 <h2 id="examples">Examples</h2>
 <Example
-	id="kinds"
-	title="Kinds"
-	description="Default, success and error. Hover or focus a toast and its timer pauses."
-	{...ex('kinds')}
+	id="default"
+	title="Default"
+	description="For news that needs no color. Hover or focus a toast and its timer pauses."
+	{...ex('default')}
+/>
+<Example
+	id="success"
+	title="Success"
+	description="When something worked, with a line of detail."
+	{...ex('success')}
+/>
+<Example
+	id="error"
+	title="Error"
+	description="When something failed: say what happened and what to do."
+	{...ex('failed')}
 />
 <Example
 	id="action"
@@ -78,7 +90,7 @@
 <h2 id="accessibility">Accessibility</h2>
 <ul>
 	<li>
-		Toasts live in a labelled region that's always in the page, so screen readers announce each one
+		Toasts live in a labeled region that's always in the page, so screen readers announce each one
 		politely without moving focus.
 	</li>
 	<li>

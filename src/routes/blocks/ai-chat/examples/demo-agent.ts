@@ -8,10 +8,10 @@ const scripts: [RegExp, { thought: string; steps: Step[]; answer: string }][] = 
 	[
 		/optic|haytham|light|sight/i,
 		{
-			thought: 'They want the source on vision. Search the catalogue, then check the manuscript.',
+			thought: 'They want the source on vision. Search the catalog, then check the manuscript.',
 			steps: [
 				{
-					tool: 'search_catalogue',
+					tool: 'search_catalog',
 					args: { query: 'Ibn al-Haytham optics' },
 					result: { summary: 'Found 3 manuscripts', ids: ['MS-1021', 'MS-1043', 'MS-1270'] }
 				},
@@ -31,7 +31,7 @@ const scripts: [RegExp, { thought: string; steps: Step[]; answer: string }][] = 
 			thought: 'Find the treatise and its date.',
 			steps: [
 				{
-					tool: 'search_catalogue',
+					tool: 'search_catalog',
 					args: { query: 'al-Khwarizmi al-jabr' },
 					result: { summary: 'Found 1 manuscript', ids: ['MS-0820'] }
 				}
@@ -51,7 +51,7 @@ const fallback = {
 		}
 	],
 	answer:
-		"I can search the catalogue and read manuscripts. Try asking about Ibn al-Haytham's optics or al-Khwarizmi's algebra."
+		"I can search the catalog and read manuscripts. Try asking about Ibn al-Haytham's optics or al-Khwarizmi's algebra."
 };
 
 const wait = (ms: number, signal?: AbortSignal) =>

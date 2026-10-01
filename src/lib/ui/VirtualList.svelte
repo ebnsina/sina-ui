@@ -8,7 +8,7 @@
 		items: T[];
 		/** A stable id for each item, so rows keep their measured height when the list changes. */
 		key: (item: T) => string | number;
-		/** Names the list ("Catalogue"). */
+		/** Names the list ("Catalog"). */
 		label: string;
 		/** A guess at a row's height in px; real heights are measured as rows appear. */
 		estimate?: number;

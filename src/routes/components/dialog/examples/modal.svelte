@@ -10,7 +10,7 @@
 <Dialog
 	bind:open
 	title="Edit scholar"
-	description="Changes appear in the House of Wisdom catalogue right away."
+	description="Changes appear in the House of Wisdom catalog right away."
 >
 	<Input
 		label="Name"

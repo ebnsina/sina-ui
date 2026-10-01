@@ -133,7 +133,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		inline-size: fit-content;
+		inline-size: max-content;
 		max-inline-size: 100%;
 	}
 	/* The input covers the boxes, invisible: clicks land in it, its caret and text are hidden. */
@@ -161,9 +161,10 @@
 		place-items: center;
 		box-sizing: border-box;
 		/* Shrinks on a phone rather than push the page sideways. */
-		flex: 0 1 2.75rem;
+		flex: 0 1 auto;
+		inline-size: 3rem;
 		min-inline-size: 1.75rem;
-		block-size: 3.25rem;
+		block-size: 3.5rem;
 		border: 1px solid var(--ui-field-line);
 		border-radius: var(--ui-radius-control);
 		background: var(--ui-surface);

@@ -13,13 +13,13 @@
 	export interface BoardLabel {
 		id: string;
 		name: string;
-		/** Any CSS colour; the system's tokens by default. */
+		/** Any CSS color; the system's tokens by default. */
 		color: string;
 	}
 </script>
 
 <script lang="ts">
-	import { pop, reduced, reflow } from '#lib/ui/motion.js';
+	import { ease, pop, reduced, reflow } from '#lib/ui/motion.js';
 	import { flushSync, tick } from 'svelte';
 	import { Add01Icon, DragDropVerticalIcon } from '@hugeicons/core-free-icons';
 	import { announce } from '#lib/ui/announce.js';
@@ -217,7 +217,7 @@
 						{ transform: `translate(${from.left}px, ${from.top}px) rotate(2deg)` },
 						{ transform: `translate(${to.left}px, ${to.top}px)` }
 					],
-					{ duration: 200, easing: 'cubic-bezier(0.23, 1, 0.32, 1)', fill: 'forwards' }
+					{ duration: 200, easing: ease.standard, fill: 'forwards' }
 				).finished;
 			}
 			drag = undefined;

@@ -71,9 +71,7 @@ async function get(registry, name) {
 		throw new Error(`Couldn't reach ${url.origin}. Check your connection and try again.`);
 	}
 	if (res.status === 404)
-		throw new Error(
-			`There's no component called "${name}". Run npx sinaui list to see them.`
-		);
+		throw new Error(`There's no component called "${name}". Run npx sinaui list to see them.`);
 	if (!res.ok) throw new Error(`${url} answered ${res.status}.`);
 	return res.json();
 }

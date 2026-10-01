@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Meter from '#lib/ui/Meter.svelte';
 
-	const litres = new Intl.NumberFormat('en', {
+	const liters = new Intl.NumberFormat('en', {
 		style: 'unit',
 		unit: 'liter',
 		maximumFractionDigits: 1
@@ -15,5 +15,5 @@
 	low={5}
 	high={12}
 	optimum={20}
-	format={(v, _, max) => `${litres.format(v)} of ${litres.format(max)}`}
+	format={(v, _, max) => `${liters.format(v)} of ${liters.format(max)}`}
 />
