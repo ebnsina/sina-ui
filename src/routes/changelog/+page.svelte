@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { link } from '#lib/site/root.js';
-	import { resolve } from '$app/paths';
 	import { releases } from '#lib/site/changelog.js';
 
 	const date = new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' });

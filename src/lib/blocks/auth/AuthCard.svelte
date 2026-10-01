@@ -87,6 +87,12 @@
 		margin: 0;
 		color: var(--ui-muted);
 	}
+	/* Its own link style, so links still read as links under an app's CSS reset. */
+	.auth :global(a) {
+		color: color-mix(in srgb, var(--ui-accent) 80%, var(--ui-fg));
+		text-decoration: underline;
+		text-underline-offset: 0.2em;
+	}
 	.providers {
 		display: grid;
 		gap: 0.5rem;

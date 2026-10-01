@@ -358,7 +358,7 @@
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 	<span
 		id="{id}-label"
-		class={['label', bare && 'hidden']}
+		class={['label', bare && 'sr-only']}
 		onclick={() => focusAt(kinds.findIndex((k) => seg[k] === undefined))}>{label}</span
 	>
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
@@ -477,7 +477,7 @@
 		font-weight: 500;
 		cursor: default;
 	}
-	.label.hidden {
+	.label.sr-only {
 		position: absolute;
 		inline-size: 1px;
 		block-size: 1px;

@@ -7,6 +7,7 @@
 
 	const uploads = createUploads(pretendSend);
 	// Previews by upload id, made once per file.
+	// eslint-disable-next-line svelte/prefer-svelte-reactivity -- a URL cache, never read reactively
 	const previews = new Map<number, string>();
 	const preview = (id: number, file: File) =>
 		previews.get(id) ?? previews.set(id, URL.createObjectURL(file)).get(id)!;
@@ -49,7 +50,7 @@
 				</button>
 				{#if u.status === 'uploading'}
 					<!-- A ring fills as it uploads; transform-only, so it stays smooth. -->
-					<svg class="ring" viewBox="0 0 36 36" aria-hidden="true">
+					<svg class="dial" viewBox="0 0 36 36" aria-hidden="true">
 						<circle
 							cx="18"
 							cy="18"
@@ -133,7 +134,7 @@
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: var(--ui-ring-offset);
 	}
-	.ring {
+	.dial {
 		position: absolute;
 		inset: 50% auto auto 50%;
 		inline-size: 2.5rem;
@@ -141,7 +142,7 @@
 		rotate: -90deg;
 		pointer-events: none;
 	}
-	.ring circle {
+	.dial circle {
 		fill: rgb(0 0 0 / 0.35);
 		stroke: #fff;
 		stroke-width: 3;

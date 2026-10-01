@@ -55,7 +55,7 @@
 	<tbody>
 		<tr><td><code>label</code></td><td><code>string</code> (required)</td><td></td></tr>
 		<tr><td><code>hideLabel</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
-		<tr><td><code>options</code></td><td><code>{'{'} value, label {'}'}[]</code></td><td></td></tr>
+		<tr><td><code>options</code></td><td><code>{'{'} value, label }[]</code></td><td></td></tr>
 		<tr><td><code>value</code></td><td><code>string</code>, bindable</td><td></td></tr>
 		<tr><td><code>name</code></td><td><code>string</code></td><td>a unique id</td></tr>
 		<tr><td><code>disabled</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>

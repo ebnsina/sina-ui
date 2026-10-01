@@ -89,7 +89,7 @@
 				{#if v === 'upload'}
 					{#if !open}
 						<div class="compact">
-							<svg class="ring" viewBox="0 0 20 20" aria-hidden="true">
+							<svg class="dial" viewBox="0 0 20 20" aria-hidden="true">
 								<circle cx="10" cy="10" r="8" pathLength="1" class="track" />
 								<circle
 									cx="10"
@@ -236,18 +236,18 @@
 		margin: 0;
 		font-weight: 600;
 	}
-	.ring {
+	.dial {
 		inline-size: 1.125rem;
 		rotate: -90deg;
 	}
-	.ring circle {
+	.dial circle {
 		fill: none;
 		stroke-width: 3;
 	}
-	.ring .track {
+	.dial .track {
 		stroke: var(--ui-hover);
 	}
-	.ring .done {
+	.dial .done {
 		stroke: var(--ui-accent);
 		stroke-linecap: round;
 		stroke-dasharray: 1;

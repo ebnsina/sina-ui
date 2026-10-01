@@ -73,10 +73,7 @@
 			><td><code>value</code></td><td><code>string</code>, bindable</td><td><code>''</code></td></tr
 		>
 		<tr><td><code>isNew</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
-		<tr
-			><td><code>rules</code></td><td><code>{'{'} label, test(value) {'}'}[]</code></td><td
-			></td></tr
-		>
+		<tr><td><code>rules</code></td><td><code>{'{'} label, test(value) }[]</code></td><td></td></tr>
 		<tr><td><code>hint</code>, <code>error</code></td><td><code>string</code></td><td></td></tr>
 	</tbody>
 </table>

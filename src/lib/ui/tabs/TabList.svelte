@@ -57,8 +57,7 @@
 
 	// A stale value (matches no tab) would leave the list unreachable by Tab key: fall back to the first.
 	$effect(() => {
-		tabs.value;
-		tabs.orientation;
+		void [tabs.value, tabs.orientation];
 		if (!list.querySelector('[aria-selected="true"]')) enabled()[0]?.click();
 		place(fromPointer);
 	});

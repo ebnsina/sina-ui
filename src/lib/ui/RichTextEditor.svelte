@@ -520,6 +520,7 @@
 	}
 	.content :global(h2) {
 		font-size: 1.375em;
+		font-weight: 650;
 	}
 	.content :global(h3) {
 		font-size: 1.125em;
@@ -531,6 +532,13 @@
 	.content :global(ol) {
 		margin: 0;
 		padding-inline-start: 1.5em;
+	}
+	/* Set here, not left to the browser: CSS resets like Tailwind's remove list markers. */
+	.content :global(ul) {
+		list-style: disc;
+	}
+	.content :global(ol) {
+		list-style: decimal;
 	}
 	.content :global(li + li) {
 		margin-block-start: 0.25em;

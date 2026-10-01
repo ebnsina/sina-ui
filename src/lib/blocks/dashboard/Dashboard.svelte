@@ -296,6 +296,7 @@
 	h2 {
 		margin: 0;
 		font-size: 1.25rem;
+		font-weight: 650;
 		letter-spacing: -0.01em;
 	}
 	.sub {
@@ -417,6 +418,7 @@
 	h3 {
 		margin: 0 0 0.75rem;
 		font-size: 0.9375rem;
+		font-weight: 600;
 	}
 	.rooms {
 		display: grid;

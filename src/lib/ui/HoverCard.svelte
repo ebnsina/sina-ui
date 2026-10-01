@@ -27,6 +27,7 @@
 		() => anchor,
 		() => card,
 		() => (open = false),
+		// eslint-disable-next-line svelte/no-unused-svelte-ignore -- svelte-check needs it; eslint's parser misses the warning
 		// svelte-ignore state_referenced_locally
 		{ side, align: 'start', gap: 8 }
 	);

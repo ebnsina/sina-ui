@@ -81,7 +81,7 @@
 	/>
 </div>
 
-<table class={['grid', pausedNow && 'paused']}>
+<table class={['matrix', pausedNow && 'paused']}>
 	<caption class="sr">What to be told about, and how</caption>
 	<thead>
 		<tr
@@ -125,7 +125,7 @@
 		max-inline-size: 36rem;
 		margin-block-end: 1.5rem;
 	}
-	.grid {
+	.matrix {
 		inline-size: 100%;
 		max-inline-size: 36rem;
 		border-collapse: collapse;

@@ -181,7 +181,9 @@
 		if (!node) return;
 		try {
 			press.el.setPointerCapture(e.pointerId);
-		} catch {}
+		} catch {
+			// The pointer is already gone: the drag still works without capture.
+		}
 		const p = local(e);
 		drag = { grabX: p.x - node.offsetLeft, grabY: p.y - node.offsetTop, x: p.x, y: p.y, frame: 0 };
 		pickUp(press.id, 'pointer');

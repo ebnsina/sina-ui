@@ -42,7 +42,7 @@
 	</p>
 	<p>
 		For the fading edges alone on your own scrolling element, add
-		<code>{'{'}@attach scrollEdges{'}'}</code> and <code>data-fade</code> (or
+		<code>{'{'}@attach scrollEdges}</code> and <code>data-fade</code> (or
 		<code>data-fade="x"</code> sideways).
 	</p>
 </Install>

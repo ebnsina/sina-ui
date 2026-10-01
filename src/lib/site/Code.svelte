@@ -44,6 +44,7 @@
 		aria-label={label}
 		bind:this={region}
 	>
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -- highlighter output: source text is escaped -->
 		{@html html}
 	</div>
 	<button type="button" class="copy" aria-label={copied ? 'Copied' : 'Copy code'} onclick={copy}>

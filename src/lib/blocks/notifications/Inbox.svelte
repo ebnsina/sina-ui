@@ -209,7 +209,7 @@
 			{ value: 'mentions', label: 'Mentions' }
 		]}
 		bind:value={filter}
-		class="filter"
+		class="kinds"
 	/>
 
 	{#if loading}
@@ -332,7 +332,7 @@
 		font-size: 1rem;
 		font-weight: 600;
 	}
-	.inbox :global(.filter) {
+	.inbox :global(.kinds) {
 		inline-size: 100%;
 	}
 	/* In a popover it scrolls inside a set height (--inbox-height); full page it just grows. */

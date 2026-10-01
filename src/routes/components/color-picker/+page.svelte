@@ -59,7 +59,7 @@
 			></tr
 		>
 		<tr
-			><td><code>swatches</code></td><td><code>(string | {'{'} color, name {'}'})[]</code></td><td
+			><td><code>swatches</code></td><td><code>(string | {'{'} color, name })[]</code></td><td
 			></td></tr
 		>
 		<tr

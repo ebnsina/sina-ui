@@ -46,7 +46,7 @@
 {#if shape === 'circle'}
 	<div class={['progress', 'circle', className]} {...rest}>
 		<div
-			class={['ring', value === undefined && 'indeterminate']}
+			class={['dial', value === undefined && 'indeterminate']}
 			style:--size="{size}px"
 			role="progressbar"
 			aria-labelledby="{uid}-label"
@@ -157,19 +157,19 @@
 		justify-items: center;
 		gap: 0.5rem;
 	}
-	.ring {
+	.dial {
 		position: relative;
 		display: grid;
 		place-items: center;
 		inline-size: var(--size);
 		block-size: var(--size);
 	}
-	.ring svg {
+	.dial svg {
 		position: absolute;
 		inset: 0;
 		rotate: -90deg;
 	}
-	.ring circle {
+	.dial circle {
 		fill: none;
 		stroke-width: 3.5;
 	}
@@ -183,14 +183,14 @@
 		stroke-dashoffset: 1;
 		transition: stroke-dashoffset 400ms var(--ui-ease-out);
 	}
-	.ring:dir(rtl) svg {
+	.dial:dir(rtl) svg {
 		scale: 1 -1;
 	}
 	/* Unknown amount: a quarter arc turning (constant motion, so linear). */
-	.ring.indeterminate svg {
+	.dial.indeterminate svg {
 		animation: turn 1s linear infinite;
 	}
-	.ring.indeterminate .ring-fill {
+	.dial.indeterminate .ring-fill {
 		stroke-dashoffset: 0.72;
 	}
 	@keyframes turn {
@@ -209,7 +209,7 @@
 		.ring-fill {
 			transition: none;
 		}
-		.ring.indeterminate svg {
+		.dial.indeterminate svg {
 			animation: pulse 2s ease-in-out infinite;
 		}
 		.fill {

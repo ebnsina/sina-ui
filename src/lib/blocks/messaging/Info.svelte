@@ -110,7 +110,7 @@
 	<section aria-labelledby="media-h">
 		<h4 id="media-h">Pictures</h4>
 		{#if pictures.length}
-			<div class="grid">
+			<div class="media">
 				{#each pictures as p (p.url)}
 					<Image src={p.url} alt={p.name} ratio="1 / 1" zoom />
 				{/each}
@@ -243,13 +243,13 @@
 		color: var(--ui-muted);
 		font-size: 0.75rem;
 	}
-	.grid {
+	.media {
 		display: grid;
 		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 0.25rem;
 	}
-	.grid :global(img),
-	.grid :global(figure) {
+	.media :global(img),
+	.media :global(figure) {
 		border-radius: 0.5rem;
 	}
 	.none {

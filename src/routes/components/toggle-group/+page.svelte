@@ -67,7 +67,7 @@
 		<tr><td><code>label</code></td><td><code>string</code> (required)</td><td></td></tr>
 		<tr>
 			<td><code>items</code></td>
-			<td><code>{'{'} value, label, icon?, disabled? {'}'}[]</code></td>
+			<td><code>{'{'} value, label, icon?, disabled? }[]</code></td>
 			<td></td>
 		</tr>
 		<tr

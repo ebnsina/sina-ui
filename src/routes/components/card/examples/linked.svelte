@@ -13,14 +13,14 @@
 </script>
 
 <!-- The whole card is one link, named by its title. -->
-<div class="grid">
+<div class="cards">
 	{#each scholars as s (s.name)}
 		<Card title={s.name} description={s.work} href={s.href} />
 	{/each}
 </div>
 
 <style>
-	.grid {
+	.cards {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
 		gap: 1rem;

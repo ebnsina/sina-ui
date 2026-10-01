@@ -72,7 +72,7 @@
 
 <!-- fieldset + legend + native radios: the question is announced, arrow keys and forms come free. -->
 <fieldset
-	class={['radio-cards', layout, className]}
+	class={['radio-cards', layout === 'list' && 'list', className]}
 	{disabled}
 	aria-describedby={[hint && `${uid}-hint`, error && `${uid}-error`].filter(Boolean).join(' ') ||
 		undefined}

@@ -249,7 +249,7 @@
 					</g>
 				</g>
 				<path
-					class="outline"
+					class="rim"
 					d="M22,16 C22,56 46,68 47.5,80 C46,92 22,104 22,144 L78,144 C78,104 54,92 52.5,80 C54,68 78,56 78,16 Z"
 				/>
 				<!-- A glint down the left of the glass, so it reads as glass. -->
@@ -335,7 +335,7 @@
 	.actions :global(.btn) {
 		inline-size: 100%;
 	}
-	.outline {
+	.rim {
 		fill: none;
 		stroke: var(--ui-control-line);
 		stroke-width: 1.2;

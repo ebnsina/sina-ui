@@ -34,7 +34,7 @@
 		glide(thumb, track.querySelector<HTMLElement>('input:checked')?.closest('label'), animate, 240);
 
 	$effect(() => {
-		value;
+		void value;
 		place(viaPointer);
 		ready = true;
 	});

@@ -70,6 +70,7 @@
 	});
 	// Grouped in the order groups first appear among the matches, so the best match heads the list.
 	const groups = $derived.by(() => {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- built and returned by $derived, never mutated after
 		const map = new Map<string, Command[]>();
 		for (const c of matches) map.set(c.group ?? '', [...(map.get(c.group ?? '') ?? []), c]);
 		return [...map];

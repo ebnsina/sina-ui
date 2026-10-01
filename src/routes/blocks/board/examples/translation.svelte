@@ -42,7 +42,9 @@
 		try {
 			const saved = JSON.parse(localStorage.getItem(KEY) ?? 'null');
 			if (Array.isArray(saved)) columns = saved;
-		} catch {}
+		} catch {
+			// Nothing saved, or storage blocked: start from the demo board.
+		}
 		loaded = true;
 	});
 	$effect(() => {
@@ -50,7 +52,9 @@
 		if (!loaded) return;
 		try {
 			localStorage.setItem(KEY, json);
-		} catch {}
+		} catch {
+			// Storage blocked: changes last until reload.
+		}
 	});
 </script>
 

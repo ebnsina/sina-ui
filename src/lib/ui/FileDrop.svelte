@@ -88,6 +88,7 @@
 	);
 
 	// Previews for images, freed when the file leaves the list.
+	// eslint-disable-next-line svelte/prefer-svelte-reactivity -- a URL cache, never read reactively
 	const previews = new Map<File, string>();
 	const preview = (f: File) => {
 		if (!f.type.startsWith('image/')) return undefined;
@@ -192,6 +193,7 @@
 		<span class="icon"><Icon icon={CloudUploadIcon} size={24} /></span>
 		{#snippet prompt()}
 			<!-- Touch screens can't drag files in: there it reads just "Choose files". -->
+			<!-- eslint-disable-next-line svelte/no-useless-mustaches -- keeps the space the markup layout would drop -->
 			<span class="drag">Drag {multiple ? 'files' : 'a file'} here, or{' '}</span><label
 				class="choose"
 				for="{id}-input">choose {multiple ? 'files' : 'a file'}</label

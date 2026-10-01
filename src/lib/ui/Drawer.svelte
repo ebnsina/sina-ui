@@ -206,6 +206,7 @@
 		font-size: 1.125rem;
 		font-weight: 600;
 		line-height: 1.3;
+		letter-spacing: -0.02em;
 	}
 	.titles p {
 		margin: 0.125rem 0 0;

@@ -95,6 +95,7 @@ export function createForm(options: Options) {
 		el.noValidate = true;
 		// Checked when left after a change, not while typing (no "invalid email" after one letter),
 		// and not when merely tabbed past: an untouched empty field waits for the submit.
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- tracks touched fields for blur checks; nothing renders from it
 		const changed = new Set<string>();
 		const left = (e: Event) => {
 			const name = (e.target as Field).name;

@@ -217,6 +217,19 @@
 	Components use <code>--ui-font</code> for text and <code>--ui-font-mono</code> for code. Load your fonts
 	as usual, then point these at them.
 </p>
+<p>
+	Text inside components follows your page's font. <code>tokens.css</code> sets the page to
+	<code>--ui-font</code> only when your app doesn't set its own. If it does (Tailwind sets one), the
+	components take your app's font. To use <code>--ui-font</code> everywhere, add
+	<code>html &#123; font-family: var(--ui-font); &#125;</code> after your own CSS.
+</p>
+
+<h2 id="tailwind">With Tailwind</h2>
+<p>
+	Components work alongside Tailwind's reset with nothing to configure: they set their own borders,
+	spacing and list styles. Their CSS is scoped, so Tailwind classes in your markup don't change
+	them.
+</p>
 
 <h2 id="tokens">All tokens</h2>
 <table class="tokens">

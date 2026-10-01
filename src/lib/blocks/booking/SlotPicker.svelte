@@ -66,7 +66,7 @@
 			{/snippet}
 		</Alert>
 	{:else if !slots}
-		<div class="grid" aria-hidden="true">
+		<div class="cells" aria-hidden="true">
 			{#each { length: 6 }, i (i)}<span class="slot ghost"></span>{/each}
 		</div>
 	{:else if !open}
@@ -78,7 +78,7 @@
 			{/if}
 		</div>
 	{:else}
-		<div class="grid" {@attach scrollEdges} data-fade>
+		<div class="cells" {@attach scrollEdges} data-fade>
 			{#each slots as s (s.id)}
 				<label class={['slot', s.taken && 'taken']}>
 					<input type="radio" name={id} value={s.id} bind:group={value} disabled={s.taken} />
@@ -105,7 +105,7 @@
 		padding: 0;
 		font-weight: 500;
 	}
-	.grid {
+	.cells {
 		display: grid;
 		grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
 		gap: 0.5rem;

@@ -68,10 +68,7 @@
 	<thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead>
 	<tbody>
 		<tr><td><code>label</code></td><td><code>string</code> (required)</td><td></td></tr>
-		<tr
-			><td><code>items</code></td><td><code>{'{'} id, name, children? {'}'}[]</code></td><td
-			></td></tr
-		>
+		<tr><td><code>items</code></td><td><code>{'{'} id, name, children? }[]</code></td><td></td></tr>
 		<tr
 			><td><code>expanded</code></td><td><code>string[]</code>, bindable: open folders</td><td
 				><code>[]</code></td

@@ -165,7 +165,7 @@
 				{@render footer?.()}
 				<button
 					type="button"
-					class="collapse"
+					class="fold"
 					aria-expanded={!collapsed}
 					aria-controls="{id}-content"
 					aria-keyshortcuts="Control+B Meta+B"
@@ -260,7 +260,7 @@
 		list-style: none;
 	}
 	.item,
-	.collapse {
+	.fold {
 		position: relative;
 		display: flex;
 		align-items: center;
@@ -281,11 +281,11 @@
 		transition: color var(--ui-dur) ease;
 	}
 	.item :global(svg),
-	.collapse :global(svg) {
+	.fold :global(svg) {
 		flex: none;
 	}
 	.item:hover,
-	.collapse:hover,
+	.fold:hover,
 	.item[aria-current='page'] {
 		color: var(--ui-fg);
 	}
@@ -293,7 +293,7 @@
 		font-weight: 500;
 	}
 	.item:focus-visible,
-	.collapse:focus-visible,
+	.fold:focus-visible,
 	.menu:focus-visible {
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: -2px;

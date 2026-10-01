@@ -47,6 +47,8 @@
 			isAccessibleForFree: true
 		}).replace(/</g, '\\u003c')
 	);
+	// Split so this script block doesn't end early; `<` inside the JSON is escaped above.
+	const ldTag = $derived(`<script type="application/ld+json">${jsonLd}</` + 'script>');
 </script>
 
 <svelte:head>
@@ -55,7 +57,7 @@
 	<meta property="og:title" content="Sina UI — Accessible Svelte components that feel finished" />
 	<meta property="og:description" content={description} />
 	<!-- eslint-disable-next-line svelte/no-at-html-tags -- our own JSON, with < escaped -->
-	{@html `<script type="application/ld+json">${jsonLd}</script>`}
+	{@html ldTag}
 </svelte:head>
 
 <section class="hero">

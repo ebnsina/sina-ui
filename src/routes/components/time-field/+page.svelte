@@ -44,7 +44,7 @@
 	<p>The value is a <code>Time</code> from that library: hours, minutes and seconds, no date.</p>
 	<p>
 		For a start and an end, also copy <code>TimeRangeField.svelte</code>; its value is
-		<code>{'{'} start, end {'}'}</code>.
+		<code>{'{'} start, end }</code>.
 	</p>
 </Install>
 

@@ -1,4 +1,5 @@
-/* Docs site: page shell and article typography. Not part of the component library. */
+/* Docs site: page shell and article typography. Not part of the component library.
+   Article rules stop at live examples (:not(.preview *)), so examples look as they do in a user's app. */
 html {
 	scroll-padding-top: 4.5rem;
 }
@@ -31,12 +32,12 @@ body {
 main > :is(p, ul, ol, blockquote) {
 	max-inline-size: 72ch;
 }
-main .eyebrow {
+main .eyebrow:not(.preview *) {
 	margin: 0 0 0.5rem;
 	color: var(--ui-accent);
 	font: 500 0.8125rem var(--ui-font-mono);
 }
-main h1 {
+main h1:not(.preview *) {
 	margin: 0;
 	font-size: clamp(2rem, 4vw, 2.5rem);
 	font-weight: 650;
@@ -44,7 +45,7 @@ main h1 {
 	letter-spacing: -0.025em;
 	text-wrap: balance;
 }
-main .lede {
+main .lede:not(.preview *) {
 	margin: 0.75rem 0 0;
 	color: var(--ui-muted);
 	font-size: 1.125rem;
@@ -52,31 +53,33 @@ main .lede {
 }
 /* Hierarchy: sections (h2) clearly outrank examples (h3), and sit further from what came before
    than from what follows, so each section visibly owns the examples under it. */
-main h2 {
+main h2:not(.preview *) {
 	margin: 3.5rem 0 1rem;
 	font-size: 1.5rem;
 	font-weight: 650;
 	line-height: 1.25;
 	letter-spacing: -0.02em;
 }
-main h3 {
+main h3:not(.preview *) {
 	margin: 2rem 0 0.5rem;
 	font-size: 1rem;
 	font-weight: 600;
 }
-main :is(h2 + h3, h2 + .example > h3) {
+main :is(h2 + h3, h2 + .example > h3):not(.preview *) {
 	margin-block-start: 1.25rem;
 }
-main p {
+main p:not(.preview *) {
 	text-wrap: pretty;
 }
-main a:not([class]) {
+main a:not([class], .preview *) {
 	color: var(--ui-accent);
 	text-underline-offset: 3px;
 }
 
 /* Live example: a faint tint, lighter than code blocks, instead of an outline. */
 .preview {
+	/* An app's line height, not the article's, so examples look as they will in an app. */
+	line-height: 1.5;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
@@ -156,7 +159,7 @@ main a:not([class]) {
 	color: light-dark(#b42318, #ff8a7a);
 }
 
-main :not(pre) > code {
+main :not(pre) > code:not(.preview *) {
 	overflow-wrap: anywhere;
 	padding: 0.1em 0.35em;
 	border-radius: 4px;
@@ -205,7 +208,7 @@ main > table th {
 	font-size: 0.8125rem;
 	font-weight: 500;
 }
-main kbd {
+main kbd:not(.preview *) {
 	display: inline-block;
 	min-inline-size: 1.5em;
 	padding: 0.05em 0.4em;

@@ -150,7 +150,7 @@ export async function demoVideo(
 	const chunks: Blob[] = [];
 	recorder.ondataavailable = (e) => chunks.push(e.data);
 	const start = performance.now();
-	let raf = 0;
+	let raf: number;
 	const draw = (t: number) => {
 		const s = (t - start) / 1000;
 		g.fillStyle = `hsl(${a} 45% 22%)`;

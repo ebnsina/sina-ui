@@ -64,7 +64,7 @@
 	<thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead>
 	<tbody>
 		<tr>
-			<td><code>items</code></td><td><code>{'{'} label, href? {'}'}[]</code></td><td></td>
+			<td><code>items</code></td><td><code>{'{'} label, href? }[]</code></td><td></td>
 		</tr>
 		<tr><td><code>max</code></td><td><code>number</code></td><td><code>3</code></td></tr>
 		<tr

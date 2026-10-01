@@ -79,7 +79,6 @@
 	const describe = (d: CalendarDate) =>
 		long.format(d.toDate(tz)) + (bn ? ` · ${bangla.format(d, locale)}` : '');
 
-	// svelte-ignore state_referenced_locally
 	let text = $state(value ? short.format(value.toDate(tz)) : '');
 	let open = $state(false);
 	let grid = $state<ReturnType<typeof Calendar>>();

@@ -490,6 +490,8 @@
 	h2 {
 		margin: 0;
 		font-size: 1.25rem;
+		font-weight: 650;
+		letter-spacing: -0.02em;
 	}
 	.actions,
 	.tools {

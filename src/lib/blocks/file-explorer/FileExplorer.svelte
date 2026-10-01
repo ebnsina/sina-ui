@@ -124,6 +124,7 @@
 	};
 	const live = $derived(items.filter(alive));
 	const counts = $derived.by(() => {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- built and returned by $derived, never mutated after
 		const m = new Map<string | null, number>();
 		for (const i of items) if (!i.trashed) m.set(i.parent, (m.get(i.parent) ?? 0) + 1);
 		return m;
@@ -367,6 +368,7 @@
 		doomOpen = list.length > 0;
 	};
 	function destroy() {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- a temporary inside one function
 		const gone = new Set<string>();
 		// ponytail: rescans items per folder, fine to tens of thousands; index children if it slows.
 		const mark = (id: string) => {
@@ -418,6 +420,7 @@
 		});
 	}
 	// With `send`, each file goes up with progress and joins its folder once it's there.
+	// eslint-disable-next-line svelte/prefer-svelte-reactivity -- upload bookkeeping, never read by the template
 	const dests = new Map<File, string | null>();
 	// svelte-ignore state_referenced_locally
 	const uploads = send
@@ -455,10 +458,13 @@
 			else if (mod && k === 'x' && place !== 'trash') {
 				clip = targets(i).map((x) => x.id);
 				announce(`${named(targets(i))} ready to move: open a folder and paste`);
-			} else if (k === 'Escape' && (picked.size || clip.length)) (picked.clear(), (clip = []));
-			else if (k === 'Delete' || k === 'Backspace')
-				place === 'trash' ? askDelete(targets(i)) : trash(targets(i));
-			else if (k === 'F2' && place !== 'trash') rename(i);
+			} else if (k === 'Escape' && (picked.size || clip.length)) {
+				picked.clear();
+				clip = [];
+			} else if (k === 'Delete' || k === 'Backspace') {
+				if (place === 'trash') askDelete(targets(i));
+				else trash(targets(i));
+			} else if (k === 'F2' && place !== 'trash') rename(i);
 			else if (k === 'Enter') open(i);
 			else if (k === 'ContextMenu' || (e.shiftKey && k === 'F10')) menuOf(el)?.click();
 			else return;
@@ -512,6 +518,7 @@
 
 	// The sidebar's folder tree, kept open to wherever you are.
 	const tree = $derived.by(() => {
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- built and read inside one $derived
 		const kids = new Map<string | null, ExplorerItem[]>();
 		for (const f of live) if (f.folder) kids.set(f.parent, [...(kids.get(f.parent) ?? []), f]);
 		const build = (p: string | null): TreeNode[] =>
@@ -965,7 +972,6 @@
 
 <Dialog bind:open={nameOpen} title={naming ? 'Rename' : 'New folder'}>
 	<form id="{uid}-name" onsubmit={saveName}>
-		<!-- svelte-ignore a11y_autofocus -->
 		<Input label="Name" bind:value={draft} autofocus autocomplete="off" />
 	</form>
 	{#snippet footer()}

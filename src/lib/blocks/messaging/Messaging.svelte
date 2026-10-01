@@ -826,6 +826,8 @@
 		gap: 0.5rem;
 		margin: 0;
 		font-size: 1.0625rem;
+		font-weight: 650;
+		letter-spacing: -0.02em;
 	}
 	.total,
 	.badge {

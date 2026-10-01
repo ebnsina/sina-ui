@@ -192,7 +192,7 @@
 <section class="part" aria-labelledby="tf-title">
 	<h3 id="tf-title">Two-step sign-in</h3>
 	<div class="row">
-		<div class="grow">
+		<div class="stretch">
 			<Switch
 				checked={twoFactor}
 				onclick={(e: MouseEvent) => {
@@ -207,7 +207,9 @@
 	</div>
 	{#if twoFactor}
 		<div class="row">
-			<p class="muted grow">Recovery codes get you in if you lose your phone. Each works once.</p>
+			<p class="muted stretch">
+				Recovery codes get you in if you lose your phone. Each works once.
+			</p>
 			<Button variant="secondary" size="sm" onclick={() => (codesOpen = true)}
 				>View recovery codes</Button
 			>
@@ -223,7 +225,7 @@
 				<span class="device" aria-hidden="true">
 					<Icon icon={s.kind === 'phone' ? SmartPhone01Icon : LaptopIcon} size={20} />
 				</span>
-				<span class="grow">
+				<span class="stretch">
 					<strong>{s.device}</strong>
 					<span class="muted">{s.location} · {s.current ? 'Active now' : ago(s.lastActive)}</span>
 				</span>
@@ -327,6 +329,7 @@
 	h3 {
 		margin: 0 0 0.75rem;
 		font-size: 1rem;
+		font-weight: 600;
 	}
 	.fields {
 		display: grid;
@@ -340,7 +343,7 @@
 		gap: 0.75rem;
 		margin-block-end: 0.75rem;
 	}
-	.grow {
+	.stretch {
 		display: grid;
 		flex: 1;
 		min-inline-size: 0;

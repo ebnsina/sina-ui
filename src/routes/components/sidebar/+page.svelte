@@ -55,7 +55,7 @@
 		<tr><td><code>label</code></td><td><code>string</code> (required)</td><td></td></tr>
 		<tr
 			><td><code>groups</code></td><td
-				><code>{'{'} title?, items: {'{'} label, href, icon {'}'}[] {'}'}[]</code></td
+				><code>{'{'} title?, items: {'{'} label, href, icon }[] }[]</code></td
 			><td></td></tr
 		>
 		<tr

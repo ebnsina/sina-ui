@@ -75,7 +75,6 @@
 
 	const id = $props.id();
 	const tz = getLocalTimeZone();
-	// svelte-ignore state_referenced_locally
 	// The calendar system is fixed for the component's life, so reading it once is intended.
 	// svelte-ignore state_referenced_locally
 	const custom = typeof calendar === 'string' ? undefined : calendar;
@@ -413,6 +412,7 @@
 		margin: 0;
 		font-size: 0.9375rem;
 		font-weight: 600;
+		letter-spacing: -0.02em;
 	}
 	.head :global(.flip:dir(rtl)) {
 		transform: scaleX(-1);
@@ -422,14 +422,18 @@
 		/* Only the body slides between months; clip it to the grid. */
 		overflow: clip;
 	}
+	/* content-box set here, so an app's border-box reset (Tailwind) doesn't shrink the grid. */
 	th {
+		box-sizing: content-box;
 		block-size: 2rem;
+		padding: 1px;
 		color: var(--ui-muted);
 		font-size: 0.75rem;
 		font-weight: 500;
 	}
 	/* Every cell is a day tall, empty ones too: a month with an empty sixth row is the same height. */
 	td {
+		box-sizing: content-box;
 		block-size: calc(2.25rem + 2px);
 		padding: 1px;
 		text-align: center;

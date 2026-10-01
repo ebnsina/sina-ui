@@ -69,6 +69,7 @@
 	// Searching: a node shows if it matches or holds something that does; its folders open to it.
 	const found = $derived.by(() => {
 		if (!q) return undefined;
+		// eslint-disable-next-line svelte/prefer-svelte-reactivity -- built and returned by $derived, never mutated after
 		const keep = new Set<string>();
 		let hits = 0;
 		const walk = (nodes: TreeNode[]): boolean => {
@@ -114,7 +115,7 @@
 		Math.min(rows.length, Math.ceil((scrollTop + viewHeight) / rowHeight) + overscan)
 	);
 	const windowed = $derived(rows.slice(first, last).map((r, i) => ({ ...r, index: first + i })));
-	const sizeRows = (node: HTMLElement) => {
+	const sizeRows = () => {
 		const coarse = matchMedia('(pointer: coarse)');
 		const set = () => (rowHeight = coarse.matches ? 44 : 32);
 		set();
@@ -150,11 +151,14 @@
 	async function toggle(n: TreeNode, to = !open.has(n.id)) {
 		if (!n.children || found) return;
 		if (to && load && !n.children.length && !fetched.has(n.id)) {
+			// eslint-disable-next-line svelte/prefer-svelte-reactivity -- copied, then replaced whole: $state sees the new value
 			loading = new Set(loading).add(n.id);
 			expanded = [...expanded, n.id];
 			try {
+				// eslint-disable-next-line svelte/prefer-svelte-reactivity -- copied, then replaced whole: $state sees the new value
 				fetched = new Map(fetched).set(n.id, await load(n));
 			} finally {
+				// eslint-disable-next-line svelte/prefer-svelte-reactivity -- copied, then replaced whole: $state sees the new value
 				const next = new Set(loading);
 				next.delete(n.id);
 				loading = next;
@@ -215,7 +219,7 @@
 				if (node.children) toggle(node);
 				choose(node);
 				break;
-			default:
+			default: {
 				if (e.key.length !== 1 || e.ctrlKey || e.metaKey || e.altKey) return;
 				// Typeahead: letters typed together find the next row starting with them.
 				typed = performance.now() - typedAt > 500 ? e.key : typed + e.key;
@@ -224,6 +228,7 @@
 				const order = [...rows.slice(at + (t.length === 1 ? 1 : 0)), ...rows.slice(0, at)];
 				const hit = order.find((r) => r.node.name.toLowerCase().startsWith(t));
 				if (hit) goTo(rows.indexOf(hit));
+			}
 		}
 		e.preventDefault();
 	}
