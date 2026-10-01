@@ -178,7 +178,8 @@
 		</aside>
 
 		<div bind:this={main} id="{id}-content" class="main" {@attach scrollEdges} data-fade>
-			<div class="bar">
+			<!-- Phones only, while the sidebar is hidden: the same navigation, one tap away. -->
+			<div class="bar" role="navigation" aria-label={label}>
 				<button
 					type="button"
 					class="menu"
