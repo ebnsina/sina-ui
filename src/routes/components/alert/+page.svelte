@@ -40,7 +40,34 @@
 </Install>
 
 <h2 id="examples">Examples</h2>
-<Example id="tones" title="Tones" stack {...ex('tones')} />
+<Example
+	id="info"
+	title="Info"
+	description="The default, for news worth knowing."
+	stack
+	{...ex('info')}
+/>
+<Example
+	id="success"
+	title="Success"
+	description="When something worked."
+	stack
+	{...ex('success')}
+/>
+<Example
+	id="warning"
+	title="Warning"
+	description="When something needs attention soon."
+	stack
+	{...ex('warning')}
+/>
+<Example
+	id="danger"
+	title="Danger"
+	description="When something went wrong or can't be undone."
+	stack
+	{...ex('danger')}
+/>
 <Example id="actions" title="Actions and dismiss" stack {...ex('actions')} />
 <Example
 	id="live"
@@ -79,6 +106,6 @@
 		Static by default: it is simply read in page order, like any text. Only <code>live</code> alerts are
 		announced, so screen readers are not flooded on page load.
 	</li>
-	<li>Tone is in the icon and the words, never colour alone.</li>
+	<li>Tone is in the icon and the words, never color alone.</li>
 	<li>The close button is named (translate <code>dismissLabel</code>).</li>
 </ul>

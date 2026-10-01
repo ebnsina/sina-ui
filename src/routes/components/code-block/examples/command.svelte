@@ -2,12 +2,7 @@
 	import CodeBlock from '#lib/ui/CodeBlock.svelte';
 </script>
 
-<CodeBlock
-	code="npx sinaui add code-block"
-	lang="shell"
-	lineNumbers={false}
-	class="demo"
-/>
+<CodeBlock code="npx sinaui add code-block" lang="shell" lineNumbers={false} class="demo" />
 
 <style>
 	:global(.demo) {

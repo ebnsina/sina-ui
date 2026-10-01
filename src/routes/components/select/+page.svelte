@@ -61,7 +61,7 @@
 	{...ex('basic')}
 />
 <Example id="native-groups" title="Grouped options" stack {...ex('groups')} />
-<Example id="native-error" title="With an error" stack {...ex('error')} />
+<Example id="native-error" title="With an error" stack {...ex('invalid')} />
 
 <h2 id="custom">Custom</h2>
 <p>
@@ -87,7 +87,7 @@
 	id="custom-items"
 	title="Custom rendering"
 	stack
-	description="The item snippet renders each option however you like; the check mark and keyboard behaviour stay."
+	description="The item snippet renders each option however you like; the check mark and keyboard behavior stay."
 	{...ex('custom-items')}
 />
 

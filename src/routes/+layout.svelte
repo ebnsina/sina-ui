@@ -17,7 +17,8 @@
 	import Icon from '#lib/ui/Icon.svelte';
 	import { Toaster } from '#lib/ui/toast/index.js';
 	import { glide } from '#lib/ui/glide.js';
-	import { nav } from '#lib/site/nav.js';
+	import { nav, type PageId } from '#lib/site/nav.js';
+	import Badge from '#lib/ui/Badge.svelte';
 	import { search } from '#lib/site/search.svelte.js';
 	import { isDark, setTheme } from '#lib/site/theme.js';
 	import {
@@ -29,12 +30,37 @@
 	} from '@hugeicons/core-free-icons';
 
 	let { children } = $props();
+	// The home page is a landing page: a top menu, no docs sidebar or contents rail.
+	const landing = $derived(page.route.id === '/');
+	// A template's own pages (its header, footer and routes), shown as they would ship: no docs chrome.
+	// "/pro/<template>/site/…", "…/app/…" or a variant like "…/modern-site/…": a template's own pages.
+	// A 404 has no route id, so fall back to the address (minus any base path): a missing page inside
+	// a template still shows bare, never inside the docs.
+	const template = $derived(
+		(page.route.id ?? page.url.pathname.slice(resolve('/').length - 1)).match(
+			/^\/pro\/([^/]+)\/(?:[a-z-]+-)?(?:site|app)(?:\/|$)/
+		)?.[1]
+	);
+	const bare = $derived(!!template);
+	const menu: { title: string; href: PageId; pro?: boolean }[] = [
+		{ title: 'Docs', href: '/docs' },
+		{ title: 'Components', href: '/components/button' },
+		{ title: 'Blocks', href: '/blocks/dashboard' },
+		{ title: 'Pro', href: '/pro', pro: true }
+	];
+	let menuHover = $state() as HTMLSpanElement;
 
 	// From the address the page was served at, so no domain is written into the site.
 	const canonical = $derived(`${page.url.origin}${page.url.pathname}`);
-	const ogImage = $derived(
-		`${page.url.origin}${asset(`og/${!page.route.id || page.route.id === '/' ? 'home' : page.route.id.slice(1).replaceAll('/', '-')}.png` as AssetPath)}`
+	// Share images are made per docs page; a template's own pages share their template page's one.
+	const ogSlug = $derived(
+		!page.route.id || page.route.id === '/'
+			? 'home'
+			: template
+				? `pro-${template}`
+				: page.route.id.slice(1).replaceAll('/', '-')
 	);
+	const ogImage = $derived(`${page.url.origin}${asset(`og/${ogSlug}.png` as AssetPath)}`);
 
 	let dark = $state(false);
 	let menuOpen = $state(false);
@@ -67,7 +93,7 @@
 			id: toDark ? 'theme-dark' : 'theme-light',
 			label: toDark ? 'Dark theme' : 'Light theme',
 			group: 'Theme',
-			keywords: ['appearance', 'colour', 'mode'],
+			keywords: ['appearance', 'color', 'mode'],
 			icon: toDark ? Moon02Icon : Sun03Icon,
 			onselect: () => setTheme(toDark, null, () => flushSync(() => (dark = toDark)))
 		}))
@@ -75,16 +101,25 @@
 	let toc = $state<{ id: string; text: string; sub: boolean }[]>([]);
 	// The section being read (index into toc).
 	let current = $state(-1);
-	let main: HTMLElement;
-	let panel: HTMLElement;
-	let navHover: HTMLSpanElement;
-	let navCurrent: HTMLSpanElement;
-	let sideNav: HTMLElement;
+	let main = $state() as HTMLElement;
+	let panel = $state() as HTMLElement;
+	let navHover = $state() as HTMLSpanElement;
+	let navCurrent = $state() as HTMLSpanElement;
+	let sideNav = $state() as HTMLElement;
 	let tocList = $state<HTMLUListElement>();
 	let tocCard = $state<HTMLDivElement>();
 	let tocOpen = $state(false);
+	// How far through the page you are, 0–1: the corner button's ring fills with it.
+	let progress = $state(0);
+	// Leaving the button for the card crosses empty page; a short grace keeps it open on the way.
+	let closeTimer: ReturnType<typeof setTimeout> | undefined;
+	const holdToc = () => clearTimeout(closeTimer);
+	const releaseToc = () => {
+		clearTimeout(closeTimer);
+		closeTimer = setTimeout(() => (tocOpen = false), 280);
+	};
 	// Opening the contents, the section being read is in the middle of the card.
-	const centreCurrent = () => {
+	const centerCurrent = () => {
 		const a = tocList?.querySelector<HTMLElement>('[aria-current]');
 		if (tocCard && a) tocCard.scrollTop = a.offsetTop - tocCard.clientHeight / 2;
 	};
@@ -124,8 +159,12 @@
 	// content and in the sidebar. Only the desktop panel needs this; SvelteKit restores the window itself.
 	const panelScrolls = () => getComputedStyle(panel).overflowY === 'auto';
 	snapshot<{ main: number; nav: number }>({
-		capture: () => ({ main: panelScrolls() ? panel.scrollTop : 0, nav: sideNav.scrollTop }),
+		capture: () =>
+			panel
+				? { main: panelScrolls() ? panel.scrollTop : 0, nav: sideNav.scrollTop }
+				: { main: 0, nav: 0 },
 		restore: ({ main: top, nav: navTop }) => {
+			if (!panel) return;
 			sideNav.scrollTop = navTop;
 			if (!panelScrolls() || !top) return;
 			// The page may still be laying out (examples, fonts): try for a few frames until it's tall enough.
@@ -141,6 +180,11 @@
 	// "On this page" comes from the page's own h2s and example h3s; the highlight follows what's being read.
 	afterNavigate(({ to, type }) => {
 		menuOpen = false;
+		untrack?.();
+		if (!sideNav) {
+			toc = [];
+			return;
+		}
 		// The current-page marker glides from the old link to the new one (appears in place on first load).
 		const here = sideNav.querySelector<HTMLElement>('a[aria-current="page"]');
 		glide(navCurrent, here, true, 240);
@@ -177,6 +221,10 @@
 			if (scroller.scrollHeight - scroller.scrollTop - scroller.clientHeight < 2)
 				at = headings.length - 1;
 			current = at;
+			progress = Math.min(
+				1,
+				scroller.scrollTop / Math.max(1, scroller.scrollHeight - scroller.clientHeight)
+			);
 		};
 		const schedule = () => (frame ||= requestAnimationFrame(measure));
 		measure();
@@ -243,6 +291,7 @@
 				<li>
 					<a href={link(item.href)} aria-current={page.route.id === item.href ? 'page' : undefined}>
 						{item.title}
+						{#if item.pro}<Badge tone="accent" icon={false} class="pro">Pro</Badge>{/if}
 					</a>
 				</li>
 			{/each}
@@ -267,7 +316,7 @@
 	}}
 />
 
-<a class="skip" href="#content">Skip to content</a>
+{#if !bare}<a class="skip" href="#content">Skip to content</a>{/if}
 
 {#snippet themeToggle(size: 'sm' | 'md')}
 	<Button
@@ -285,122 +334,206 @@
 	</Button>
 {/snippet}
 
-<!-- Phones only: the drawer needs a way to open. Desktop has no header. -->
-<header class="top">
-	<Button variant="ghost" square aria-label="Open navigation" onclick={() => (menuOpen = true)}>
-		<Icon icon={Menu01Icon} />
-	</Button>
-	<Button
-		variant="ghost"
-		square
-		aria-label="Search components"
-		onclick={() => (search.open = true)}
-	>
-		<Icon icon={Search01Icon} />
-	</Button>
-	{@render themeToggle('md')}
-</header>
-
-<div class={['shell', tocOpen && 'toc-open']}>
-	<div class="side">
+{#if bare}
+	{@render children()}
+{:else if landing}
+	<header class="bar">
+		<a class="brand" href={resolve('/')} aria-label="Sina UI home">
+			<img src={favicon} alt="" width="22" height="22" />
+			<span>Sina UI</span>
+		</a>
 		<nav
-			id="side-nav"
-			bind:this={sideNav}
-			class="side-nav"
-			{@attach scrollEdges}
-			data-fade
-			aria-label="Documentation"
+			class="menu"
+			aria-label="Main"
 			onpointerover={(e) => {
-				// The dropdown's hover: one pill glides between links (mouse only).
 				if (e.pointerType === 'touch') return;
-				glide(navHover, (e.target as Element).closest<HTMLElement>('li a'), true);
+				glide(menuHover, (e.target as Element).closest<HTMLElement>('a'), true);
 			}}
-			onpointerleave={() => glide(navHover, null, false)}
+			onpointerleave={() => glide(menuHover, null, false)}
 		>
-			<span class="nav-current" aria-hidden="true" bind:this={navCurrent}></span>
-			<span class="nav-hover" aria-hidden="true" bind:this={navHover}></span>
-			{@render links()}
+			<span class="menu-hover" aria-hidden="true" bind:this={menuHover}></span>
+			{#each menu as item (item.href)}
+				<a href={link(item.href)}>
+					{item.title}
+					{#if item.pro}<Badge tone="accent" icon={false} class="pro">Pro</Badge>{/if}
+				</a>
+			{/each}
 		</nav>
-		<!-- One row at the bottom: theme, search (⌘K) and the collapse toggle. -->
-		<div class="side-foot">
-			{@render themeToggle('sm')}
-			<button
-				type="button"
-				class="side-search"
-				aria-label="Search components"
-				onclick={() => (search.open = true)}
-			>
-				<Icon icon={Search01Icon} size={15} />
-				<kbd class="side-label" aria-hidden="true">{modKey}K</kbd>
-			</button>
+		<div class="bar-end">
 			<Button
 				variant="ghost"
 				size="sm"
 				square
-				class="side-toggle"
-				aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-				aria-expanded={!collapsed}
-				aria-controls="side-nav"
-				aria-keyshortcuts={modKey === '⌘' ? 'Meta+B' : 'Control+B'}
-				title="{collapsed ? 'Expand' : 'Collapse'} sidebar ({modKey}B)"
-				onclick={toggleSidebar}
+				aria-label="Search components"
+				aria-keyshortcuts={modKey === '⌘' ? 'Meta+K' : 'Control+K'}
+				onclick={() => (search.open = true)}
 			>
-				<Icon icon={SidebarLeftIcon} />
+				<Icon icon={Search01Icon} size={16} />
+			</Button>
+			{@render themeToggle('sm')}
+			<Button size="sm" href={resolve('/docs')} class="bar-cta">Get started</Button>
+			<Button
+				variant="ghost"
+				size="sm"
+				square
+				class="bar-menu"
+				aria-label="Open navigation"
+				onclick={() => (menuOpen = true)}
+			>
+				<Icon icon={Menu01Icon} />
 			</Button>
 		</div>
-	</div>
+	</header>
+	<main id="content" class="landing" tabindex="-1">
+		{@render children()}
+	</main>
+{:else}
+	<!-- Phones only: the drawer needs a way to open. Desktop has no header. -->
+	<header class="top">
+		<Button variant="ghost" square aria-label="Open navigation" onclick={() => (menuOpen = true)}>
+			<Icon icon={Menu01Icon} />
+		</Button>
+		<Button
+			variant="ghost"
+			square
+			aria-label="Search components"
+			onclick={() => (search.open = true)}
+		>
+			<Icon icon={Search01Icon} />
+		</Button>
+		{@render themeToggle('md')}
+	</header>
 
-	<!-- White panel for the content; the frame around it is the grey page. -->
-	<div class="panel" bind:this={panel} {@attach scrollEdges} data-fade-over>
-		<main id="content" tabindex="-1" bind:this={main}>
-			{@render children()}
-		</main>
-	</div>
-
-	<!-- A rail of dashes, one per heading; hovering or tabbing in opens the contents over the page. -->
-	<!-- Hovering the rail (or tabbing in) widens this column, pushing the page over to make room. -->
-	<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-	<aside
-		class="toc"
-		aria-label="On this page"
-		onpointerleave={() => (tocOpen = false)}
-		onfocusin={() => (tocOpen = true)}
-		onfocusout={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && (tocOpen = false)}
-		onkeydown={(e) => e.key === 'Escape' && (tocOpen = false)}
-	>
-		{#if toc.length}
-			<div
-				class="rail"
-				aria-hidden="true"
-				onpointerenter={() => {
-					tocOpen = true;
-					centreCurrent();
+	<div class={['shell', tocOpen && 'toc-open']}>
+		<div class="side">
+			<header>
+				<a class="side-brand" href={resolve('/')} aria-label="Sina UI home">
+					<img src={favicon} alt="" width="20" height="20" />
+					<span class="side-label">Sina UI</span>
+				</a>
+			</header>
+			<nav
+				id="side-nav"
+				bind:this={sideNav}
+				class="side-nav"
+				{@attach scrollEdges}
+				data-fade
+				aria-label="Documentation"
+				onpointerover={(e) => {
+					// The dropdown's hover: one pill glides between links (mouse only).
+					if (e.pointerType === 'touch') return;
+					glide(navHover, (e.target as Element).closest<HTMLElement>('li a'), true);
 				}}
+				onpointerleave={() => glide(navHover, null, false)}
 			>
-				{#each toc as t, i (t.id)}
-					<span class={['dash', t.sub && 'sub', i === current && 'on']}></span>
-				{/each}
+				<span class="nav-current" aria-hidden="true" bind:this={navCurrent}></span>
+				<span class="nav-hover" aria-hidden="true" bind:this={navHover}></span>
+				{@render links()}
+			</nav>
+			<!-- One row at the bottom: theme, search (⌘K) and the collapse toggle. -->
+			<div class="side-foot">
+				{@render themeToggle('sm')}
+				<button
+					type="button"
+					class="side-search"
+					aria-label="Search components"
+					onclick={() => (search.open = true)}
+				>
+					<Icon icon={Search01Icon} size={15} />
+					<kbd class="side-label" aria-hidden="true">{modKey}K</kbd>
+				</button>
+				<Button
+					variant="ghost"
+					size="sm"
+					square
+					class="side-toggle"
+					aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+					aria-expanded={!collapsed}
+					aria-controls="side-nav"
+					aria-keyshortcuts={modKey === '⌘' ? 'Meta+B' : 'Control+B'}
+					title="{collapsed ? 'Expand' : 'Collapse'} sidebar ({modKey}B)"
+					onclick={toggleSidebar}
+				>
+					<Icon icon={SidebarLeftIcon} />
+				</Button>
 			</div>
-			<div class="card" bind:this={tocCard} {@attach scrollEdges} data-fade>
-				<p class="group">On this page</p>
-				<ul bind:this={tocList}>
-					{#each toc as t, i (t.id)}
-						<li class:sub={t.sub}>
-							<a href="#{t.id}" aria-current={i === current ? 'true' : undefined}>{t.text}</a>
-						</li>
-					{/each}
-					<!-- One bar that slides and resizes onto the section being read. -->
-					<span class="marker" class:placed aria-hidden="true" bind:this={marker}></span>
-				</ul>
-			</div>
-		{/if}
-	</aside>
-</div>
+		</div>
+
+		<!-- White panel for the content; the frame around it is the gray page. -->
+		<div class="panel" bind:this={panel} {@attach scrollEdges} data-fade-over>
+			<main id="content" tabindex="-1" bind:this={main}>
+				{@render children()}
+			</main>
+		</div>
+
+		<!-- "On this page": a round button in the corner whose ring fills as you read.
+		     Pointing at it, focusing it or pressing it opens the contents, which grow out of the button. -->
+		<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+		<aside
+			class="toc"
+			aria-label="On this page"
+			onpointerenter={(e) => {
+				if (e.pointerType === 'touch') return;
+				holdToc();
+				if (!tocOpen) centerCurrent();
+				tocOpen = true;
+			}}
+			onpointerleave={(e) => e.pointerType !== 'touch' && releaseToc()}
+			onfocusout={(e) => !e.currentTarget.contains(e.relatedTarget as Node) && (tocOpen = false)}
+			onkeydown={(e) => {
+				if (e.key !== 'Escape' || !tocOpen) return;
+				tocOpen = false;
+				e.currentTarget.querySelector<HTMLElement>('.rail')?.focus();
+			}}
+		>
+			{#if toc.length}
+				<button
+					type="button"
+					class="rail"
+					aria-label="On this page"
+					aria-expanded={tocOpen}
+					onclick={() => {
+						tocOpen = !tocOpen;
+						if (tocOpen) centerCurrent();
+					}}
+				>
+					<!-- A ring open at the bottom that fills as you read, with three dots in the opening. -->
+					<svg viewBox="0 0 40 40" aria-hidden="true">
+						<path class="track" d="M11.4 32.29 A15 15 0 1 1 28.6 32.29" />
+						<path
+							class="fill"
+							d="M11.4 32.29 A15 15 0 1 1 28.6 32.29"
+							pathLength="1"
+							style:stroke-dashoffset={1 - progress}
+						/>
+						<circle cx="16.4" cy="33.4" r="1.25" />
+						<circle cx="20" cy="34.3" r="1.25" />
+						<circle cx="23.6" cy="33.4" r="1.25" />
+					</svg>
+				</button>
+				<div class="card" bind:this={tocCard} {@attach scrollEdges} data-fade>
+					<p class="group">On this page</p>
+					<ul bind:this={tocList}>
+						{#each toc as t, i (t.id)}
+							<li class:sub={t.sub} style:--i={Math.min(i, 12)}>
+								<a href="#{t.id}" aria-current={i === current ? 'true' : undefined}>{t.text}</a>
+							</li>
+						{/each}
+						<!-- One bar that slides and resizes onto the section being read. -->
+						<span class="marker" class:placed aria-hidden="true" bind:this={marker}></span>
+					</ul>
+				</div>
+			{/if}
+		</aside>
+	</div>
+{/if}
 
 <Toaster />
 
+<!-- On a template's own pages, ⌘K belongs to the template's search, not the docs'. -->
 <CommandPalette
 	{commands}
+	shortcut={!bare}
 	bind:open={search.open}
 	label="Search components"
 	placeholder="Search components…"
@@ -462,12 +595,105 @@
 	main:focus {
 		outline: none;
 	}
+	main.landing {
+		padding: 0 0 4rem;
+	}
+	:global(.badge.pro) {
+		margin-inline-start: 0.375rem;
+		vertical-align: 0.0625rem;
+	}
+
+	/* Landing: brand, the main menu in a soft pill (one highlight glides between links), actions. */
+	.bar {
+		position: sticky;
+		inset-block-start: 0;
+		z-index: 10;
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: 1rem;
+		block-size: 4rem;
+		padding-inline: max(1rem, (100% - 76rem) / 2);
+		background: color-mix(in srgb, var(--ui-bg) 85%, transparent);
+		backdrop-filter: blur(12px);
+	}
+	.brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		justify-self: start;
+		color: var(--ui-fg);
+		font-weight: 600;
+		text-decoration: none;
+	}
+	.menu {
+		position: relative;
+		display: flex;
+		gap: 0.125rem;
+		padding: 0.25rem;
+		/* Concentric with the links inside: their radius plus this padding. */
+		border-radius: calc(var(--ui-radius-control) + 0.25rem);
+		background: var(--ui-subtle);
+	}
+	.menu a {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		padding: 0.375rem 0.875rem;
+		border-radius: var(--ui-radius-control);
+		color: var(--ui-muted);
+		font-size: 0.875rem;
+		font-weight: 500;
+		text-decoration: none;
+		transition: color var(--ui-dur-press) ease;
+	}
+	@media (hover: hover) {
+		.menu a:hover {
+			color: var(--ui-fg);
+		}
+	}
+	.menu-hover {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform-origin: 0 0;
+		border-radius: var(--ui-radius-control);
+		background: var(--ui-surface);
+		box-shadow: 0 1px 2px rgb(0 0 0 / 0.06);
+		opacity: 0;
+		pointer-events: none;
+		transition: opacity var(--ui-dur-exit) ease;
+	}
+	.bar-end {
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 0.25rem;
+	}
+	.bar-end :global(.bar-cta) {
+		margin-inline-start: 0.5rem;
+	}
+	/* Phones: the menu folds into the navigation sheet. */
+	@media (width < 48rem) {
+		.bar {
+			grid-template-columns: 1fr auto;
+		}
+		.menu,
+		.bar-end :global(.bar-cta) {
+			display: none;
+		}
+	}
+	@media (width >= 48rem) {
+		.bar-end :global(.bar-menu) {
+			display: none;
+		}
+	}
 	.side,
 	.toc {
 		display: none;
 	}
 
-	/* Hierarchy by weight and colour: dark headings over lighter links, and more space above a group
+	/* Hierarchy by weight and color: dark headings over lighter links, and more space above a group
 	   than inside it, so each heading plainly owns the links under it. */
 	.group {
 		margin: 1.75rem 0 0.25rem;
@@ -501,7 +727,7 @@
 		}
 	}
 	li a[aria-current='page'] {
-		/* Emerald pulled 20% toward the text colour: 4.5:1+ on the grey highlight (plain emerald was 4.18). */
+		/* Emerald pulled 20% toward the text color: 4.5:1+ on the gray highlight (plain emerald was 4.18). */
 		color: color-mix(in srgb, var(--ui-accent) 80%, var(--ui-fg));
 		font-weight: 500;
 	}
@@ -551,61 +777,116 @@
 	.toc ul {
 		position: relative;
 	}
-	/* Rail and card share one cell; the column's width decides which shows. */
-	.rail,
-	.card {
-		grid-area: 1 / 1;
-	}
+	/* The corner button: round, lifted off the page. */
 	.rail {
-		display: grid;
-		justify-self: end;
-		justify-items: center;
-		gap: 0.5rem;
+		position: relative;
+		display: block;
+		color: var(--ui-fg);
 		inline-size: 2.75rem;
-		padding-block: 0.5rem;
-		transition: opacity 150ms ease;
-	}
-	.toc-open .rail {
-		opacity: 0;
-	}
-	.dash {
-		inline-size: 1rem;
-		block-size: 2px;
-		border-radius: 1px;
-		background: color-mix(in srgb, var(--ui-muted) 45%, transparent);
+		block-size: 2.75rem;
+		padding: 0;
+		border: 1px solid transparent;
+		border-radius: 50%;
+		background: var(--ui-surface-overlay);
+		box-shadow: var(--ui-shadow-overlay);
+		cursor: pointer;
 		transition:
-			background-color var(--ui-dur) ease,
-			transform var(--ui-dur) var(--ui-ease-out);
+			scale var(--ui-dur-press) var(--ui-ease-out),
+			opacity var(--ui-dur) var(--ui-ease-out);
 	}
-	.dash.sub {
-		transform: scaleX(0.6);
+	.rail:active {
+		scale: 0.94;
 	}
-	.dash.on {
-		background: var(--ui-accent);
-		transform: scaleX(1.25);
+	.rail:focus-visible {
+		outline: var(--ui-ring-width) solid var(--ui-ring);
+		outline-offset: var(--ui-ring-offset);
 	}
-	/* Full height on the muted page, like the left sidebar. A fixed width pinned right, so the
-	   widening column uncovers it without reflowing it. */
+	.rail svg {
+		position: absolute;
+		inset: 0;
+		inline-size: 100%;
+		block-size: 100%;
+	}
+	.rail path {
+		fill: none;
+		stroke-width: 2;
+		stroke-linecap: round;
+	}
+	.rail .track {
+		stroke: color-mix(in srgb, var(--ui-muted) 30%, transparent);
+	}
+	.rail .fill {
+		stroke: var(--ui-accent);
+		stroke-dasharray: 1;
+		transition: stroke-dashoffset var(--ui-dur) var(--ui-ease-out);
+	}
+	.rail circle {
+		fill: var(--ui-muted);
+	}
+	/* Genie: the card grows out of the button: squeezed narrow and short at the button's corner, it
+	   stretches up and out on the spring, and pulls back into the button quickly when it closes. */
 	.card {
-		align-self: stretch;
-		justify-self: end;
+		position: absolute;
+		inset-block-end: 100%;
+		inset-inline-end: 0;
 		box-sizing: border-box;
-		inline-size: 18rem;
-		min-block-size: 0;
+		inline-size: 17rem;
+		max-block-size: calc(100dvh - 7rem);
 		overflow: auto;
 		overscroll-behavior: contain;
-		padding: 2rem 1rem;
+		padding: 1rem 0.75rem;
+		border: 1px solid transparent;
+		border-radius: calc(var(--ui-radius) * 1.5);
+		background: var(--ui-surface-overlay);
+		box-shadow: var(--ui-shadow-overlay);
 		opacity: 0;
-		transform: translateX(1rem);
+		visibility: hidden;
+		transform: translateY(1.5rem) scale(0.12, 0.08) skewX(-6deg);
+		transform-origin: bottom right;
 		pointer-events: none;
 		transition:
-			opacity 200ms ease,
-			transform 300ms var(--ui-ease-drawer);
+			opacity 160ms var(--ui-ease-out),
+			transform 220ms var(--ui-ease-exit),
+			visibility 0s 220ms;
+	}
+	.card:dir(rtl) {
+		transform-origin: bottom left;
 	}
 	.toc-open .card {
 		opacity: 1;
+		visibility: visible;
 		transform: none;
 		pointer-events: auto;
+		transition:
+			opacity var(--ui-dur) var(--ui-ease-out),
+			transform var(--ui-dur-spring) var(--ui-ease-spring),
+			visibility 0s;
+	}
+	.card li {
+		opacity: 0;
+		translate: 0 0.375rem;
+		transition:
+			opacity var(--ui-dur-exit) ease,
+			translate var(--ui-dur-exit) ease;
+	}
+	.toc-open .card li {
+		opacity: 1;
+		translate: 0 0;
+		transition:
+			opacity var(--ui-dur) var(--ui-ease-out),
+			translate var(--ui-dur) var(--ui-ease-enter);
+		transition-delay: calc(80ms + var(--i) * 18ms);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.card,
+		.toc-open .card {
+			transform: none;
+		}
+		.card li,
+		.toc-open .card li {
+			translate: 0 0;
+			transition-delay: 0s;
+		}
 	}
 	.toc li a {
 		padding-block: 0.25rem;
@@ -671,7 +952,7 @@
 		}
 		/* App shell: the page never scrolls. The white panel is inset with the same radius on every
 		   corner and scrolls its own content, which clips cleanly at those corners. */
-		:global(body) {
+		:global(body:has(.shell)) {
 			overflow: hidden;
 		}
 		.shell {
@@ -733,6 +1014,20 @@
 		.side-nav > :global(.group:first-of-type) {
 			margin-block-start: 0;
 		}
+		.side-brand {
+			display: flex;
+			flex: none;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 1rem 1.25rem 0.25rem;
+			color: var(--ui-fg);
+			font-weight: 600;
+			text-decoration: none;
+		}
+		:global(html[data-sidebar='collapsed']) .side-brand {
+			justify-content: center;
+			padding-inline: 0.5rem;
+		}
 		.side-foot {
 			display: flex;
 			align-items: center;
@@ -783,32 +1078,16 @@
 			padding-inline: 3rem;
 		}
 	}
-	@media (min-width: 1280px) {
-		/* Three columns: the sidebar and "On this page" sit on the muted page, the content between on white. */
-		.shell {
-			grid-template-columns: 15rem minmax(0, 1fr) 2.75rem;
-		}
-		:global(html[data-sidebar='collapsed']) .shell {
-			grid-template-columns: 3.25rem minmax(0, 1fr) 2.75rem;
-		}
-		.shell.toc-open {
-			grid-template-columns: 15rem minmax(0, 1fr) 18rem;
-		}
-		:global(html[data-sidebar='collapsed']) .shell.toc-open {
-			grid-template-columns: 3.25rem minmax(0, 1fr) 18rem;
-		}
-		.panel {
-			margin-inline-end: 0;
-		}
+	@media (min-width: 1024px) {
+		/* Fixed in the corner, over the page: nothing in the layout moves when it opens. The padding
+		   keeps the pointer inside it while crossing from the button up to the card. */
 		.toc {
-			position: relative;
-			z-index: 2;
-			box-sizing: border-box;
-			display: grid;
-			grid-template-columns: minmax(0, 1fr);
-			align-items: center;
-			min-inline-size: 0;
-			overflow: hidden;
+			position: fixed;
+			inset-block-end: 1.25rem;
+			inset-inline-end: 1.25rem;
+			z-index: 15;
+			display: block;
+			padding-block-start: 0.625rem;
 		}
 	}
 </style>

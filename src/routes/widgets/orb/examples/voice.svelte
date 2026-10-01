@@ -39,7 +39,7 @@
 		timers.push(setTimeout(() => ((mode = 'idle'), clear()), 7600));
 	}
 
-	const colours = [
+	const colors = [
 		{ name: 'Emerald', value: 'var(--ui-accent)' },
 		{ name: 'Blue', value: '#3b82f6' },
 		{ name: 'Rose', value: '#f43f5e' },
@@ -77,8 +77,8 @@
 			}
 		}
 	/>
-	<div class="colours" role="radiogroup" aria-label="Colour">
-		{#each colours as c (c.name)}
+	<div class="colors" role="radiogroup" aria-label="Color">
+		{#each colors as c (c.name)}
 			<button
 				type="button"
 				class="swatch"
@@ -103,7 +103,7 @@
 		color: var(--ui-muted);
 		font-size: 0.9375rem;
 	}
-	.colours {
+	.colors {
 		display: flex;
 		gap: 0.5rem;
 	}

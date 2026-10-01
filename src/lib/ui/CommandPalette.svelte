@@ -225,20 +225,23 @@
 	.palette,
 	.palette::backdrop {
 		opacity: 0;
-		transition-property: opacity, scale, overlay, display;
-		transition-duration: 180ms;
+		transition-property: opacity, scale, translate, overlay, display;
+		transition-duration: var(--ui-dur-exit);
 		transition-timing-function: var(--ui-ease-out);
 		transition-behavior: allow-discrete;
 	}
 	.palette {
-		scale: 0.97;
+		scale: 0.98;
 	}
 	.palette[open],
 	.palette[open]::backdrop {
 		opacity: 1;
+		transition-duration: var(--ui-dur-overlay);
+		transition-timing-function: var(--ui-ease-enter);
 	}
 	.palette[open] {
 		scale: 1;
+		translate: 0 0;
 	}
 	@starting-style {
 		.palette[open],
@@ -246,13 +249,15 @@
 			opacity: 0;
 		}
 		.palette[open] {
-			scale: 0.97;
+			scale: 0.96;
+			translate: 0 8px;
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.palette,
 		.palette[open] {
 			scale: 1;
+			translate: 0 0;
 		}
 	}
 	.palette[open] {

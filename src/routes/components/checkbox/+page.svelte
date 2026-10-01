@@ -54,6 +54,12 @@
 	{...ex('indeterminate')}
 />
 <Example id="disabled" title="Disabled" {...ex('disabled')} />
+<Example
+	id="disabled-checked"
+	title="Disabled and checked"
+	description="Shows a choice that can't be changed here."
+	{...ex('disabled-checked')}
+/>
 
 <h2 id="props">Props</h2>
 <table>

@@ -44,7 +44,6 @@
 			? Math.max(show(min).length, show(max).length, show(value).length) + 1
 			: 6
 	);
-	// svelte-ignore state_referenced_locally
 	let text = $state(show(value));
 
 	/**
@@ -82,6 +81,11 @@
 
 	// Typing shows the input as it is; stepping shows the value rolling into place over it.
 	let typing = $state(false);
+	// A value set from outside (a slider beside it, a form reset) shows here, unless someone is typing.
+	$effect.pre(() => {
+		const v = value;
+		if (!typing) text = show(v);
+	});
 
 	function set(n: number | undefined, say = false) {
 		typing = false;

@@ -37,18 +37,23 @@
 
 <h2 id="examples">Examples</h2>
 <Example
-	id="basic"
-	title="Across and down"
-	stack
-	description="Across between sections; down between links in a row."
-	{...ex('basic')}
+	id="horizontal"
+	title="Across"
+	description="Between sections of a card or page."
+	{...ex('horizontal')}
 />
 <Example
-	id="labelled"
+	id="vertical"
+	title="Down"
+	description="Between links or actions in a row."
+	{...ex('vertical')}
+/>
+<Example
+	id="labeled"
 	title="With words"
 	stack
 	description="For a choice between two ways of doing the same thing."
-	{...ex('labelled')}
+	{...ex('labeled')}
 />
 
 <h2 id="props">Props</h2>

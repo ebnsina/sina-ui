@@ -204,7 +204,7 @@
 </Widget>
 
 <style>
-	/* Inside an iOS-style widget card, in the brand colour. */
+	/* Inside an iOS-style widget card, in the brand color. */
 	.timer {
 		display: grid;
 		gap: 1.25rem;
@@ -245,7 +245,7 @@
 		outline-offset: -2px;
 		border-radius: 0.75rem;
 	}
-	/* The track slides so the chosen minute sits over the pointer, dead centre. */
+	/* The track slides so the chosen minute sits over the pointer, dead center. */
 	.track {
 		position: absolute;
 		inset: 0 auto 0 50%;
@@ -273,7 +273,7 @@
 		bottom: calc(100% + 0.375rem);
 		left: 50%;
 		translate: -50% 0;
-		/* Minutes beyond the pointer recede to grey; still readable. */
+		/* Minutes beyond the pointer recede to gray; still readable. */
 		color: var(--ui-muted);
 		font: 600 0.9375rem/1 var(--ui-font);
 		font-variant-numeric: tabular-nums;

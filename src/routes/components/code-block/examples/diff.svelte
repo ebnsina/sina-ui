@@ -1,7 +1,7 @@
 <script lang="ts">
 	import CodeBlock from '#lib/ui/CodeBlock.svelte';
 
-	const code = `  export const catalogue = {
+	const code = `  export const catalog = {
 -   shelves: 12,
 +   shelves: 14,
 +   reading_rooms: ['Main hall', 'Manuscripts'],
@@ -9,7 +9,7 @@
   };`;
 </script>
 
-<CodeBlock {code} lang="diff" filename="catalogue.ts" class="demo" />
+<CodeBlock {code} lang="diff" filename="catalog.ts" class="demo" />
 
 <style>
 	:global(.demo) {

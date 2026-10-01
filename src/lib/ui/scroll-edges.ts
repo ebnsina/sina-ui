@@ -3,7 +3,7 @@ import type { Attachment } from 'svelte/attachments';
 /**
  * Measures how much of a scroll area is hidden past each edge and sets --scroll-start / --scroll-end
  * (0 to 1, easing in over the first 24px). tokens.css turns them into fades: data-fade="y" or "x" fades
- * the content out (areas with no background of their own); data-fade-over lays a surface-coloured fade
+ * the content out (areas with no background of their own); data-fade-over lays a surface-colored fade
  * over it (lists on a card, where a mask would also cut off the card's shadow).
  */
 export const scrollEdges: Attachment<HTMLElement> = (el) => {

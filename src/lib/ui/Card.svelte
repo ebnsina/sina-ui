@@ -25,7 +25,7 @@
 	}: Props = $props();
 </script>
 
-<!-- A section, labelled by its title. With href, the title's link stretches over the whole card
+<!-- A section, labeled by its title. With href, the title's link stretches over the whole card
      (a single link, not a link wrapping the card), so screen readers hear one clear name. -->
 <article class={['card', href && 'linked', className]} {...rest}>
 	{#if title}

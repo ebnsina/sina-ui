@@ -41,12 +41,25 @@
 
 <h2 id="examples">Examples</h2>
 <Example
-	id="colours"
-	title="Colours"
-	description="Any colour; the back is a shade darker and the front lets the papers show through."
-	{...ex('colours')}
+	id="basic"
+	title="Basic"
+	description="Point at it, or tab to it, and it tips open."
+	{...ex('basic')}
 />
-<Example id="sizes" title="Sizes" {...ex('sizes')} />
+<Example
+	id="color"
+	title="Your own color"
+	description="Any color; the back is a shade darker and the front lets the papers show through."
+	{...ex('color')}
+/>
+<Example
+	id="empty"
+	title="Empty"
+	description="A count of zero still says so: 0 items."
+	{...ex('empty')}
+/>
+<Example id="small" title="Small" description="For lists and sidebars." {...ex('small')} />
+<Example id="large" title="Large" description="For a grid of folders." {...ex('large')} />
 
 <h2 id="props">Props</h2>
 <table>
@@ -54,7 +67,7 @@
 	<tbody>
 		<tr><td><code>name</code></td><td><code>string</code></td><td>required</td></tr>
 		<tr><td><code>count</code></td><td><code>number</code>, items inside</td><td></td></tr>
-		<tr><td><code>color</code></td><td>any CSS colour</td><td>the accent</td></tr>
+		<tr><td><code>color</code></td><td>any CSS color</td><td>the accent</td></tr>
 		<tr
 			><td><code>size</code></td><td><code>'sm' | 'md' | 'lg'</code></td><td><code>'md'</code></td
 			></tr

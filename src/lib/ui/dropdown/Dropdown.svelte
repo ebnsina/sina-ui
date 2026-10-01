@@ -11,11 +11,13 @@
 		open?: boolean;
 		/** Render your trigger (usually a Button) and spread these props onto it. */
 		trigger: Snippet<[HTMLButtonAttributes]>;
+		/** Line the menu up with this instead of the trigger (a split button's whole shape). */
+		anchor?: HTMLElement;
 		children: Snippet;
 		class?: string;
 	}
 
-	let { open = $bindable(false), trigger, children, class: className }: Props = $props();
+	let { open = $bindable(false), trigger, anchor, children, class: className }: Props = $props();
 
 	const id = $props.id();
 	let button: HTMLElement;
@@ -50,7 +52,7 @@
 	setDropdown({ close: () => close() });
 
 	const float = anchored(
-		() => button,
+		() => anchor ?? button,
 		() => menu,
 		() => close(false)
 	);

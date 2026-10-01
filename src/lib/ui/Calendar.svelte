@@ -8,7 +8,7 @@
 </script>
 
 <script lang="ts">
-	import { reduced } from './motion';
+	import { ease, reduced } from './motion';
 	import { ArrowLeft01Icon, ArrowRight01Icon } from '@hugeicons/core-free-icons';
 	import {
 		DateFormatter,
@@ -206,7 +206,7 @@
 					{ transform: `translateX(${16 * dir * rtl}px)`, opacity: 0 },
 					{ transform: 'none', opacity: 1 }
 				],
-				{ duration: 220, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+				{ duration: 220, easing: ease.standard }
 			);
 	}
 
@@ -370,7 +370,7 @@
 	.calendar {
 		display: flex;
 		flex-wrap: wrap;
-		/* Months that wrap onto a new line sit centred under the others. */
+		/* Months that wrap onto a new line sit centered under the others. */
 		justify-content: center;
 		gap: 0.5rem 1.5rem;
 		/* The range band sits under the days; this keeps it above whatever is behind the calendar. */
@@ -478,7 +478,7 @@
 		outline: var(--ui-ring-width) solid var(--ui-ring);
 		outline-offset: 0;
 	}
-	/* Today: a small mark under the number, so it reads without relying on colour. */
+	/* Today: a small mark under the number, so it reads without relying on color. */
 	.today::after {
 		content: '';
 		position: absolute;
@@ -500,7 +500,7 @@
 			transform: scale(0.82);
 		}
 	}
-	/* Unavailable: greyed, and the cursor says it can't be chosen (screen readers hear "dimmed"). */
+	/* Unavailable: grayed, and the cursor says it can't be chosen (screen readers hear "dimmed"). */
 	.day[aria-disabled='true'] {
 		color: var(--ui-muted);
 		opacity: 0.55;
@@ -511,7 +511,7 @@
 		content: '';
 		position: absolute;
 		z-index: -1;
-		/* Opaque and overlapping a little, so neighbouring days join without a seam. */
+		/* Opaque and overlapping a little, so neighboring days join without a seam. */
 		inset: 0 -2px;
 		background: color-mix(in srgb, var(--ui-accent) 14%, var(--ui-surface));
 		opacity: 0;

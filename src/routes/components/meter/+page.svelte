@@ -59,6 +59,13 @@
 	description="Here more is better, so the bar turns red when it runs low."
 	{...ex('format')}
 />
+<Example
+	id="usage"
+	title="What it's made of"
+	stack
+	description="Give segments and the bar splits into parts, one shade each, with a legend. Add scans: every number rolls and the bar settles into place."
+	{...ex('usage')}
+/>
 
 <h2 id="props">Props</h2>
 <table>
@@ -81,6 +88,16 @@
 				>a percentage</td
 			></tr
 		>
+		<tr
+			><td><code>segments</code></td><td
+				><code>{'{ label, value }[]'}</code>: the parts of the value</td
+			><td></td></tr
+		>
+		<tr
+			><td><code>formatSegment</code></td><td
+				><code>(value) =&gt; string</code>: each part's amount</td
+			><td>a number</td></tr
+		>
 		<tr><td><code>showValue</code></td><td><code>boolean</code></td><td><code>true</code></td></tr>
 		<tr><td><code>locale</code></td><td><code>string</code></td><td><code>'en'</code></td></tr>
 	</tbody>
@@ -89,6 +106,6 @@
 <h2 id="accessibility">Accessibility</h2>
 <ul>
 	<li>A meter: screen readers read its label and the formatted value (“3.5 L of 20 L”).</li>
-	<li>Colour is never the only sign: the number is always there, and turns colour with the bar.</li>
+	<li>Color is never the only sign: the number is always there, and turns color with the bar.</li>
 	<li>It fills from empty when it appears; with reduced motion it simply shows.</li>
 </ul>

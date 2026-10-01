@@ -4,9 +4,9 @@
 
 <div class="frame">
 	<Resizable.Group persist="sinaui-reading-room">
-		<Resizable.Panel defaultSize={24} minSize={16} collapsible label="Catalogue">
+		<Resizable.Panel defaultSize={24} minSize={16} collapsible label="Catalog">
 			<div class="pane">
-				<h4>Catalogue</h4>
+				<h4>Catalog</h4>
 				<ul>
 					<li>Book of Optics</li>
 					<li>The Canon of Medicine</li>
@@ -15,7 +15,7 @@
 				</ul>
 			</div>
 		</Resizable.Panel>
-		<Resizable.Handle label="Resize the catalogue" />
+		<Resizable.Handle label="Resize the catalog" />
 		<Resizable.Panel minSize={30} label="Manuscript">
 			<div class="pane">
 				<h4>Book of Optics</h4>

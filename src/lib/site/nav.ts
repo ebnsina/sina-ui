@@ -6,16 +6,16 @@ export type PageId = Exclude<RouteId, `${string}[${string}`>;
 // Docs navigation, grouped. Only components that exist are listed: no dead links.
 export const nav: {
 	title: string;
-	items: { title: string; href: PageId; keywords?: string[] }[];
+	items: { title: string; href: PageId; keywords?: string[]; pro?: boolean; template?: boolean }[];
 }[] = [
 	{
 		title: 'Getting started',
 		items: [
-			{ title: 'Introduction', href: '/', keywords: ['home', 'overview', 'start'] },
+			{ title: 'Introduction', href: '/docs', keywords: ['home', 'overview', 'start'] },
 			{
 				title: 'Theming',
 				href: '/theming',
-				keywords: ['tokens', 'colours', 'colors', 'dark mode', 'css variables', 'brand', 'radius']
+				keywords: ['tokens', 'colors', 'colors', 'dark mode', 'css variables', 'brand', 'radius']
 			},
 			{
 				title: 'Changelog',
@@ -25,9 +25,39 @@ export const nav: {
 		]
 	},
 	{
-		title: 'Forms',
+		title: 'Buttons',
 		items: [
 			{ title: 'Button', href: '/components/button', keywords: ['action', 'submit'] },
+			{
+				title: 'Action button',
+				href: '/components/action-button',
+				keywords: ['async', 'loading', 'success', 'saving', 'done', 'status']
+			},
+			{
+				title: 'Confirm button',
+				href: '/components/confirm-button',
+				keywords: ['are you sure', 'delete', 'destructive', 'two step']
+			},
+			{
+				title: 'Copy button',
+				href: '/components/copy-button',
+				keywords: ['clipboard', 'copy to clipboard', 'copied']
+			},
+			{
+				title: 'Hold to confirm',
+				href: '/components/hold-to-confirm',
+				keywords: ['long press', 'press and hold', 'destructive', 'delete']
+			},
+			{
+				title: 'Split button',
+				href: '/components/split-button',
+				keywords: ['menu button', 'dropdown button', 'more actions']
+			}
+		]
+	},
+	{
+		title: 'Forms',
+		items: [
 			{
 				title: 'Calendar',
 				href: '/components/calendar',
@@ -37,7 +67,7 @@ export const nav: {
 			{
 				title: 'Color picker',
 				href: '/components/color-picker',
-				keywords: ['colour', 'color', 'hex', 'swatch', 'eyedropper', 'palette']
+				keywords: ['color', 'color', 'hex', 'swatch', 'eyedropper', 'palette']
 			},
 			{
 				title: 'Combobox',
@@ -75,6 +105,16 @@ export const nav: {
 				keywords: ['text field', 'textbox', 'input group', 'prefix', 'suffix', 'addon', 'icon']
 			},
 			{
+				title: 'Mention input',
+				href: '/components/mention-input',
+				keywords: ['@mention', 'tag people', 'autocomplete', 'comment', 'textarea']
+			},
+			{
+				title: 'Multi select',
+				href: '/components/multi-select',
+				keywords: ['multiple choice', 'chips', 'checklist', 'select many', 'tags']
+			},
+			{
 				title: 'Number field',
 				href: '/components/number-field',
 				keywords: ['spinbutton', 'quantity', 'counter', 'stepper']
@@ -89,7 +129,22 @@ export const nav: {
 				href: '/components/password-input',
 				keywords: ['password', 'show hide', 'strength', 'sign in']
 			},
+			{
+				title: 'Phone input',
+				href: '/components/phone-input',
+				keywords: ['telephone', 'mobile', 'country code', 'international', 'e164', 'tel']
+			},
+			{
+				title: 'Radio cards',
+				href: '/components/radio-cards',
+				keywords: ['plan picker', 'choice cards', 'tiles', 'options']
+			},
 			{ title: 'Radio group', href: '/components/radio', keywords: ['options', 'choice'] },
+			{
+				title: 'Rich text editor',
+				href: '/components/rich-text-editor',
+				keywords: ['wysiwyg', 'tiptap', 'editor', 'formatting', 'bold', 'markdown']
+			},
 			{
 				title: 'Search field',
 				href: '/components/search-field',
@@ -101,6 +156,11 @@ export const nav: {
 				keywords: ['tabs', 'switcher', 'toggle']
 			},
 			{ title: 'Select', href: '/components/select', keywords: ['dropdown', 'picker', 'options'] },
+			{
+				title: 'Signature pad',
+				href: '/components/signature-pad',
+				keywords: ['sign', 'draw', 'e-signature', 'canvas', 'autograph']
+			},
 			{ title: 'Slider', href: '/components/slider', keywords: ['range'] },
 			{ title: 'Switch', href: '/components/switch', keywords: ['toggle', 'on off'] },
 			{
@@ -177,6 +237,11 @@ export const nav: {
 	{
 		title: 'Feedback',
 		items: [
+			{
+				title: 'Announcement bar',
+				href: '/components/announcement-bar',
+				keywords: ['banner', 'top bar', 'promo', 'notice', 'dismiss']
+			},
 			{ title: 'Alert', href: '/components/alert', keywords: ['banner', 'callout', 'message'] },
 			{
 				title: 'Empty state',
@@ -211,6 +276,11 @@ export const nav: {
 		title: 'Display',
 		items: [
 			{ title: 'Avatar', href: '/components/avatar', keywords: ['profile', 'picture', 'user'] },
+			{
+				title: 'Avatar group',
+				href: '/components/avatar-group',
+				keywords: ['stacked avatars', 'facepile', 'people', 'members']
+			},
 			{ title: 'Badge', href: '/components/badge', keywords: ['chip', 'label', 'status'] },
 			{ title: 'Card', href: '/components/card', keywords: ['panel', 'tile'] },
 			{
@@ -222,6 +292,11 @@ export const nav: {
 				title: 'Chart',
 				href: '/components/chart',
 				keywords: ['graph', 'bar', 'line', 'pie', 'donut', 'radar', 'area', 'plot']
+			},
+			{
+				title: 'Chat',
+				href: '/components/chat',
+				keywords: ['messages', 'conversation', 'thread', 'messenger', 'inbox', 'dm']
 			},
 			{
 				title: 'Code block',
@@ -242,6 +317,11 @@ export const nav: {
 				title: 'Kbd',
 				href: '/components/kbd',
 				keywords: ['keyboard', 'shortcut', 'hotkey', 'key']
+			},
+			{
+				title: 'Mind map',
+				href: '/components/mind-map',
+				keywords: ['mindmap', 'brainstorm', 'tree', 'outline', 'diagram', 'topics']
 			},
 			{
 				title: 'Resizable panels',
@@ -273,6 +353,36 @@ export const nav: {
 				title: 'Virtual list',
 				href: '/components/virtual-list',
 				keywords: ['virtualized', 'windowing', 'infinite scroll', 'long list', 'tanstack virtual']
+			}
+		]
+	},
+	{
+		title: 'Media',
+		items: [
+			{
+				title: 'Audio player',
+				href: '/components/audio',
+				keywords: ['music', 'podcast', 'sound', 'player', 'mp3', 'media session']
+			},
+			{
+				title: 'Image',
+				href: '/components/image',
+				keywords: ['picture', 'photo', 'lazy', 'blur up', 'lightbox', 'zoom']
+			},
+			{
+				title: 'Image compare',
+				href: '/components/image-compare',
+				keywords: ['before after', 'slider', 'comparison', 'split']
+			},
+			{
+				title: 'Video',
+				href: '/components/video',
+				keywords: ['player', 'hls', 'dash', 'shaka', 'stream', 'captions', 'picture in picture']
+			},
+			{
+				title: 'Visualizer',
+				href: '/components/visualizer',
+				keywords: ['audio', 'spectrum', 'waveform', 'equalizer', 'microphone', 'bars']
 			}
 		]
 	},
@@ -379,14 +489,28 @@ export const nav: {
 				]
 			},
 			{
+				title: 'Auth',
+				href: '/blocks/auth',
+				keywords: [
+					'sign in',
+					'login',
+					'sign up',
+					'register',
+					'forgot password',
+					'reset password',
+					'verify',
+					'otp'
+				]
+			},
+			{
 				title: 'Board',
 				href: '/blocks/board',
 				keywords: ['kanban', 'trello', 'drag and drop', 'tasks', 'cards', 'lists']
 			},
 			{
-				title: 'Calendar',
-				href: '/blocks/calendar',
-				keywords: ['schedule', 'events', 'week view', 'month view', 'google calendar', 'agenda']
+				title: 'Booking',
+				href: '/blocks/booking',
+				keywords: ['schedule', 'reservation', 'appointment', 'hotel', 'calendly', 'slots']
 			},
 			{
 				title: 'Dashboard',
@@ -397,6 +521,146 @@ export const nav: {
 				title: 'File explorer',
 				href: '/blocks/file-explorer',
 				keywords: ['file manager', 'finder', 'explorer', 'files', 'folders', 'upload', 'drive']
+			},
+			{
+				title: 'Messaging',
+				href: '/blocks/messaging',
+				keywords: [
+					'chat app',
+					'slack',
+					'whatsapp',
+					'channels',
+					'team chat',
+					'dm',
+					'threads',
+					'inbox',
+					'workspace'
+				]
+			},
+			{
+				title: 'Notifications',
+				href: '/blocks/notifications',
+				keywords: ['inbox', 'bell', 'alerts', 'activity', 'unread']
+			},
+			{
+				title: 'Settings',
+				href: '/blocks/settings',
+				keywords: [
+					'account',
+					'profile',
+					'preferences',
+					'security',
+					'two factor',
+					'sessions',
+					'delete account'
+				]
+			},
+			{
+				title: 'Team',
+				href: '/blocks/team',
+				keywords: ['members', 'invite', 'roles', 'permissions', 'seats', 'organization']
+			}
+		]
+	},
+	{
+		title: 'Pro',
+		items: [
+			{ title: 'Overview', href: '/pro', keywords: ['premium', 'paid', 'templates', 'buy'] },
+			{
+				title: 'Pricing',
+				href: '/pro/pricing',
+				pro: true,
+				keywords: ['plans', 'billing', 'monthly', 'yearly', 'subscription', 'pro block']
+			},
+			{
+				title: 'Agent chat',
+				href: '/pro/agent-chat',
+				pro: true,
+				keywords: ['ai agent', 'tool calls', 'approvals', 'artifacts', 'llm', 'assistant', 'claude']
+			},
+			{
+				title: 'Calendar',
+				href: '/pro/calendar',
+				pro: true,
+				keywords: ['schedule', 'events', 'week view', 'month view', 'google calendar', 'agenda']
+			},
+			{
+				title: 'Voice agent',
+				href: '/pro/voice-agent',
+				pro: true,
+				keywords: ['voice', 'speech', 'realtime', 'call', 'transcript', 'ai agent', 'orb']
+			},
+			{
+				title: 'Mail inbox',
+				href: '/pro/mail',
+				pro: true,
+				keywords: ['email', 'gmail', 'inbox', 'compose', 'threads', 'mail client']
+			},
+			{
+				title: 'CMS',
+				href: '/pro/cms',
+				pro: true,
+				template: true,
+				keywords: ['content', 'admin', 'posts', 'editor', 'publishing', 'media library']
+			},
+			{
+				title: 'Blog',
+				href: '/pro/blog',
+				pro: true,
+				template: true,
+				keywords: ['magazine', 'editorial', 'articles', 'publication', 'rss']
+			},
+			{
+				title: 'Marketing site',
+				href: '/pro/marketing',
+				pro: true,
+				template: true,
+				keywords: ['agency', 'studio', 'company site', 'portfolio', 'case studies', 'careers']
+			},
+			{
+				title: 'E-commerce',
+				href: '/pro/shop',
+				pro: true,
+				template: true,
+				keywords: ['ecommerce', 'store', 'cart', 'checkout', 'products', 'shopify']
+			},
+			{
+				title: 'AI agents',
+				href: '/pro/ai-agents',
+				pro: true,
+				template: true,
+				keywords: [
+					'ai agents',
+					'customer support',
+					'sales agent',
+					'helpdesk',
+					'handover',
+					'voice agent',
+					'chatbot'
+				]
+			},
+			{
+				title: 'SaaS landing page',
+				href: '/pro/saas-landing',
+				pro: true,
+				template: true,
+				keywords: ['template', 'marketing site', 'homepage', 'hero', 'features', 'faq', 'startup']
+			},
+			{
+				title: 'SaaS app',
+				href: '/pro/saas-app',
+				pro: true,
+				template: true,
+				keywords: [
+					'template',
+					'admin',
+					'dashboard',
+					'account',
+					'settings',
+					'billing',
+					'team',
+					'full app'
+				]
 			}
 		]
 	},
@@ -411,3 +675,19 @@ export const nav: {
 		]
 	}
 ];
+
+/** How much there is, counted from the nav so it never goes stale. */
+const free = (titles: string[]) =>
+	nav.filter((g) => titles.includes(g.title)).flatMap((g) => g.items).length;
+const pro = nav.flatMap((g) => g.items).filter((i) => i.pro);
+export const counts = {
+	components: free(
+		nav
+			.map((g) => g.title)
+			.filter((t) => !['Getting started', 'Widgets', 'Blocks', 'Pro'].includes(t))
+	),
+	widgets: free(['Widgets']),
+	blocks: free(['Blocks']),
+	proBlocks: pro.filter((i) => !i.template).length,
+	templates: pro.filter((i) => i.template).length
+};

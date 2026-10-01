@@ -85,6 +85,6 @@
 <ul>
 	<li>Numbers are read as whole values, and each change says which period it compares with.</li>
 	<li>Charts are named and described, and can be read point by point from the keyboard.</li>
-	<li>Occupancy is a meter: read as “38 of 60 seats”, coloured by how full the room is.</li>
+	<li>Occupancy is a meter: read as “38 of 60 seats”, colored by how full the room is.</li>
 	<li>On narrow screens the sidebar becomes a menu and the panels stack.</li>
 </ul>

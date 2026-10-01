@@ -8,7 +8,7 @@ import type {
 } from '@tanstack/ai-svelte';
 
 // Stand-ins for the endpoints so the demos run without a key. Each takes as long as a real
-// request might and honours Stop. Images and video are geometric star patterns drawn from the
+// request might and honors Stop. Images and video are geometric star patterns drawn from the
 // prompt; the voice is a short melody, since only a real model can speak.
 
 const wait = (ms: number, signal?: AbortSignal) =>
@@ -20,7 +20,7 @@ const wait = (ms: number, signal?: AbortSignal) =>
 		);
 	});
 
-// The same prompt always gives the same colours.
+// The same prompt always gives the same colors.
 function hues(text: string) {
 	let h = 0;
 	for (const c of text) h = (h * 31 + c.charCodeAt(0)) % 360;

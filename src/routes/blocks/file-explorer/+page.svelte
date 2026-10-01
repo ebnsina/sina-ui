@@ -32,7 +32,7 @@
 <p class="eyebrow">Blocks</p>
 <h1>File explorer</h1>
 <p class="lede">
-	Browse, organise and upload files: open folders, choose several at once, drag them into place,
+	Browse, organize and upload files: open folders, choose several at once, drag them into place,
 	sort, preview, and send things to the Trash with an undo.
 </p>
 

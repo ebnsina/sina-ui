@@ -114,7 +114,7 @@
 			modified: day(3),
 			color: '#6366f1'
 		},
-		// Al-Sufi's catalogue, one file per star: a folder big enough to draw a page at a time.
+		// Al-Sufi's catalog, one file per star: a folder big enough to draw a page at a time.
 		...Array.from({ length: 1018 }, (_, n) => ({
 			id: `star-${n + 1}`,
 			name: `Star ${String(n + 1).padStart(4, '0')}.json`,

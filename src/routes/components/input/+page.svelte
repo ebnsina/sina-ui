@@ -53,7 +53,7 @@
 	title="With an error"
 	stack
 	description="An error marks the field invalid and is read out with it. Type a full address to clear it."
-	{...ex('error')}
+	{...ex('invalid')}
 />
 
 <Example id="disabled" title="Disabled" stack {...ex('disabled')} />
@@ -72,6 +72,66 @@
 	description="A button inside the box: here, copying the link, with a tick to say it worked."
 	{...ex('copy')}
 />
+
+<h2 id="inline-edit">Inline edit</h2>
+<p>
+	Text that turns into a field where it stands: for titles, names and settings shown as a page
+	rather than a form. Press it (or Enter) to edit; Enter or moving away saves, Escape puts it back.
+</p>
+<Install names="inline-edit">
+	<p>
+		Copy <code>src/lib/ui/InlineEdit.svelte</code>, with <code>Button.svelte</code>,
+		<code>Icon.svelte</code>, <code>Spinner.svelte</code>, <code>announce.ts</code> and
+		<code>tokens.css</code>. No dependencies.
+	</p>
+</Install>
+<Example
+	id="inline"
+	title="A title"
+	stack
+	description="Hover to see the pencil. Clearing it and saving says a title is needed."
+	{...ex('inline')}
+/>
+<Example
+	id="inline-form"
+	title="A profile, edited in place"
+	stack
+	description="Each field saves on its own. The email is checked before saving; the city fails once, to show the message and a second try."
+	{...ex('inline-form')}
+/>
+<table>
+	<thead><tr><th>Inline edit prop</th><th>Type</th><th>Default</th></tr></thead>
+	<tbody>
+		<tr><td><code>label</code></td><td><code>string</code> (required)</td><td></td></tr>
+		<tr
+			><td><code>value</code></td><td><code>string</code> (bindable)</td><td><code>''</code></td
+			></tr
+		>
+		<tr
+			><td><code>placeholder</code></td><td><code>string</code>: shown when empty</td><td
+				><code>'Empty'</code></td
+			></tr
+		>
+		<tr><td><code>hideLabel</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+		<tr
+			><td><code>type</code></td><td><code>'text' | 'email' | 'url'</code></td><td
+				><code>'text'</code></td
+			></tr
+		>
+		<tr><td><code>required</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+		<tr><td><code>maxlength</code></td><td><code>number</code></td><td></td></tr>
+		<tr
+			><td><code>validate</code></td><td
+				><code>(value) =&gt; string | undefined</code>: a message keeps it open</td
+			><td></td></tr
+		>
+		<tr
+			><td><code>onsave</code></td><td
+				><code>(value) =&gt; Promise | void</code>: throw to keep it open with "Couldn’t save"</td
+			><td></td></tr
+		>
+	</tbody>
+</table>
 
 <h2 id="props">Props</h2>
 <table>
@@ -103,4 +163,10 @@
 		also sets <code>aria-invalid</code>.
 	</li>
 	<li>Text is at least 16px so iOS Safari doesn't zoom the page on focus.</li>
+	<li>
+		Inline edit is a button named with its label, its value and "edit"; after saving or canceling,
+		focus returns to it and "Saved" is announced.
+	</li>
+	<li>Its error is joined to the field and read out; the field stays open until it's fixed.</li>
+	<li>Save and Cancel are real buttons, reachable with Tab.</li>
 </ul>

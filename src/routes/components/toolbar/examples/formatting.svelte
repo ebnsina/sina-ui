@@ -21,7 +21,7 @@
 	let align = $state<'left' | 'center' | 'right'>('left');
 	const aligns = [
 		{ value: 'left', label: 'Align left', icon: TextAlignLeftIcon },
-		{ value: 'center', label: 'Centre', icon: TextAlignCenterIcon },
+		{ value: 'center', label: 'Center', icon: TextAlignCenterIcon },
 		{ value: 'right', label: 'Align right', icon: TextAlignRightIcon }
 	] as const;
 </script>
@@ -96,7 +96,7 @@
 </div>
 
 <style>
-	/* Its own row under the toolbar, the text block centred in it. */
+	/* Its own row under the toolbar, the text block centered in it. */
 	.page {
 		flex-basis: 100%;
 	}

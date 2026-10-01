@@ -4,7 +4,7 @@
 </script>
 
 <script lang="ts">
-	import { reduced } from './motion';
+	import { ease, reduced } from './motion';
 	import type { Snippet } from 'svelte';
 	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { createAttachmentKey } from 'svelte/attachments';
@@ -61,7 +61,7 @@
 						{ opacity: 0, transform: 'scale(0.97)' },
 						{ opacity: 1, transform: 'none' }
 					],
-			{ duration: 125, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+			{ duration: 125, easing: ease.standard }
 		);
 	}
 	const follow = () => reveal(false);
@@ -158,7 +158,7 @@
 		text-wrap: balance;
 		overflow: visible;
 	}
-	/* Arrow: a rotated square in the tooltip's colour, pointing at the trigger's centre even when the
+	/* Arrow: a rotated square in the tooltip's color, pointing at the trigger's center even when the
 	   tooltip itself was pushed sideways to stay on screen; kept clear of the rounded corners. */
 	.tip::after {
 		box-sizing: border-box;

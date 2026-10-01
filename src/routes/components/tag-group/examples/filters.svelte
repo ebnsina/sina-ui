@@ -40,7 +40,7 @@
 		gap: 0.75rem;
 		max-inline-size: min(26rem, 100%);
 	}
-	/* Centred in the example, lines of tags included. */
+	/* Centered in the example, lines of tags included. */
 	.filters :global(.tags),
 	.row {
 		justify-content: center;

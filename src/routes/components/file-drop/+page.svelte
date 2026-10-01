@@ -30,7 +30,8 @@
 <p class="eyebrow">Forms</p>
 <h1>File drop</h1>
 <p class="lede">
-	Takes files by dragging them in or choosing them, and says plainly when one can't be used.
+	Takes files by dragging them in, pasting them or choosing them, and says plainly when one can't be
+	used, even before it's dropped.
 </p>
 
 <h2 id="installation">Installation</h2>
@@ -46,7 +47,7 @@
 	id="images"
 	title="Several images"
 	stack
-	description="Pictures show a preview. Files of the wrong type, too large, or over the limit are turned away with the reason."
+	description="Pictures show a preview. Hold files over the box: it says whether they'll be taken before you let go. Files of the wrong type, too large, or over the limit are turned away with the reason."
 	{...ex('images')}
 />
 <Example
@@ -84,8 +85,9 @@
 <ul>
 	<li>
 		Dragging is a shortcut: the “choose” link opens the file picker by keyboard, touch or screen
-		reader.
+		reader. With a pointer, pressing anywhere on the box does the same.
 	</li>
+	<li>Files can be pasted too, once the box has focus.</li>
 	<li>Screen readers hear how many files were added, and why any were turned away.</li>
 	<li>Each file in the list has its own remove button, named after the file.</li>
 </ul>

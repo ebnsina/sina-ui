@@ -25,6 +25,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+      # Pro blocks and templates live in the private sinaui-pro repo, laid over this one in place.
+      - uses: actions/checkout@v7
+        with:
+          repository: ebnsina/sinaui-pro
+          ssh-key: ${{ secrets.PRO_DEPLOY_KEY }}
+          path: .pro
+      - run: cp -R .pro/src/. src/ && rm -rf .pro
       - uses: pnpm/action-setup@v6
         with:
           version: 11
@@ -41,6 +48,13 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+      # Pro blocks and templates live in the private sinaui-pro repo, laid over this one in place.
+      - uses: actions/checkout@v7
+        with:
+          repository: ebnsina/sinaui-pro
+          ssh-key: ${{ secrets.PRO_DEPLOY_KEY }}
+          path: .pro
+      - run: cp -R .pro/src/. src/ && rm -rf .pro
       - uses: pnpm/action-setup@v6
         with:
           version: 11

@@ -122,7 +122,7 @@
 		/* 16px minimum: iOS Safari zooms the page into any smaller input on focus. */
 		font: inherit;
 		font-size: max(1rem, 16px);
-		/* Neutralise @tailwindcss/forms and similar resets that add their own focus shadow. */
+		/* Neutralize @tailwindcss/forms and similar resets that add their own focus shadow. */
 		box-shadow: none;
 	}
 	input::placeholder {

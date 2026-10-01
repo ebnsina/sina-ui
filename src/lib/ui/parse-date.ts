@@ -45,7 +45,7 @@ function exact(year: number, month: number, day: number) {
 	return d.day === day && d.month === month ? d : undefined;
 }
 
-// Bangla. Text is NFC-normalised first: letters like য় can be typed or pasted in two forms.
+// Bangla. Text is NFC-normalized first: letters like য় can be typed or pasted in two forms.
 const nfc = (list: string[]) => list.map((w) => w.normalize('NFC'));
 const BN_WEEKDAYS = nfc(['রবি', 'সোম', 'মঙ্গল', 'বুধ', 'বৃহস্পতি', 'শুক্র', 'শনি']);
 const BN_MONTHS = nfc([

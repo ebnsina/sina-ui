@@ -1,24 +1,33 @@
 <script lang="ts">
-	import { Tick02Icon } from '@hugeicons/core-free-icons';
+	import { AlertCircleIcon, Tick02Icon } from '@hugeicons/core-free-icons';
 	import Icon from './Icon.svelte';
 
 	interface Props {
-		steps: { label: string; description?: string }[];
+		/** error: something to fix on that step, shown in place of its description. */
+		steps: { label: string; description?: string; error?: string }[];
 		/** Index of the step in progress; steps before it are done. */
 		current?: number;
 		/** Called when a finished step is chosen, to go back to it. Without it, steps can't be chosen. */
 		onstep?: (index: number) => void;
 		label?: string;
+		/** vertical: markers down the side with names beside them, for sidebars and narrow columns. */
+		orientation?: 'horizontal' | 'vertical';
 	}
 
-	let { steps, current = $bindable(0), onstep, label = 'Progress' }: Props = $props();
+	let {
+		steps,
+		current = $bindable(0),
+		onstep,
+		label = 'Progress',
+		orientation = 'horizontal'
+	}: Props = $props();
 
 	const last = $derived(steps.length - 1);
 	// How far the track is filled: from the first marker to the current one.
 	const fill = $derived(last > 0 ? Math.min(current, last) / last : 0);
 </script>
 
-<nav aria-label={label} class="stepper">
+<nav aria-label={label} class={['stepper', orientation]}>
 	<!-- Narrow screens show only the current step's name; this says where it is in the list. -->
 	<p class="count" aria-hidden="true">
 		Step {Math.min(current, last) + 1} of {steps.length}: {steps[Math.min(current, last)]?.label}
@@ -28,7 +37,12 @@
 		<ol>
 			{#each steps as step, i (i)}
 				{@const state = i < current ? 'done' : i === current ? 'current' : 'next'}
-				<li class={state} aria-current={state === 'current' ? 'step' : undefined}>
+				<li
+					class={[state, step.error && 'error']}
+					aria-current={state === 'current' ? 'step' : undefined}
+				>
+					<!-- Vertical: the line down to the next marker, filled once this step is done. -->
+					{#if i < last}<span class="link" aria-hidden="true"></span>{/if}
 					{#if state === 'done' && onstep}
 						<button type="button" class="step" onclick={() => onstep(i)}>
 							{@render inner(step, i, state)}
@@ -44,7 +58,9 @@
 
 {#snippet inner(step: Props['steps'][number], i: number, state: string)}
 	<span class="marker" aria-hidden="true">
-		{#if state === 'done'}
+		{#if step.error}
+			<span class="tick"><Icon icon={AlertCircleIcon} size={16} strokeWidth={2} /></span>
+		{:else if state === 'done'}
 			<span class="tick"><Icon icon={Tick02Icon} size={14} strokeWidth={2.5} /></span>
 		{:else}
 			{i + 1}
@@ -58,10 +74,11 @@
 				? ', completed'
 				: state === 'current'
 					? ', current'
-					: ''}</span
+					: ''}{step.error ? `, needs attention: ${step.error}` : ''}</span
 		>
 		<span class="name" aria-hidden="true">{step.label}</span>
-		{#if step.description}<span class="description">{step.description}</span>{/if}
+		{#if step.error}<span class="description problem" aria-hidden="true">{step.error}</span>
+		{:else if step.description}<span class="description">{step.description}</span>{/if}
 	</span>
 {/snippet}
 
@@ -77,7 +94,7 @@
 		color: var(--ui-muted);
 		font-size: 0.8125rem;
 	}
-	/* Equal columns; each marker sits at its column's centre, the track runs between the outer ones. */
+	/* Equal columns; each marker sits at its column's center, the track runs between the outer ones. */
 	.rail {
 		position: relative;
 	}
@@ -206,13 +223,82 @@
 		color: var(--ui-muted);
 		font-size: 0.8125rem;
 	}
-	/* Narrow: markers only, with the current step named in the count above. */
+	/* A step with something to fix: its marker and message in the danger color. */
+	.error .marker,
+	.error.done .marker {
+		background: var(--ui-surface);
+		box-shadow: inset 0 0 0 2px var(--ui-danger);
+		color: var(--ui-danger);
+	}
+	.error.current .marker {
+		box-shadow:
+			inset 0 0 0 2px var(--ui-danger),
+			0 0 0 4px color-mix(in srgb, var(--ui-danger) 18%, transparent);
+	}
+	.problem {
+		color: var(--ui-danger);
+	}
+
+	/* Vertical: one step per row, marker on the start side with its name beside it. */
+	.vertical .track,
+	.vertical .count {
+		display: none;
+	}
+	.vertical ol {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 1.25rem;
+	}
+	.vertical li {
+		position: relative;
+		justify-content: flex-start;
+	}
+	.vertical .step {
+		grid-template-columns: auto minmax(0, 1fr);
+		align-items: start;
+		justify-items: start;
+		column-gap: 0.75rem;
+		padding: 0;
+		text-align: start;
+	}
+	.vertical .text {
+		padding-block-start: 0.3125rem;
+	}
+	.vertical .name {
+		white-space: normal;
+	}
+	/* The link runs from under this marker to the next one, and fills downwards when this step is done. */
+	.link {
+		display: none;
+	}
+	.vertical .link {
+		position: absolute;
+		inset-block: calc(2rem + 0.25rem) calc(-1.25rem + 0.25rem);
+		inset-inline-start: calc(1rem - 1px);
+		display: block;
+		inline-size: 2px;
+		border-radius: 1px;
+		background: var(--ui-line);
+		overflow: hidden;
+	}
+	.vertical .link::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		background: var(--ui-accent);
+		transform: scaleY(0);
+		transform-origin: top;
+		transition: transform 450ms var(--ui-ease-out);
+	}
+	.vertical .done .link::after {
+		transform: none;
+	}
+	/* Narrow: markers only, with the current step named in the count above (horizontal only). */
 	@container (max-width: 34rem) {
-		.count {
+		.horizontal .count {
 			display: block;
 		}
 		/* Hidden from sight only: the step's name must still reach screen readers. */
-		.text {
+		.horizontal .text {
 			position: absolute;
 			inline-size: 1px;
 			block-size: 1px;
@@ -223,6 +309,7 @@
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.fill,
+		.vertical .link::after,
 		.tick {
 			transition: none;
 		}

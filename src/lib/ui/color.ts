@@ -35,12 +35,12 @@ export function hexToHsv(hex: string): Hsv | undefined {
 	return { h: (h * 60 + 360) % 360, s: max ? d / max : 0, v: max };
 }
 
-/** Plain words for a colour ("dark green"), so a screen reader says more than numbers. */
+/** Plain words for a color ("dark green"), so a screen reader says more than numbers. */
 export function colorName({ h, s, v }: Hsv) {
 	if (v < 0.12) return 'black';
-	// Near black, colour fades out sooner: #292d33 is a grey, not a blue.
+	// Near black, color fades out sooner: #292d33 is a gray, not a blue.
 	if (s < 0.1 || (s < 0.25 && v < 0.35))
-		return v > 0.92 ? 'white' : v > 0.6 ? 'light grey' : v > 0.3 ? 'grey' : 'dark grey';
+		return v > 0.92 ? 'white' : v > 0.6 ? 'light gray' : v > 0.3 ? 'gray' : 'dark gray';
 	const hues: [number, string][] = [
 		[15, 'red'],
 		[40, 'orange'],
@@ -53,6 +53,6 @@ export function colorName({ h, s, v }: Hsv) {
 		[360, 'red']
 	];
 	const hue = hues.find(([end]) => h < end)![1];
-	const tone = v < 0.45 ? 'dark ' : v > 0.85 && s < 0.45 ? 'light ' : s < 0.35 ? 'greyish ' : '';
+	const tone = v < 0.45 ? 'dark ' : v > 0.85 && s < 0.45 ? 'light ' : s < 0.35 ? 'grayish ' : '';
 	return tone + hue;
 }

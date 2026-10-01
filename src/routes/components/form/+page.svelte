@@ -51,7 +51,7 @@
 	</li>
 </ul>
 
-<h2 id="behaviour">How errors behave</h2>
+<h2 id="behavior">How errors behave</h2>
 <p>
 	Both versions follow the same timing, so switching between them changes nothing for the person
 	filling the form in:
@@ -108,7 +108,7 @@
 		<code>aria-invalid</code>, so it's read out when the field is focused.
 	</li>
 	<li>
-		Invalid fields get a red outline and a red focus ring: the error is never shown by colour alone,
+		Invalid fields get a red outline and a red focus ring: the error is never shown by color alone,
 		the message is always there too.
 	</li>
 	<li>

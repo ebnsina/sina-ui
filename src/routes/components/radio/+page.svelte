@@ -59,7 +59,7 @@
 	title="Hint and error"
 	stack
 	description="Both belong to the whole group and are read with its question."
-	{...ex('error')}
+	{...ex('invalid')}
 />
 
 <h2 id="props">Props</h2>

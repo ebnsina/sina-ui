@@ -24,7 +24,7 @@ the code: no package to update, nothing hidden.
 - **Light and dark.** It follows the reader's system setting, or their own choice.
 - **Calm motion.** Animations are short, and they turn down for readers who ask their system for
   less motion.
-- **Your brand.** Change colours, corners, type and motion with a few CSS variables. See
+- **Your brand.** Change colors, corners, type and motion with a few CSS variables. See
   [Theming](https://ebnsina.github.io/sinaui/theming).
 
 There are 68 components, 7 widgets and 6 full blocks: an AI chat, a calendar, a dashboard, a file

@@ -16,7 +16,7 @@
 </script>
 
 <div class="stack">
-	<SearchField label="Search the catalogue" bind:value={query} placeholder="Title or author" />
+	<SearchField label="Search the catalog" bind:value={query} placeholder="Title or author" />
 	<ul>
 		{#each found as t (t)}<li>{t}</li>{:else}<li class="none">Nothing matches “{query}”.</li>{/each}
 	</ul>

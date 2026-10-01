@@ -111,7 +111,7 @@
 		too.
 	</li>
 	<li>
-		The tray is a labelled region; screen readers hear when all uploads are done or some failed, not
+		The tray is a labeled region; screen readers hear when all uploads are done or some failed, not
 		every percent.
 	</li>
 	<li>Hiding the tray keeps its heading and overall progress in view.</li>

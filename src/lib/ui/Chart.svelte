@@ -102,7 +102,7 @@
 {/if}
 
 <style>
-	/* TanStack Charts reads its colours from these variables and currentColor: the chart follows
+	/* TanStack Charts reads its colors from these variables and currentColor: the chart follows
 	   Sina UI's tokens in light and dark with no per-chart theme. */
 	.chart {
 		--ts-chart-1: var(--ui-accent);

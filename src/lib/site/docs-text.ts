@@ -58,7 +58,8 @@ export function markdown(href: string): string {
 		.replace(/<Code\s+code="([^"]*)"[^>]*\/>/g, (_, c) => keep(`\n\`\`\`\n${decode(c)}\n\`\`\`\n`))
 		.replace(/<Example\b([\s\S]*?)\/>/g, (tag) => {
 			const id = attr(tag, 'id');
-			const code = id ? examples[`${dir}/examples/${id}.svelte`] : undefined;
+			// Pro examples pass no code to the page, so none goes in the text either.
+			const code = id && tag.includes('ex(') ? examples[`${dir}/examples/${id}.svelte`] : undefined;
 			return `\n### Example: ${attr(tag, 'title') ?? id}\n\n${attr(tag, 'description') ?? ''}\n${
 				code ? keep(`\n\`\`\`svelte\n${code.trim()}\n\`\`\`\n`) : ''
 			}`;

@@ -7,5 +7,3 @@
 	src="https://avatars.githubusercontent.com/u/26293733?v=4&size=64"
 	size="lg"
 />
-<!-- A broken image falls back to the initials. -->
-<Avatar name="Fāṭima al-Fihrī" src="https://example.invalid/fatima.png" size="lg" />

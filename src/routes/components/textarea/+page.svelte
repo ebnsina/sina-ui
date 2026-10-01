@@ -49,7 +49,7 @@
 	title="With validation"
 	stack
 	description="Start typing: the error clears once there's enough to file."
-	{...ex('error')}
+	{...ex('invalid')}
 />
 
 <h2 id="props">Props</h2>

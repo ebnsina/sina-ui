@@ -3,7 +3,7 @@
 </script>
 
 <p>
-	Press <Kbd keys={['mod', 'K']} /> to search the catalogue, and <Kbd>Esc</Kbd> to close it.
+	Press <Kbd keys={['mod', 'K']} /> to search the catalog, and <Kbd>Esc</Kbd> to close it.
 </p>
 
 <style>

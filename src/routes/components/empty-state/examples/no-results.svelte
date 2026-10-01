@@ -13,7 +13,7 @@
 </script>
 
 <div class="stack">
-	<SearchField label="Search the catalogue" bind:value={query} bind:element={field} />
+	<SearchField label="Search the catalog" bind:value={query} bind:element={field} />
 	{#if found.length}
 		<ul>
 			{#each found as t (t)}<li>{t}</li>{/each}

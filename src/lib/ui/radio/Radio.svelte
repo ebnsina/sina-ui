@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reduced } from '../motion';
+	import { ease, reduced } from '../motion';
 	import type { Snippet } from 'svelte';
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { getRadioGroup } from './context';
@@ -29,7 +29,7 @@
 				{ opacity: 1, transform: 'scale(1)', offset: 0.35 },
 				{ opacity: 0, transform: 'scale(1.08)' }
 			],
-			{ duration: 600, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+			{ duration: 600, easing: ease.standard }
 		);
 	}
 </script>
@@ -98,7 +98,7 @@
 		inset: 50% auto auto 50%;
 		inline-size: 2.5rem;
 		block-size: 2.5rem;
-		/* Centred on a physical left: 50%, so the offset stays physical too. */
+		/* Centered on a physical left: 50%, so the offset stays physical too. */
 		margin: -1.25rem 0 0 -1.25rem;
 		border-radius: 50%;
 		background: var(--ui-hover);

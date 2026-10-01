@@ -53,11 +53,14 @@
 	{...ex('description')}
 />
 <Example
-	id="sides"
-	title="All four sides"
-	description="Each tooltip prefers the side you ask for and flips to the opposite one when there isn't room; the arrow always points at the trigger."
-	{...ex('sides')}
+	id="top"
+	title="Above"
+	description="The default. Each tooltip prefers the side you ask for and flips to the opposite one when there isn't room; the arrow always points at the trigger."
+	{...ex('top')}
 />
+<Example id="right" title="Right" {...ex('right')} />
+<Example id="bottom" title="Below" {...ex('bottom')} />
+<Example id="left" title="Left" {...ex('left')} />
 
 <h2 id="props">Props</h2>
 <table>

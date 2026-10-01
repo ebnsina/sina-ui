@@ -5,6 +5,8 @@
 		label: string;
 		href: string;
 		icon: typeof Home01Icon;
+		/** A count beside the name, such as items waiting; hidden at 0. */
+		badge?: number;
 	}
 	export interface SidebarGroup {
 		title?: string;
@@ -13,7 +15,7 @@
 </script>
 
 <script lang="ts">
-	import { reduced } from './motion';
+	import { ease, reduced } from './motion';
 	import { onMount, tick, type Snippet } from 'svelte';
 	import { Menu01Icon, SidebarLeftIcon } from '@hugeicons/core-free-icons';
 	import Dialog from './Dialog.svelte';
@@ -77,7 +79,7 @@
 		if (shift && !reduced())
 			main.animate([{ transform: `translateX(${shift}px)` }, { transform: 'none' }], {
 				duration: 300,
-				easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
+				easing: ease.standard
 			});
 	}
 
@@ -115,6 +117,7 @@
 	>
 		<Icon icon={item.icon} size={18} />
 		<span class="text">{item.label}</span>
+		{#if item.badge}<span class="badge">{item.badge}</span>{/if}
 	</a>
 {/snippet}
 
@@ -300,7 +303,19 @@
 		text-overflow: ellipsis;
 		transition: opacity 150ms ease;
 	}
+	.badge {
+		margin-inline-start: auto;
+		padding: 0 0.4375rem;
+		border-radius: 999px;
+		background: var(--ui-accent);
+		color: var(--ui-on-accent);
+		font-size: 0.75rem;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		line-height: 1.25rem;
+	}
 	.collapsed .text,
+	.collapsed .badge,
 	.collapsed .group {
 		opacity: 0;
 	}
@@ -371,11 +386,19 @@
 		.sidebar {
 			display: none;
 		}
+		/* Pinned while the content scrolls, so the menu is always one tap away. */
 		.bar {
+			position: sticky;
+			inset-block-start: 0;
+			z-index: 4;
 			display: flex;
 			align-items: center;
 			gap: 0.25rem;
+			block-size: 3.25rem;
+			box-sizing: border-box;
 			padding: 0.25rem;
+			background: color-mix(in srgb, var(--ui-bg) 92%, transparent);
+			backdrop-filter: blur(12px);
 		}
 	}
 	@media (prefers-reduced-motion: reduce) {

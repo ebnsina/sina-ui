@@ -12,7 +12,7 @@
 </script>
 
 <script lang="ts" generics="T">
-	import { pop, reduced, reflow } from './motion';
+	import { ease, pop, reduced, reflow } from './motion';
 	import { scrollEdges } from './scroll-edges';
 	import { flushSync, tick, type Snippet } from 'svelte';
 	import { announce } from './announce';
@@ -204,7 +204,7 @@
 		drag!.x = p.x;
 		drag!.y = p.y;
 		autoscroll(e);
-		// The slot whose centre is nearest the dragged item's centre is where it belongs.
+		// The slot whose center is nearest the dragged item's center is where it belongs.
 		const node = nodeOf(press.id)!;
 		const cx = p.x - drag!.grabX + node.offsetWidth / 2;
 		const cy = p.y - drag!.grabY + node.offsetHeight / 2;
@@ -260,7 +260,7 @@
 				if (from && !reduced())
 					node.animate([{ transform: from }, { transform: 'none' }], {
 						duration: 220,
-						easing: 'cubic-bezier(0.23, 1, 0.32, 1)'
+						easing: ease.standard
 					});
 			}
 		}

@@ -12,7 +12,7 @@
 		{
 			items: [
 				{ label: 'Home', href: '#home', icon: Home01Icon },
-				{ label: 'Catalogue', href: '#catalogue', icon: BookOpen01Icon },
+				{ label: 'Catalog', href: '#catalog', icon: BookOpen01Icon },
 				{ label: 'My loans', href: '#loans', icon: Book02Icon },
 				{ label: 'Bookings', href: '#bookings', icon: Calendar03Icon }
 			]
@@ -26,7 +26,7 @@
 			]
 		}
 	];
-	let current = $state('#catalogue');
+	let current = $state('#catalog');
 	const title = $derived(groups.flatMap((g) => g.items).find((i) => i.href === current)?.label);
 </script>
 

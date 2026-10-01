@@ -34,7 +34,13 @@
 </Install>
 
 <h2 id="examples">Examples</h2>
-<Example id="card" title="Loading a card" stack {...ex('card')} />
+<Example
+	id="card"
+	title="Loading a card"
+	stack
+	description="One sheen sweeps across every block together. When the content arrives it fades in where the placeholder was."
+	{...ex('card')}
+/>
 
 <h2 id="props">Props</h2>
 <table>
@@ -43,6 +49,16 @@
 		<tr><td><code>width</code></td><td><code>string</code></td><td><code>100%</code></td></tr>
 		<tr><td><code>height</code></td><td><code>string</code></td><td><code>1rem</code></td></tr>
 		<tr><td><code>circle</code></td><td><code>boolean</code></td><td><code>false</code></td></tr>
+		<tr
+			><td><code>lines</code></td><td
+				><code>number</code>: a paragraph of lines, the last one shorter</td
+			><td></td></tr
+		>
+		<tr
+			><td><code>lineHeight</code></td><td
+				><code>string</code>: each line's height, bar centered in it</td
+			><td>the text's own</td></tr
+		>
 	</tbody>
 </table>
 
@@ -51,6 +67,9 @@
 	<li>
 		Hidden from screen readers. Put <code>aria-busy="true"</code> on the region that is loading instead.
 	</li>
-	<li>Size it like the real content so the swap causes no layout shift.</li>
+	<li>
+		Size it like the real content, and put both in the same place (as in the example), so the swap
+		causes no layout shift.
+	</li>
 	<li>The sheen stops with reduced motion.</li>
 </ul>

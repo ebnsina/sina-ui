@@ -14,7 +14,8 @@
 		title: string;
 		description?: string;
 		component: Component;
-		code: string;
+		/** Left out for Pro examples: preview only. */
+		code?: string;
 		/** Stack the preview vertically (forms, tabs) instead of wrapping in a row. */
 		stack?: boolean;
 	} = $props();
@@ -46,20 +47,26 @@
 	<h3 {id}>{title}</h3>
 	{#if description}<p class="desc">{description}</p>{/if}
 	<div class={['preview', stack && 'stack']}><Preview /></div>
-	<div class={['source', tall && 'tall', open && 'open']} style:--full="{full}px">
-		<div class="clip" id="{id}-code" bind:this={clip} {@attach measure}>
-			<Code {code} label="{title} code" />
+	{#if code}
+		<div
+			class={['source', tall && 'tall', open && 'open']}
+			style:--full="{full}px"
+			style:--fold="{Math.round(Math.min(600, Math.max(320, (full - 208) * 0.5)))}ms"
+		>
+			<div class="clip" id="{id}-code" bind:this={clip} {@attach measure}>
+				<Code {code} label="{title} code" />
+			</div>
+			{#if tall}
+				<button
+					type="button"
+					class="toggle"
+					aria-expanded={open}
+					aria-controls="{id}-code"
+					onclick={toggle}>{open ? 'Show less' : 'View code'}</button
+				>
+			{/if}
 		</div>
-		{#if tall}
-			<button
-				type="button"
-				class="toggle"
-				aria-expanded={open}
-				aria-controls="{id}-code"
-				onclick={toggle}>{open ? 'Show less' : 'View code'}</button
-			>
-		{/if}
-	</div>
+	{/if}
 </div>
 
 <style>
@@ -74,12 +81,13 @@
 		position: relative;
 		margin-block-start: 0.75rem;
 	}
-	/* Folded: about seven lines, a cover in the code's own colour fading them toward the button. */
+	/* Folded: about seven lines, a cover in the code's own color fading them toward the button. */
 	.tall .clip {
 		position: relative;
 		max-block-size: 13rem;
 		overflow: hidden;
-		transition: max-block-size 350ms var(--ui-ease-out);
+		/* Longer code takes a little longer to unfold, so every height reads as the same motion. */
+		transition: max-block-size var(--fold, 400ms) var(--ui-ease-drawer);
 	}
 	.tall .clip::after {
 		content: '';
@@ -88,7 +96,7 @@
 		border-radius: 0 0 calc(var(--ui-radius) * 1.5) calc(var(--ui-radius) * 1.5);
 		background: linear-gradient(transparent, var(--code-bg) 85%);
 		pointer-events: none;
-		transition: opacity 250ms ease;
+		transition: opacity var(--fold, 400ms) var(--ui-ease-out);
 	}
 	.tall.open .clip {
 		max-block-size: var(--full);

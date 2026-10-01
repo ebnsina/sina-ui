@@ -28,7 +28,7 @@
 <p class="eyebrow">Display</p>
 <h1>Code block</h1>
 <p class="lede">
-	Shows code with its syntax coloured, line numbers, lines you want noticed, and a copy button. It
+	Shows code with its syntax colored, line numbers, lines you want noticed, and a copy button. It
 	unrolls the first time it scrolls into view.
 </p>
 

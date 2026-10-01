@@ -4,7 +4,7 @@
 
 <Accordion.Root>
 	<Accordion.Item title="What was the House of Wisdom?">
-		A library and translation centre in Abbasid Baghdad, where scholars rendered Greek, Persian and
+		A library and translation center in Abbasid Baghdad, where scholars rendered Greek, Persian and
 		Indian works into Arabic.
 	</Accordion.Item>
 	<Accordion.Item title="Who worked there?">

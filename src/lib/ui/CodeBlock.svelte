@@ -197,9 +197,12 @@
 	.scroll {
 		overflow-x: auto;
 	}
+	/* As wide as the longest line, so scrolled-to text and line highlights aren't cut at the box edge. */
 	.grid {
 		display: grid;
 		grid-template-columns: auto minmax(0, 1fr);
+		inline-size: max-content;
+		min-inline-size: 100%;
 		padding-block: 0.875rem;
 	}
 	.armed:not(.seen) .grid {
@@ -258,7 +261,7 @@
 		margin: 0;
 		font: inherit;
 	}
-	/* Syntax colours, each 4.5:1 or better on this background in both themes. */
+	/* Syntax colors, each 4.5:1 or better on this background in both themes. */
 	.codeblock :global(.th-tag),
 	.codeblock :global(.th-command),
 	.codeblock :global(.th-selector) {

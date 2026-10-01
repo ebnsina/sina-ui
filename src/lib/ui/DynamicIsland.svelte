@@ -43,9 +43,9 @@
 		closing = wasOpen && !expanded;
 		wasOpen = expanded;
 	});
-	// A pill while it's one line. Grown into a card, its corners are concentric with what's inside:
-	// the system radius (0.5rem) plus the card's 1.25rem padding, so 28px.
-	const radius = (h: number) => Math.min(h / 2, 28);
+	// A soft rectangle while it's one line. Grown into a card, its corners are concentric with what's inside:
+	// the system radius (0.75rem) plus the card's 1.25rem padding, so 32px; small, it stays a soft rectangle.
+	const radius = (h: number) => Math.min(h * 0.4, 32);
 
 	// The width its container allows: content wraps within it instead of growing past it.
 	let room = $state<number>();
@@ -145,9 +145,9 @@
 		position: relative;
 		margin-inline: auto;
 		overflow: hidden;
-		border-radius: 1.15rem;
+		border-radius: 0.875rem;
 		background: var(--ui-surface);
-		box-shadow: var(--ui-shadow-overlay);
+		box-shadow: var(--ui-shadow-xs);
 		color: var(--ui-fg);
 		font: 0.875rem/1.3 var(--ui-font);
 		/* Stays on its own layer while it morphs, so growing never repaints the page around it. */
@@ -179,7 +179,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		border-radius: 999px;
+		border-radius: inherit;
 		background: none;
 		cursor: pointer;
 	}

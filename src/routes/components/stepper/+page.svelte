@@ -46,6 +46,13 @@
 	description="Finished steps can be chosen to go back; steps ahead can't be skipped to. Narrow the window to see the compact form."
 	{...ex('flow')}
 />
+<Example
+	id="vertical"
+	title="Down the side, with a problem"
+	stack
+	description="Vertical keeps names and descriptions beside their markers, for sidebars and narrow columns. A step with an error shows it in place of its description."
+	{...ex('vertical')}
+/>
 <p>
 	The Stepper shows progress; your page shows each step's content. The example slides content in the
 	direction of travel and moves focus to the new step's heading, so screen readers announce it.
@@ -56,7 +63,7 @@
 	<thead><tr><th>Prop</th><th>Type</th><th>Default</th></tr></thead>
 	<tbody>
 		<tr
-			><td><code>steps</code></td><td><code>{'{'} label, description? {'}'}[]</code></td><td
+			><td><code>steps</code></td><td><code>{'{'} label, description?, error? {'}'}[]</code></td><td
 			></td></tr
 		>
 		<tr
@@ -69,6 +76,11 @@
 			></tr
 		>
 		<tr><td><code>label</code></td><td><code>string</code></td><td><code>'Progress'</code></td></tr>
+		<tr
+			><td><code>orientation</code></td><td><code>'horizontal' | 'vertical'</code></td><td
+				><code>'horizontal'</code></td
+			></tr
+		>
 	</tbody>
 </table>
 
@@ -81,4 +93,5 @@
 	</li>
 	<li>Each step is read with its place and state: “Step 2 of 4: Manuscript, current”.</li>
 	<li>Finished steps are buttons; steps not reached yet are plain text.</li>
+	<li>A step with an error is read with it: “Step 3 of 5: Paper and ink, needs attention: …”.</li>
 </ul>

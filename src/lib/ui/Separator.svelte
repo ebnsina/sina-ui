@@ -13,7 +13,7 @@
 
 {#if children}
 	<!-- With words it's just text between two lines; a separator's own content isn't read out. -->
-	<div class={['labelled', className]}>{@render children()}</div>
+	<div class={['labeled', className]}>{@render children()}</div>
 {:else if orientation === 'vertical'}
 	<div class={['line', 'vertical', className]} role="separator" aria-orientation="vertical"></div>
 {:else}
@@ -34,7 +34,7 @@
 		block-size: auto;
 		min-block-size: 1em;
 	}
-	.labelled {
+	.labeled {
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
@@ -42,8 +42,8 @@
 		font: 0.8125rem/1.4 var(--ui-font);
 		white-space: nowrap;
 	}
-	.labelled::before,
-	.labelled::after {
+	.labeled::before,
+	.labeled::after {
 		content: '';
 		flex: 1;
 		block-size: 1px;

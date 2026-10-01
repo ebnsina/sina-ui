@@ -88,7 +88,7 @@
 <h2 id="accessibility">Accessibility</h2>
 <ul>
 	<li>
-		A non-modal <code>role="dialog"</code> labelled by its title; the trigger has
+		A non-modal <code>role="dialog"</code> labeled by its title; the trigger has
 		<code>aria-haspopup="dialog"</code>
 		and <code>aria-expanded</code>.
 	</li>

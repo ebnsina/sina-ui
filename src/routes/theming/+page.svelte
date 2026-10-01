@@ -8,7 +8,7 @@
 	import Slider from '#lib/ui/Slider.svelte';
 	import Switch from '#lib/ui/Switch.svelte';
 
-	// Accents in light/dark pairs, each with a text colour that reads on it at 4.5:1 or better.
+	// Accents in light/dark pairs, each with a text color that reads on it at 4.5:1 or better.
 	const accents = {
 		emerald: {
 			label: 'Emerald',
@@ -72,13 +72,13 @@
 		['--ui-line', 'Hairlines between things', true],
 		['--ui-field-line', 'Text field borders', true],
 		['--ui-control-line', 'Checkbox and radio outlines', true],
-		['--ui-accent', 'Brand colour: primary buttons, focus, selection', true],
+		['--ui-accent', 'Brand color: primary buttons, focus, selection', true],
 		['--ui-on-accent', 'Text on the accent', true],
 		['--ui-danger', 'Errors and destructive actions', true],
 		['--ui-on-danger', 'Text on danger', true],
 		['--ui-warning', 'Warnings', true],
 		['--ui-backdrop', 'Behind dialogs', true],
-		['--ui-ring', 'Focus ring colour (the accent)', true],
+		['--ui-ring', 'Focus ring color (the accent)', true],
 		['--ui-ring-width', 'Focus ring thickness', false],
 		['--ui-ring-offset', 'Gap between ring and control', false],
 		['--ui-radius', 'Corners of surfaces: cards, menus, dialogs', false],
@@ -100,19 +100,19 @@
 	<title>Theming — Sina UI</title>
 	<meta
 		name="description"
-		content="Change Sina UI's colours, corners, type and motion with a few CSS variables."
+		content="Change Sina UI's colors, corners, type and motion with a few CSS variables."
 	/>
 	<meta property="og:title" content="Theming — Sina UI" />
 	<meta
 		property="og:description"
-		content="Change Sina UI's colours, corners, type and motion with a few CSS variables."
+		content="Change Sina UI's colors, corners, type and motion with a few CSS variables."
 	/>
 </svelte:head>
 
 <p class="eyebrow">Getting started</p>
 <h1>Theming</h1>
 <p class="lede">
-	Every component takes its colours, corners, type and motion from a few CSS variables in
+	Every component takes its colors, corners, type and motion from a few CSS variables in
 	<code>tokens.css</code>. Change them once and everything follows.
 </p>
 
@@ -203,12 +203,12 @@
 
 <h2 id="dark-mode">Dark mode</h2>
 <p>
-	Every colour is a <code>light-dark()</code> pair, so pages follow the reader's system setting. To
+	Every color is a <code>light-dark()</code> pair, so pages follow the reader's system setting. To
 	let people choose, set <code>data-theme="light"</code> or <code>"dark"</code> on
 	<code>&lt;html&gt;</code>.
 </p>
 <p>
-	When you change a colour, give both halves: <code>light-dark(#4338ca, #a5b4fc)</code>. Check that
+	When you change a color, give both halves: <code>light-dark(#4338ca, #a5b4fc)</code>. Check that
 	text on it reads at 4.5:1 in each.
 </p>
 
@@ -222,11 +222,11 @@
 <table class="tokens">
 	<thead><tr><th>Token</th><th>Used for</th></tr></thead>
 	<tbody>
-		{#each tokens as [name, use, colour] (name)}
+		{#each tokens as [name, use, color] (name)}
 			<tr>
 				<td>
 					<span class="token">
-						{#if colour}<span class="swatch" style:background="var({name})"></span>{/if}
+						{#if color}<span class="swatch" style:background="var({name})"></span>{/if}
 						<code>{name}</code>
 					</span>
 				</td>
@@ -276,7 +276,7 @@
 		flex-wrap: wrap;
 		gap: 0.625rem;
 	}
-	/* A colour dot per accent; the chosen one wears a ring in its own colour. */
+	/* A color dot per accent; the chosen one wears a ring in its own color. */
 	.swatch {
 		position: relative;
 		display: block;
@@ -366,7 +366,7 @@
 		gap: 0.5rem;
 		margin-block-start: 0.25rem;
 	}
-	/* middle, not baseline: the swatch otherwise makes colour rows 2px taller. */
+	/* middle, not baseline: the swatch otherwise makes color rows 2px taller. */
 	.token {
 		display: inline-flex;
 		align-items: center;

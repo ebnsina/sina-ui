@@ -6,7 +6,7 @@ import type { ConnectConnectionAdapter } from '@tanstack/ai-svelte';
 const replies: [RegExp, string][] = [
 	[
 		/wisdom|bayt|baghdad/i,
-		"The House of Wisdom was the great library and translation centre of Abbasid Baghdad, flourishing in the 9th century.\n\nScholars there translated Greek, Persian and Indian works into Arabic, and went on to add their own: al-Khwarizmi's algebra among them."
+		"The House of Wisdom was the great library and translation center of Abbasid Baghdad, flourishing in the 9th century.\n\nScholars there translated Greek, Persian and Indian works into Arabic, and went on to add their own: al-Khwarizmi's algebra among them."
 	],
 	[
 		/optic|haytham|light/i,

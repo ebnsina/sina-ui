@@ -63,7 +63,7 @@
 		background: var(--ui-hover);
 		transition: background-color var(--ui-dur) ease;
 	}
-	/* The thumb, not the track, carries state: it keeps 3:1+ contrast against both track colours. */
+	/* The thumb, not the track, carries state: it keeps 3:1+ contrast against both track colors. */
 	.track::before {
 		content: '';
 		position: absolute;

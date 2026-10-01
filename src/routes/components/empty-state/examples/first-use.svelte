@@ -5,9 +5,9 @@
 </script>
 
 <EmptyState icon={Books01Icon} title="Your reading list is empty" level={3}>
-	<p>Save manuscripts from the catalogue to read them later, even offline.</p>
+	<p>Save manuscripts from the catalog to read them later, even offline.</p>
 	{#snippet actions()}
 		<Button variant="secondary">Import a list</Button>
-		<Button href="#first-use">Browse the catalogue</Button>
+		<Button href="#first-use">Browse the catalog</Button>
 	{/snippet}
 </EmptyState>

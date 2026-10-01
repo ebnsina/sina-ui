@@ -2,7 +2,7 @@
 html {
 	scroll-padding-top: 4.5rem;
 }
-/* The site frame is grey; content sits on a white panel. Components keep --ui-bg / --ui-surface. */
+/* The site frame is gray; content sits on a white panel. Components keep --ui-bg / --ui-surface. */
 :root {
 	--page: light-dark(#f3f5f8, #0a0a0a);
 	--code-bg: light-dark(#f3f3f4, #222222);
@@ -80,7 +80,7 @@ main a:not([class]) {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
-	/* Centred, so a narrow example doesn't leave the frame's right side empty. */
+	/* Centered, so a narrow example doesn't leave the frame's right side empty. */
 	justify-content: center;
 	gap: 0.75rem;
 	/* Side padding scales down on a phone, so a full app block keeps the width it needs. */
@@ -88,7 +88,7 @@ main a:not([class]) {
 	background: light-dark(rgb(15 23 42 / 0.025), rgb(255 255 255 / 0.03));
 	border-radius: calc(var(--ui-radius) * 1.5);
 }
-/* A caption or status line after the component goes under it, centred, never beside it. */
+/* A caption or status line after the component goes under it, centered, never beside it. */
 :where(.preview:not(.stack)) > p {
 	flex-basis: 100%;
 	margin-block: 0;
@@ -98,7 +98,7 @@ main a:not([class]) {
 	flex-direction: column;
 	align-items: center;
 }
-/* Stacked examples are as wide as their content (up to 24rem) and centred, so a short radio list
+/* Stacked examples are as wide as their content (up to 24rem) and centered, so a short radio list
    sits in the middle rather than at the left of an empty column. :where() keeps this at zero
    specificity: an example's own width always wins. */
 :where(.preview.stack) > * {
@@ -106,7 +106,7 @@ main a:not([class]) {
 	inline-size: max-content;
 	max-inline-size: min(100%, 24rem);
 }
-/* A caption that wraps stays centred, as in unstacked previews. */
+/* A caption that wraps stays centered, as in unstacked previews. */
 :where(.preview.stack) > p {
 	text-align: center;
 }
@@ -115,7 +115,7 @@ main a:not([class]) {
 	inline-size: 100%;
 }
 
-/* Syntax colours for @tanstack/highlight's class names. Every colour is 4.5:1+ on the code background
+/* Syntax colors for @tanstack/highlight's class names. Every color is 4.5:1+ on the code background
    in both themes (comments included). */
 .th-token.th-tag,
 .th-token.th-command,
@@ -163,7 +163,7 @@ main :not(pre) > code {
 	background: var(--ui-subtle);
 }
 
-/* In tables, code needs no chip (grey on the grey stripes): the name column leads, the rest recede. */
+/* In tables, code needs no chip (gray on the gray stripes): the name column leads, the rest recede. */
 main > table code {
 	padding: 0;
 	background: none;

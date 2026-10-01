@@ -86,7 +86,7 @@
 		{
 			title: 'Library',
 			items: [
-				{ label: 'Catalogue', href: '#catalogue', icon: LibraryIcon },
+				{ label: 'Catalog', href: '#catalog', icon: LibraryIcon },
 				{ label: 'Reports', href: '#reports', icon: Analytics01Icon }
 			]
 		}
@@ -192,7 +192,7 @@
 							><RollingNumber value={s.value} format={s.format} locales={locale} /></span
 						>
 						<span class="change">
-							<!-- The arrow says which way it moved; the colour says whether that's good. -->
+							<!-- The arrow says which way it moved; the color says whether that's good. -->
 							<Badge
 								tone={toneOf(s)}
 								icon={s.change > 0 ? ArrowUp01Icon : s.change < 0 ? ArrowDown01Icon : false}
@@ -274,7 +274,7 @@
 	.brand {
 		font-weight: 600;
 	}
-	/* Collapsed, the initial centres over the rail's icons. */
+	/* Collapsed, the initial centers over the rail's icons. */
 	.mark {
 		display: block;
 		text-align: center;

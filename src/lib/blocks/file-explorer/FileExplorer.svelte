@@ -12,7 +12,7 @@
 		size?: number;
 		/** ISO date of the last change. */
 		modified: string;
-		/** A folder's colour. */
+		/** A folder's color. */
 		color?: string;
 		starred?: boolean;
 		/** In the Trash: hidden everywhere else, with everything inside it. */

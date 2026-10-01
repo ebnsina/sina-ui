@@ -12,7 +12,8 @@ export type Release = {
 
 // 1.0 is everything on the site, so its lists come straight from the navigation and never drift.
 const sections = nav
-	.filter((s) => s.title !== 'Getting started')
+	// Pro is sold separately and keeps its own notes.
+	.filter((s) => s.title !== 'Getting started' && s.title !== 'Pro')
 	.map((s) => ({ title: s.title, items: s.items.map((i) => ({ text: i.title, href: i.href })) }));
 
 export const releases: Release[] = [
@@ -36,22 +37,6 @@ export const releases: Release[] = [
 					{
 						text: 'Docs for AI assistants: llms.txt, the full docs in one file, and an agent skill'
 					}
-				]
-			},
-			{
-				title: 'Polish',
-				items: [
-					{
-						text: 'Time fields and segmented controls fill the width of a form, like other fields'
-					},
-					{ text: 'Menus, popovers, dialogs and toasts stand out from the page in dark mode' },
-					{ text: 'Popovers centre on their button on phones instead of hugging the edge' },
-					{ text: 'Long file names in uploads shorten instead of covering the cancel button' },
-					{ text: 'Pagination fits on one row on phones' },
-					{
-						text: 'On phones, submenus open below their item and the date range picker shows one month'
-					},
-					{ text: 'Alignment and spacing fixes across the drawer, tabs, tables and every block' }
 				]
 			},
 			...sections

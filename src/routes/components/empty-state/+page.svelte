@@ -61,7 +61,7 @@
 	title="Couldn't load"
 	stack
 	description="Say what went wrong in plain words, and offer to try again."
-	{...ex('error')}
+	{...ex('failed')}
 />
 
 <h2 id="props">Props</h2>

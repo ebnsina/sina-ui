@@ -14,7 +14,7 @@ export const [getGroup, setGroup] = createContext<{
 	register(panel: PanelDef): () => void;
 	size(id: string): number;
 	panel(id: string): PanelDef | undefined;
-	/** Moves the boundary between two neighbouring panels by delta percent; snap lets a drag shut a panel. */
+	/** Moves the boundary between two neighboring panels by delta percent; snap lets a drag shut a panel. */
 	move(before: string, after: string, delta: number, snap?: boolean): void;
 	/** Collapses the panel, or restores it to where it was. */
 	toggle(before: string, after: string): void;

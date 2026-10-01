@@ -79,7 +79,7 @@
 <h2 id="accessibility">Accessibility</h2>
 <ul>
 	<li>
-		A labelled navigation landmark; the current page carries <code>aria-current="page"</code>.
+		A labeled navigation landmark; the current page carries <code>aria-current="page"</code>.
 	</li>
 	<li>Collapsed, each icon's tooltip is its name, for sighted people and screen readers alike.</li>
 	<li>The collapse button says whether the sidebar is open, and its shortcut is announced.</li>

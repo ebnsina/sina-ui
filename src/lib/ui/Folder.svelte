@@ -5,7 +5,7 @@
 		name: string;
 		/** How many items it holds, shown under the name. */
 		count?: number;
-		/** Any CSS colour: the accent by default. */
+		/** Any CSS color: the accent by default. */
 		color?: string;
 		size?: 'sm' | 'md' | 'lg';
 		/** Held open: while something is dragged over it, say. It also opens on hover and focus. */
@@ -136,7 +136,7 @@
 	.p3 {
 		transform: translateY(6%);
 	}
-	/* Frosted glass in the folder's colour: the papers show through, blurred. */
+	/* Frosted glass in the folder's color: the papers show through, blurred. */
 	.front {
 		position: absolute;
 		inset: 30% 0 0;

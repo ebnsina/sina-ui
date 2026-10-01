@@ -37,10 +37,22 @@
 <h2 id="examples">Examples</h2>
 <Example
 	id="basic"
-	title="Sizes and colour"
-	stack
-	description="It takes the text colour around it. Beside its own words it needs no label."
+	title="Basic"
+	description="A spinner on its own needs a label."
 	{...ex('basic')}
+/>
+<Example id="large" title="Large" description="size sets the width in pixels." {...ex('large')} />
+<Example
+	id="color"
+	title="Color"
+	description="It takes the text color around it."
+	{...ex('color')}
+/>
+<Example
+	id="with-text"
+	title="Beside words"
+	description="Next to its own words it needs no label."
+	{...ex('with-text')}
 />
 <Example
 	id="delay"

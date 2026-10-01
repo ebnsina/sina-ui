@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pop, reflow } from './motion';
+	import { ease, pop, reflow } from './motion';
 	import { Cancel01Icon } from '@hugeicons/core-free-icons';
 	import { announce } from './announce';
 	import Icon from './Icon.svelte';
@@ -53,7 +53,7 @@
 					?.closest('li')
 					?.animate(
 						[{ transform: 'scale(1)' }, { transform: 'scale(1.08)' }, { transform: 'scale(1)' }],
-						{ duration: 260, easing: 'cubic-bezier(0.23, 1, 0.32, 1)' }
+						{ duration: 260, easing: ease.standard }
 					);
 				announce(`${value[at]} is already added.`);
 				continue;

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { reduced } from '../motion';
+	import { ease, reduced } from '../motion';
 	import type { Snippet } from 'svelte';
 	import type { HTMLAttributes } from 'svelte/elements';
 	import { getTabs } from './context';
@@ -51,7 +51,7 @@
 		// Moving on screen: strong ease-in-out, under the 300ms UI budget.
 		bar.animate([{ transform: from }, { transform: to }], {
 			duration: 220,
-			easing: 'cubic-bezier(0.77, 0, 0.175, 1)'
+			easing: ease.inOut
 		});
 	}
 
@@ -151,7 +151,7 @@
 		box-shadow: inset 1px 0 var(--ui-field-line);
 	}
 
-	/* Hover: the same underline as the selected tab, in a neutral grey, gliding between tabs. */
+	/* Hover: the same underline as the selected tab, in a neutral gray, gliding between tabs. */
 	.hover {
 		position: absolute;
 		top: 0;

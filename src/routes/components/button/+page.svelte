@@ -42,17 +42,45 @@
 <h2 id="examples">Examples</h2>
 
 <Example
-	id="variants"
-	title="Variants"
-	description="One primary action per view; secondary and ghost for everything else; danger only for what can't be undone."
-	{...ex('variants')}
+	id="primary"
+	title="Primary"
+	description="The main action. Use one per view."
+	{...ex('primary')}
 />
 
 <Example
-	id="sizes"
-	title="Sizes"
-	description="On touch screens every size grows to at least 44px tall."
-	{...ex('sizes')}
+	id="secondary"
+	title="Secondary"
+	description="For the other actions beside the main one."
+	{...ex('secondary')}
+/>
+
+<Example
+	id="ghost"
+	title="Ghost"
+	description="For quiet actions in toolbars, cards and lists."
+	{...ex('ghost')}
+/>
+
+<Example
+	id="danger"
+	title="Danger"
+	description="Only for what can't be undone."
+	{...ex('danger')}
+/>
+
+<Example
+	id="small"
+	title="Small"
+	description="For tight spaces like table rows. On touch screens every size grows to at least 44px tall."
+	{...ex('small')}
+/>
+
+<Example
+	id="large"
+	title="Large"
+	description="For a page's main call to action."
+	{...ex('large')}
 />
 
 <Example
@@ -63,10 +91,17 @@
 />
 
 <Example
-	id="icon"
+	id="with-icon"
 	title="With an icon"
-	description="Icon-only buttons are square and need an aria-label."
-	{...ex('icon')}
+	description="An icon before the label."
+	{...ex('with-icon')}
+/>
+
+<Example
+	id="icon-only"
+	title="Icon only"
+	description="Square, and needs an aria-label."
+	{...ex('icon-only')}
 />
 
 <Example
@@ -78,9 +113,16 @@
 
 <Example
 	id="link"
-	title="As a link"
-	description="With href it renders a real link. variant=&quot;link&quot; looks like one; keep a button style only when navigation is the page's main call to action."
+	title="Link"
+	description="With href it renders a real link, and variant=&quot;link&quot; makes it look like one."
 	{...ex('link')}
+/>
+
+<Example
+	id="link-button"
+	title="Link as a button"
+	description="A link with a button style. Use it only when navigation is the page's main call to action."
+	{...ex('link-button')}
 />
 
 <h2 id="props">Props</h2>

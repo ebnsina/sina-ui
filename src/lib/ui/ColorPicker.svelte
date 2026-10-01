@@ -6,9 +6,9 @@
 
 	interface Props {
 		label: string;
-		/** A hex colour, "#047857". */
+		/** A hex color, "#047857". */
 		value?: string;
-		/** Suggested colours under the picker; give each a name to have it read by name. */
+		/** Suggested colors under the picker; give each a name to have it read by name. */
 		swatches?: (string | { color: string; name: string })[];
 		/** Form field name: a hidden input carries the hex value. */
 		name?: string;
@@ -26,7 +26,7 @@
 	}: Props = $props();
 
 	const id = $props.id();
-	// Kept apart from the hex, so hue survives greys and blacks (where the hex has none).
+	// Kept apart from the hex, so hue survives grays and blacks (where the hex has none).
 	// svelte-ignore state_referenced_locally
 	let hsv = $state<Hsv>(hexToHsv(value) ?? { h: 160, s: 1, v: 0.47 });
 	const hex = $derived(hsvToHex(hsv));
@@ -37,7 +37,7 @@
 		hsv = { ...hsv, ...next };
 		value = hsvToHex(hsv);
 	}
-	// Set from outside: follow, unless it's the colour already shown.
+	// Set from outside: follow, unless it's the color already shown.
 	$effect(() => {
 		const v = value;
 		const parsed = hexToHsv(v);
@@ -123,7 +123,7 @@
 			const parsed = hexToHsv(sRGBHex);
 			if (parsed) set(parsed);
 		} catch {
-			/* cancelled with Escape: keep the colour */
+			/* canceled with Escape: keep the color */
 		}
 	}
 </script>
@@ -141,7 +141,7 @@
 				{...props}
 			>
 				<span class="chip" style:background={hex}></span>
-				<!-- Part of the button's name: "Border colour #1F4E9C, blue". -->
+				<!-- Part of the button's name: "Border color #1F4E9C, blue". -->
 				<span id="{id}-value" class="hex">{hex}<span class="sr-only">, {colorName(hsv)}</span></span
 				>
 			</button>
@@ -158,7 +158,7 @@
 					class="thumb"
 					role="slider"
 					tabindex="0"
-					aria-label="Colour"
+					aria-label="Color"
 					aria-roledescription="2D slider"
 					aria-valuenow={Math.round(hsv.s * 100)}
 					aria-valuetext="{described}. Saturation {pct.format(hsv.s)}, brightness {pct.format(
@@ -212,7 +212,7 @@
 					<button
 						type="button"
 						class="pick"
-						aria-label="Pick a colour from the screen"
+						aria-label="Pick a color from the screen"
 						onclick={pickFromScreen}
 					>
 						<Icon icon={PipetteIcon} size={16} />
@@ -220,7 +220,7 @@
 				{/if}
 			</div>
 			{#if swatches.length}
-				<div class="swatches" role="group" aria-label="Suggested colours">
+				<div class="swatches" role="group" aria-label="Suggested colors">
 					{#each swatches as sw (typeof sw === 'string' ? sw : sw.color)}
 						{@const color = typeof sw === 'string' ? sw : sw.color}
 						{@const sv = hexToHsv(color)}
@@ -327,7 +327,7 @@
 		cursor: pointer;
 		touch-action: none;
 	}
-	/* Right to left, the thumb counts from the right, so the colours run that way too. */
+	/* Right to left, the thumb counts from the right, so the colors run that way too. */
 	.hue:dir(rtl) {
 		background: linear-gradient(
 			to left,
@@ -340,7 +340,7 @@
 			#f00
 		);
 	}
-	/* Thumbs: a ring in the colour itself; they grow a little while held. */
+	/* Thumbs: a ring in the color itself; they grow a little while held. */
 	.thumb {
 		position: absolute;
 		top: 50%;
@@ -453,7 +453,7 @@
 	.swatch:active {
 		transform: scale(0.94);
 	}
-	/* The chosen one: a ring with a gap, readable on any colour. */
+	/* The chosen one: a ring with a gap, readable on any color. */
 	.swatch[aria-pressed='true'] {
 		box-shadow:
 			0 0 0 2px var(--ui-surface),

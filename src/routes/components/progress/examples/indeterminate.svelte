@@ -3,4 +3,4 @@
 </script>
 
 <!-- No value: the amount of work is unknown, so it sweeps instead of filling. -->
-<Progress label="Searching the Córdoba catalogue" />
+<Progress label="Searching the Córdoba catalog" />

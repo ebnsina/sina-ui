@@ -4,7 +4,7 @@
 	interface Props {
 		/** Names the widget for screen readers ("Study timer"). */
 		label: string;
-		/** Its colour: text, lit parts and tinted buttons; plain text colour by default. */
+		/** Its color: text, lit parts and tinted buttons; plain text color by default. */
 		tone?: string;
 		/** The widest it grows ("36rem"); it fills the space it's given up to this. */
 		max?: string;

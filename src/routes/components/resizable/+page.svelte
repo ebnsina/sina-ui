@@ -42,7 +42,7 @@
 <Example
 	id="reading-room"
 	title="Side by side"
-	description="Drag a line, or focus it and use the arrow keys. The catalogue collapses when dragged small, or with Enter; double-click a line to reset. The layout is remembered."
+	description="Drag a line, or focus it and use the arrow keys. The catalog collapses when dragged small, or with Enter; double-click a line to reset. The layout is remembered."
 	{...ex('reading-room')}
 />
 <Example id="stacked" title="Stacked" {...ex('stacked')} />
