@@ -1258,8 +1258,9 @@
 		background: var(--ui-accent);
 		color: var(--ui-on-accent);
 	}
+	/* Darker, not lighter, so the white text keeps its contrast on the accent. */
 	.bubbles .mine .mention {
-		background: color-mix(in srgb, var(--ui-on-accent) 22%, transparent);
+		background: color-mix(in srgb, black 20%, transparent);
 	}
 	.sending .bubble {
 		opacity: 0.7;

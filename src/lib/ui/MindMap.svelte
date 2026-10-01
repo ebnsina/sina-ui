@@ -748,7 +748,6 @@
 	}
 	.root small {
 		color: inherit;
-		opacity: 0.8;
 	}
 	.node:focus-visible,
 	.node[aria-selected='true']:is(:focus-within, :focus) {
